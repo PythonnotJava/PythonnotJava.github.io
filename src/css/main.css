@@ -1,0 +1,104 @@
+.nav-link{
+	font-style: normal;
+	font-size: 48px;
+	font-weight: bolder;
+text-shadow: 2px 2px 5px red;
+}
+
+
+#my-blogs-about{
+	font-size: 24px;
+	font-weight: bolder;
+}
+
+body {
+	background-image: url("../img/ne.jpg");
+	background-size:100%;
+	background-attachment: fixed
+}
+#bg-video {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: -1;
+}
+
+
+/* 导航栏中的链接样式 */
+.navbar-nav .nav-link {
+	color: red; /* 文字颜色设置为白色 */
+}
+
+/* 导航栏中的链接悬停时的样式 */
+.navbar-nav .nav-link:hover {
+	color: #eee; /* 鼠标悬停时文字颜色设置为淡白色 */
+}
+
+#leader {
+	background-image: linear-gradient(to right, #eeeeee, skyblue); /* 渐变色背景 */
+
+}
+
+.card{
+	height: 500px;
+}
+
+  /* 遮罩层 */
+  #overlay {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    /* IE9以下不支持rgba模式 */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 兼容IE8及以下 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000);
+    display: none;
+  }
+  /* 弹出框主体 */
+  .popup {
+    background-color: #ffffff;
+    max-width: 400px;
+    min-width: 200px;
+    height: 240px;
+    border-radius: 5px;
+    margin: 100px auto;
+    text-align: center;
+  }
+  /* 弹出框的标题 */
+  .popup_title {
+    height: 60px;
+    line-height: 60px;
+    border-bottom: solid 1px #cccccc;
+  }
+  /* 弹出框的内容 */
+  .popup_content {
+    height: 50px;
+    line-height: 50px;
+    padding: 15px 20px;
+  }
+  /* 弹出框的按钮栏 */
+  .popup_btn {
+    padding-bottom: 10px;
+  }
+  /* 弹出框的按钮 */
+  .popup_btn button {
+    /*color: #778899;*/
+    width: 40%;
+    height: 40px;
+    cursor: pointer;
+    border: solid 1px #cccccc;
+    border-radius: 5px;
+    margin: 5px 10px;
+    color: #ffffff;
+    background-color: #337ab7;
+  }
+
+  .ico-link{
+      border-radius: 15px;
+  }
