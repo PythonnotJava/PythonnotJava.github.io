@@ -47,8 +47,8 @@ text-shadow: 2px 2px 5px red;
 	height: 500px;
 }
 
-  /* 遮罩层 */
-  #overlay {
+/* 遮罩层 */
+#overlay {
     position: fixed;
     left: 0px;
     top: 0px;
@@ -60,9 +60,9 @@ text-shadow: 2px 2px 5px red;
     /* 兼容IE8及以下 */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000);
     display: none;
-  }
-  /* 弹出框主体 */
-  .popup {
+}
+/* 弹出框主体 */
+.popup {
     background-color: #ffffff;
     max-width: 400px;
     min-width: 200px;
@@ -70,26 +70,26 @@ text-shadow: 2px 2px 5px red;
     border-radius: 5px;
     margin: 100px auto;
     text-align: center;
-  }
-  /* 弹出框的标题 */
-  .popup_title {
+}
+/* 弹出框的标题 */
+.popup_title {
     height: 60px;
     line-height: 60px;
     border-bottom: solid 1px #cccccc;
-  }
-  /* 弹出框的内容 */
-  .popup_content {
+}
+/* 弹出框的内容 */
+.popup_content {
     height: 50px;
     line-height: 50px;
     padding: 15px 20px;
-  }
-  /* 弹出框的按钮栏 */
-  .popup_btn {
+}
+/* 弹出框的按钮栏 */
+.popup_btn {
     padding-bottom: 10px;
-  }
-  /* 弹出框的按钮 */
-  .popup_btn button {
-    /*color: #778899;*/
+}
+/* 弹出框的按钮 */
+.popup_btn button {
+/*color: #778899;*/
     width: 40%;
     height: 40px;
     cursor: pointer;
@@ -98,8 +98,20 @@ text-shadow: 2px 2px 5px red;
     margin: 5px 10px;
     color: #ffffff;
     background-color: #337ab7;
-  }
+}
 
-  .ico-link{
-      border-radius: 15px;
+.ico-link{
+    border-radius: 15px;
+}
+
+/* 在小屏幕上（例如手机）使用响应式设计 */
+@media (max-width: 767px) {
+  /* 调整阅读更多按钮和文字的字体大小和位置 */
+  .card-body .btn {
+    font-size: 14px; /* 根据需要调整字体大小 */
+    margin-top: 10px; /* 根据需要调整按钮与文字之间的间距 */
   }
+  .card-body .card-text {
+    font-size: 12px; /* 根据需要调整字体大小 */
+  }
+}
