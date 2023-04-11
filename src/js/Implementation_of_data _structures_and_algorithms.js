@@ -47,10 +47,40 @@
         content: 'C++面向对象技术实现带头结点的单链表',
         icon: 'https://ts1.cn.mm.bing.net/th/id/R-C.ba9cee382124e480954a107f58a914af?rik=fBHuGF6gPq0gpw&riu=http%3a%2f%2fbbs.yanzhishi.cn%2fimage%2fshow%2fattachments-2020-06-R4dmYSKD5edf4d0085a27.png&ehk=wvVRU90U3a4PIjy6LfqyxK7PbvEfFxwa49BJuzl8zAA%3d&risl=&pid=ImgRaw&r=0',
          link: '../../h5/sjjg/C++面向对象技术实现带头结点的单链表.html'
+      },
+      {
+        title: '链栈',
+        content: '基于C++链栈的实现（附源代码）',
+        icon: 'https://www.yht7.com/upload/image/2021/05/20/2021520101811926.png',
+        link: '../../h5/sjjg/C++链栈的实现（附源代码）.html'
+      },
+      {
+        title: '顺序存储-队列',
+        content: '基于C++面向对象技术实现顺序队列',
+        icon: 'https://pic4.zhimg.com/80/v2-cf1c5c40578f002a8480b3475ce36a63_qhd.jpg',
+        link: '../../h5/sjjg/基于C++面向对象技术实现顺序队列（附源代码）.html'
+      },
+      {
+        title: '顺序存储-线性表',
+        content: 'C++实现顺序线性表（附源代码）',
+        icon: 'https://pic4.zhimg.com/v2-ef9c513a7a4f197144321a9c79697dbb_b.png',
+        link: '../../h5/sjjg/C++实现顺序线性表（附源代码）.html'
+      },
+      {
+        title: '链式存储-二叉树',
+        content: 'C++链式存储实现二叉树（附源代码）',
+        icon: 'https://tse2-mm.cn.bing.net/th/id/OIP-C.4wnL0Y7nHnbT0i9PrwNvQQHaEl?pid=ImgDet&rs=1',
+        link: '../../h5/sjjg/C++链式存储实现二叉树（附源代码）.html'
+      },
+      {
+        title: '十字链表表示有向图',
+        content: 'C++实现十字链表来表示有向图（附源代码）',
+        icon: 'https://www.jxtxzzw.com/wp-content/uploads/2018/01/20170222122117558-1920x1314.jpg',
+        link: '../../h5/sjjg/C++实现十字链表来表示有向图（附源代码）.html'
       }
     ];
 
-    const blogListContainer = document.getElementById('blogListContainer');
+    const blogListContainer= document.getElementById('blogListContainer');
 
     // 初始化博客列表
     function initBlogList() {
