@@ -5,6 +5,12 @@
 text-shadow: 2px 2px 5px red;
 }
 
+#csdn-link {
+    border-radius: 15px;
+    border: white solid 5px;
+    box-shadow: 0 0 5px 4px silver;
+    transition: transform .3s;
+}
 
 #my-blogs-about{
 	font-size: 24px;
@@ -115,3 +121,9 @@ text-shadow: 2px 2px 5px red;
     font-size: 12px; /* 根据需要调整字体大小 */
   }
 }
+
+
+/*body{*/
+/*background-image: linear-gradient(to right, #eeeeee, skyblue); !* 渐变色背景 *!*/
+/*}*/
+
