@@ -77,6 +77,24 @@
         content: 'C++实现十字链表来表示有向图（附源代码）',
         icon: 'https://www.jxtxzzw.com/wp-content/uploads/2018/01/20170222122117558-1920x1314.jpg',
         link: '../../h5/sjjg/C++实现十字链表来表示有向图（附源代码）.html'
+      },
+      {
+        title: '深度搜索算法',
+        content: '使用C++，基于邻接矩阵实现深度优先算法（附源代码）',
+        icon: 'https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy85NDA2Mjk5LWQ4Y2E5ODQ2MjMzNGRhOWIucG5n?x-oss-process=image/format,png',
+        link: '../../h5/sjjg/使用C++，基于邻接矩阵实现深度优先算法（附源代码）.html'
+      },
+      {
+        title: 'Prim算法',
+        content: '基于C++无向网邻接表实现Prim算法(附源代码)',
+        icon: 'https://pic4.zhimg.com/80/v2-b589c7cd61067b56b2ee886329916207_720w.webp',
+        link: '../../h5/sjjg/基于C++无向网邻接表实现Prim算法(附源代码).html'
+      },
+      {
+        title: '二维数组',
+        content: '基于C语言动态的创建二维数组，可以自动扩容并且获取每行长度',
+        icon: 'https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcxMDI1MTk1OTA0MjQ0?x-oss-process=image/format,png',
+        link: '../../h5/sjjg/基于C语言动态的创建二维数组，可以自动扩容并且获取每行长度.html'
       }
     ];
 
