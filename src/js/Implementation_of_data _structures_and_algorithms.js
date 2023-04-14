@@ -33,7 +33,7 @@
       {
         title: '矩阵与行列式',
         content: 'C++面向对象实现矩阵（包含行列式）的一些操作（附源代码）',
-        icon: 'https://picb.zhimg.com/v2-5eca2d0aef85eb65be9180515e7cdddd_r.jpg',
+        icon: 'https://th.bing.com/th/id/R.af12dd5d78d0e8f5b1e6d09218791d3c?rik=lHY7Jkphzy0CPw&pid=ImgRaw&r=0',
          link: '../../h5/sjjg/C++面向对象实现矩阵（包含行列式）的一些操作（附源代码）.html'
       },
       {
