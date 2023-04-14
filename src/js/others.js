@@ -11,6 +11,12 @@
         content: '从基本数据类型到面向对象快速入门Dart编程',
         icon: 'https://img.quanxiaoha.com/quanxiaoha/164839133079354',
         link: '../../h5/other/Dart语言快速入门.html'
+      },
+      {
+        title: 'Dart高级教程',
+        content: '快速入门一些Dart的高级语法以及语法糖（附源代码下载链接）',
+        icon: 'https://img.quanxiaoha.com/quanxiaoha/164839133079354',
+        link: '../../h5/other/Dart高级教程.html'
       }
     ];
 
