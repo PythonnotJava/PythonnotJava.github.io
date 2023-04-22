@@ -95,6 +95,12 @@
         content: '基于C语言动态的创建二维数组，可以自动扩容并且获取每行长度',
         icon: 'https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcxMDI1MTk1OTA0MjQ0?x-oss-process=image/format,png',
         link: '../../h5/sjjg/基于C语言动态的创建二维数组，可以自动扩容并且获取每行长度.html'
+      },
+      {
+        title: '带头结点的循环链表',
+        content: 'C++面向对象实现带头结点的循环链表（附源代码）',
+        icon: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.QR4BLR-vXNA2cZcZwsf0GQHaER?w=260&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+        link: '../../h5/sjjg/C++面向对象实现带头结点的循环链表（附源代码）.html'
       }
     ];
 
