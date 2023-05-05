@@ -1,6 +1,12 @@
 // 博客列表数据
     const blogList = [
       {
+        title: 'C++面向对象实现稀疏矩阵的三元组表示',
+        content: '使用C++手搓一个矩阵，能够矩阵转置、行列式求值、初等变换、逆矩阵、伴随矩阵求取等等等',
+        icon: 'https://tse2-mm.cn.bing.net/th/id/OIP-C.JDKxAR-ti_KYYS9PObNpbgHaFG?pid=ImgDet&rs=1',
+        link: '../../h5/sjjg/C++面向对象实现稀疏矩阵的三元组表示.html'
+      },
+      {
         title: '使用C++手搓一个矩阵',
         content: '使用C++手搓一个矩阵，能够矩阵转置、行列式求值、初等变换、逆矩阵、伴随矩阵求取等等等',
         icon: 'https://ts2.cn.mm.bing.net/th?id=OSK.98fe6647469a7ad3487d6274db57825a&w=188&h=132&c=7&o=6&dpr=1.3&pid=SANGAM',
