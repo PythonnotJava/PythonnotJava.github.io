@@ -1,0 +1,41 @@
+<html><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/zh_CN.js"></script><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script></head><body style="width: 1075px;"><div class="vditor-reset" id="preview"><h2 id="81---Tap命令"><em><em>81 . Tap命令</em></em><a id="vditorAnchor-81---Tap命令" class="vditor-anchor" href="#81---Tap命令"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<blockquote>
+<blockquote>
+<ul>
+<li>示例</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code>a : 
+    @echo &quot;hello, world&quot;
+b : 
+    @echo &quot;what's up&quot;
+</code></pre>
+<h4 id="当使用make命令时-只输入make命令-会直接输出第一个指令a-这里a和b表示不同指令--想指定指令b输出-可以使用make-b来输出-what-s-up--注意-所谓tap命令-是--注意---Windows下-符没必要写-面前是一个tap键长度">当使用make命令时，只输入make命令，会直接输出第一个指令a(这里a和b表示不同指令)；想指定指令b输出，可以使用make b来输出&quot;what's up&quot;；注意，所谓tap命令，是@(注意 ： Windows下@符没必要写)面前是一个tap键长度<a id="vditorAnchor-当使用make命令时-只输入make命令-会直接输出第一个指令a-这里a和b表示不同指令--想指定指令b输出-可以使用make-b来输出-what-s-up--注意-所谓tap命令-是--注意---Windows下-符没必要写-面前是一个tap键长度" class="vditor-anchor" href="#当使用make命令时-只输入make命令-会直接输出第一个指令a-这里a和b表示不同指令--想指定指令b输出-可以使用make-b来输出-what-s-up--注意-所谓tap命令-是--注意---Windows下-符没必要写-面前是一个tap键长度"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<h2 id="2---依赖"><em><em>2 . 依赖</em></em><a id="vditorAnchor-2---依赖" class="vditor-anchor" href="#2---依赖"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<h4 id="所谓依赖-就是执行当前的命令所要依赖的先项-包括其他目标-具体文件-库等等等-一个目标可以有多个依赖-下示--">所谓依赖，就是执行当前的命令所要依赖的先项，包括其他目标、具体文件、库等等等，一个目标可以有多个依赖，下示 :<a id="vditorAnchor-所谓依赖-就是执行当前的命令所要依赖的先项-包括其他目标-具体文件-库等等等-一个目标可以有多个依赖-下示--" class="vditor-anchor" href="#所谓依赖-就是执行当前的命令所要依赖的先项-包括其他目标-具体文件-库等等等-一个目标可以有多个依赖-下示--"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<pre><code>a : b
+    @echo &quot;hello, world&quot;
+b : 
+    @echo &quot;what's up&quot;
+c : d  e
+    @echo &quot;It's c&quot;
+d : 
+    @echo &quot;It's d&quot;
+e : 
+    @echo &quot;It's e&quot;
+</code></pre>
+<h4 id="上面代码说明了a命令是依赖b命令的-所以会先执行b命令-然后a命令-第二个命令c是依赖d和e的-所以会先执行d和e命令">上面代码说明了a命令是依赖b命令的,所以会先执行b命令，然后a命令；第二个命令c是依赖d和e的，所以会先执行d和e命令<a id="vditorAnchor-上面代码说明了a命令是依赖b命令的-所以会先执行b命令-然后a命令-第二个命令c是依赖d和e的-所以会先执行d和e命令" class="vditor-anchor" href="#上面代码说明了a命令是依赖b命令的-所以会先执行b命令-然后a命令-第二个命令c是依赖d和e的-所以会先执行d和e命令"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<h2 id="3---命令"><em><em>3 . 命令</em></em><a id="vditorAnchor-3---命令" class="vditor-anchor" href="#3---命令"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<h4 id="一个命令下可以有多个命令-也可以没有-比如">一个命令下可以有多个命令，也可以没有，比如<a id="vditorAnchor-一个命令下可以有多个命令-也可以没有-比如" class="vditor-anchor" href="#一个命令下可以有多个命令-也可以没有-比如"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<pre><code>a  : 
+    @echo &quot;hi&quot;
+    @ls ./          # 注意，这个命令是Windows下的
+    @dir            # 这个才是Windows下的
+  
+b : 
+  
+</code></pre>
+<h2 id="4---make常用命令"><em><em>4 . make常用命令</em></em><a id="vditorAnchor-4---make常用命令" class="vditor-anchor" href="#4---make常用命令"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<img src="../global-src/use.png" alt="">
+</div><script>    const previewElement = document.getElementById('preview');    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');    Vditor.codeRender(previewElement);    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mediaRender(previewElement);    Vditor.speechRender(previewElement); </script>  <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script></body></html>
