@@ -1,6 +1,18 @@
 // 博客列表数据
     const blogList = [
       {
+        title: '重新学树结构',
+        content: '重新学树结构，包括二叉树、二叉树遍历算法、线索二叉树、哈夫曼编码……',
+        icon: 'https://img-blog.csdnimg.cn/7b943421c19c4c7ca3928d66a0f1d9dc.jpeg#pic_center',
+        link: '../../h5/sjjg/retree.html'
+      },
+      {
+        title: '重新学图结构',
+        content: '重新学图结构，包括概念、深度优先遍历、广度优先遍历、Prim算法、拓扑排序……',
+        icon: 'https://img-blog.csdnimg.cn/34be94321c754413a42a4655debf142f.jpeg#pic_center',
+        link: '../../h5/sjjg/regraph.html'
+      },
+      {
         title: 'C++面向对象实现稀疏矩阵的三元组表示',
         content: '使用C++手搓一个矩阵，能够矩阵转置、行列式求值、初等变换、逆矩阵、伴随矩阵求取等等等',
         icon: 'https://tse2-mm.cn.bing.net/th/id/OIP-C.JDKxAR-ti_KYYS9PObNpbgHaFG?pid=ImgDet&rs=1',
