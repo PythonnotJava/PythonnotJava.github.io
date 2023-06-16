@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>dd.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*
+
+Arduino® Light Theme - Stefania Mellai <s.mellai@arduino.cc>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #FFFFFF;
+}
+
+.hljs,
+.hljs-subst {
+  color: #434f54;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-doctag,
+.hljs-name {
+  color: #00979D;
+}
+
+.hljs-built_in,
+.hljs-literal,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #D35400;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #00979D;
+}
+
+.hljs-type,
+.hljs-string,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #005C5F;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-comment {
+  color: rgba(149,165,166,.8);
+}
+
+.hljs-meta-keyword {
+  color: #728E00;
+}
+
+.hljs-meta {
+  color: #434f54;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-function {
+  color: #728E00;
+}
+
+.hljs-number {
+  color: #8A7B52;  
+}
+
+</style>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family:   "HelveticaNeue-Light", sans-serif, "宋体","Segoe WPC", "Segoe UI", "SFUIText-Light","Droid Sans Fallback";
+	font-size: 18px;
+	padding: 0 12px;
+	line-height: 1.6;
+	word-wrap: break-word;
+	color: #333333;
+}
+
+.content-wrapper{
+	max-width: 860px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom: 1px solid #eee;
+}
+
+
+h2{
+	padding-bottom: .3em;
+    font-size: 2em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+h3{
+	font-size: 1.75em;
+    line-height: 1.225;
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+.table-of-contents li{
+	list-style-type: initial;
+}
+</style>
+
+<style>
+@font-face{font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url(fonts/KaTeX_AMS-Regular.woff2) format("woff2"),url(fonts/KaTeX_AMS-Regular.woff) format("woff"),url(fonts/KaTeX_AMS-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Caligraphic-Bold.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Bold.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Caligraphic-Regular.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Regular.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Fraktur-Bold.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Bold.woff) format("woff"),url(fonts/KaTeX_Fraktur-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Fraktur-Regular.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Regular.woff) format("woff"),url(fonts/KaTeX_Fraktur-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Main-Bold.woff2) format("woff2"),url(fonts/KaTeX_Main-Bold.woff) format("woff"),url(fonts/KaTeX_Main-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Main-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Main-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Main-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Main-Italic.woff2) format("woff2"),url(fonts/KaTeX_Main-Italic.woff) format("woff"),url(fonts/KaTeX_Main-Italic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Main-Regular.woff2) format("woff2"),url(fonts/KaTeX_Main-Regular.woff) format("woff"),url(fonts/KaTeX_Main-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Math-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Math-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Math-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Math-Italic.woff2) format("woff2"),url(fonts/KaTeX_Math-Italic.woff) format("woff"),url(fonts/KaTeX_Math-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url(fonts/KaTeX_SansSerif-Bold.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Bold.woff) format("woff"),url(fonts/KaTeX_SansSerif-Bold.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url(fonts/KaTeX_SansSerif-Italic.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Italic.woff) format("woff"),url(fonts/KaTeX_SansSerif-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url(fonts/KaTeX_SansSerif-Regular.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Regular.woff) format("woff"),url(fonts/KaTeX_SansSerif-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Script-Regular.woff2) format("woff2"),url(fonts/KaTeX_Script-Regular.woff) format("woff"),url(fonts/KaTeX_Script-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size1-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size1-Regular.woff) format("woff"),url(fonts/KaTeX_Size1-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size2-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size2-Regular.woff) format("woff"),url(fonts/KaTeX_Size2-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size3-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size3-Regular.woff) format("woff"),url(fonts/KaTeX_Size3-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size4-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size4-Regular.woff) format("woff"),url(fonts/KaTeX_Size4-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Typewriter-Regular.woff2) format("woff2"),url(fonts/KaTeX_Typewriter-Regular.woff) format("woff"),url(fonts/KaTeX_Typewriter-Regular.ttf) format("truetype")}.katex{text-rendering:auto;font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.16.2"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.83333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.16666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.66666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.45666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.14666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.85714286em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.46857143em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.96285714em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.55428571em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.66666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.77777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.88888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.30444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.76444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.58333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.66666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72833333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.07333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.41666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.48611111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.55555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.44027778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.72777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.28935185em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.34722222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.40509259em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.46296296em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.52083333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20023148em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.43981481em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.24108004em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.28929605em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.33751205em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.38572806em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.43394407em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48216008em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57859209em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69431051em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.83317261em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.19961427em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.20096463em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.24115756em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.28135048em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.32154341em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.36173633em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.40192926em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.48231511em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.57877814em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.69453376em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.83360129em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+
+</style>
+
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1 id="%E6%A0%91" tabindex="-1">树</h1>
+<p>图一
+<img src="https://img-blog.csdnimg.cn/e9a95e9b17cf48a5a1dac1723db78ec5.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<p>图二
+<img src="https://img-blog.csdnimg.cn/06d4e431cde74518b3de9f8cf49db0b1.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="%E7%9B%B8%E5%85%B3%E6%9C%AF%E8%AF%AD" tabindex="-1">相关术语</h2>
+<ul>
+<li>前驱：某结点上一层结点，图中H结点的前驱结点是F</li>
+<li>后继：某结点紧跟的后面的结点，图中F结点的后继是G、H、I三个结点</li>
+<li>根结点：非空树没有前驱结点的结点，图中的R结点</li>
+<li>结点的度：结点拥有子树的个数，图中R结点度为3</li>
+<li>树的度：所有结点度的最大值，图中为3</li>
+<li>叶子结点（终端结点）：子树（或者说度）数为0</li>
+<li>孩子结点：后继的了一种表示方法，G、H、I是F的孩子结点</li>
+<li>双亲结点：前驱结点的另一种表示方法，G、H、I的双亲结点是F</li>
+<li>兄弟结点：有共同的双亲结点，如G、H、I三个结点</li>
+<li>堂兄弟结点：同行（层）结点，如A、B、C三个结点</li>
+<li>结点的祖先：从根结点到某结点途中分支经过的所有结点，比如说H结点的祖先结点是F、C、R</li>
+<li>结点的子孙：从某结点往下所有分支的结点，比如说C结点的子孙结点是F、G、H、I</li>
+<li>树的深度（高度）：最大层次，这里面是4</li>
+<li>有序树：树中结点的各子树从左至右是有序的，图二中三个子树，child1必须在左侧、child2必须在中间、child3必须在右侧</li>
+<li>森林：m棵（m是非负整数）互不相交的树（独立的树）的集合</li>
+</ul>
+<h1 id="%E4%BA%8C%E5%8F%89%E6%A0%91" tabindex="-1">二叉树</h1>
+<ul>
+<li>最多两个分叉（即根结点下面只有左右子树）的树</li>
+<li>每个结点最多有两个子树</li>
+<li>有左右之分，不能颠倒</li>
+</ul>
+<p>图三
+<img src="https://img-blog.csdnimg.cn/7b943421c19c4c7ca3928d66a0f1d9dc.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="%E6%80%A7%E8%B4%A8" tabindex="-1">性质</h2>
+<ul>
+<li>第i行最多有pow(2, i-1)个结点，其中i是不小于1的整数</li>
+<li>深度为i的二叉树最多一共有pow(2, i)-1个结点</li>
+<li>叶子结点个数为k，度为2的结点个数为x，则k=x+1</li>
+</ul>
+<h1 id="%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91" tabindex="-1">满二叉树</h1>
+<ul>
+<li>即满足二叉树性质二的二叉树</li>
+</ul>
+<h1 id="%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91" tabindex="-1">完全二叉树</h1>
+<ul>
+<li>按我的理解是 : 把一个n层的满二叉树，把1~（2^n-1）按照每层从左到右排序给结点排序，从第（2^n-1）个结点（也就是对应满二叉树最右下角那个一个结点）连续去掉任意结点的树，都是完全二叉树，而且有个特点——除了根结点,左值都是偶数，右值都是奇数</li>
+<li>具有n个结点的完全二叉树的深度为int(log(2, n))+1</li>
+</ul>
+<h1 id="%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84" tabindex="-1">二叉树的存储结构</h1>
+<h2 id="%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84%EF%BC%8C%E6%8C%89%E7%85%A7%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%BB%93%E7%82%B9%E5%B1%82%E6%AC%A1%E7%BC%96%E5%8F%B7%EF%BC%8C%E4%BE%9D%E6%AC%A1%E5%AD%98%E6%94%BE%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0" tabindex="-1">顺序存储结构：使用数组，按照满二叉树的结点层次编号，依次存放二叉树中的数据元素</h2>
+<ul>
+<li>特点：空间浪费，只适用于满二叉树和完全二叉树的存储</li>
+</ul>
+<pre class='hljs'><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAXSIZE 100</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> TElemType;
+<span class="hljs-keyword">typedef</span> TElemType SqBiTree[MAXSIZE];
+</div></code></pre>
+<h2 id="%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84" tabindex="-1">链式存储结构</h2>
+<h3 id="%E4%BA%8C%E5%8F%89%E9%93%BE%E8%A1%A8%EF%BC%9A%E6%AF%8F%E4%B8%AA%E7%BB%93%E7%82%B9%E5%8C%85%E5%90%AB%E4%B8%89%E4%B8%AA%E5%AD%97%E6%AE%B5%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%9F%9F%E3%80%81%E5%B7%A6%E5%AD%90%E7%BB%93%E7%82%B9%E6%8C%87%E9%92%88%E5%92%8C%E5%8F%B3%E5%AD%90%E7%BB%93%E7%82%B9%E6%8C%87%E9%92%88%E3%80%82" tabindex="-1">二叉链表：每个结点包含三个字段：数据域、左子结点指针和右子结点指针。</h3>
+<ul>
+<li>有n个结点二叉链表中，有n+1个空指针域</li>
+</ul>
+<pre class='hljs'><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BiNode</span> {</span>
+    TElemType data;
+    <span class="hljs-comment">// 左右孩子指针</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BiNode</span> * <span class="hljs-title">lchild</span>, * <span class="hljs-title">rchild</span>;</span> 
+} BiNode, *BiTree;
+</div></code></pre>
+<h3 id="%E4%B8%89%E5%8F%89%E9%93%BE%E8%A1%A8%EF%BC%9A%E6%AF%8F%E4%B8%AA%E7%BB%93%E7%82%B9%E5%8C%85%E5%90%AB%E5%9B%9B%E4%B8%AA%E5%AD%97%E6%AE%B5%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%9F%9F%E3%80%81%E5%B7%A6%E5%AD%90%E7%BB%93%E7%82%B9%E6%8C%87%E9%92%88%E3%80%81%E5%8F%8C%E4%BA%B2%E7%BB%93%E7%82%B9%E6%8C%87%E9%92%88%E5%92%8C%E5%8F%B3%E5%AD%90%E7%BB%93%E7%82%B9%E6%8C%87%E9%92%88" tabindex="-1">三叉链表：每个结点包含四个字段：数据域、左子结点指针、双亲结点指针和右子结点指针</h3>
+<pre class='hljs'><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TriTNode</span> {</span>
+    TElemType data;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TriTNode</span> *<span class="hljs-title">lchild</span>, *<span class="hljs-title">parent</span>, *<span class="hljs-title">rchild</span>;</span>
+}TriTNode, *TriTree;
+</div></code></pre>
+<h1 id="%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%96%B9%E6%B3%95" tabindex="-1">遍历二叉树的方法</h1>
+<p><img src="https://img-blog.csdnimg.cn/c0ba555084d644e48be164493ae24af3.png#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>若规定先左后右遍历，L是左子树、D是根、R是右子树</li>
+</ul>
+<ol>
+<li>先（根）序遍历（DLR）</li>
+<li>中（根）序遍历（LDR）</li>
+<li>后（根）序遍历（LRD）</li>
+</ol>
+<h2 id="%E5%A6%82%E5%9B%BE" tabindex="-1">如图</h2>
+<p><img src="https://img-blog.csdnimg.cn/1e3d908809a54cf4a7a51984a847a381.png#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>如果采用先序遍历，得到：ABELDHMIJ</li>
+<li>如果采用中序遍历，得到：ELBAMHIDJ</li>
+<li>如果采用后序遍历，得到：LEBMIHJDA</li>
+</ul>
+<h2 id="%E4%BD%BF%E7%94%A8%E4%B8%89%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E8%A1%A8%E7%A4%BA%E8%A1%A8%E8%BE%BE%E5%BC%8F" tabindex="-1">使用三种遍历方式表示表达式</h2>
+<ul>
+<li>表达式的前缀表示，又称波兰式</li>
+<li>表达式的中缀表示</li>
+<li>表达式的后缀表示，又称逆波兰式</li>
+</ul>
+<h2 id="%E7%94%B1%E4%B8%89%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E7%9A%84%E4%B8%A4%E4%B8%A4%E7%BB%84%E5%90%88%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%80%92%E6%8E%A8%E4%BA%8C%E5%8F%89%E6%A0%91" tabindex="-1">由三种遍历方式的两两组合是否可以倒推二叉树</h2>
+<ul>
+<li>先序遍历和中序遍历可以</li>
+<li>中序遍历和后序遍历可以</li>
+<li>先序遍历和后序遍历却不可以</li>
+</ul>
+<h2 id="%E4%B8%89%E7%A7%8D%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6" tabindex="-1">三种递归遍历的复杂度</h2>
+<ul>
+<li>时间复杂度：都是O(n)</li>
+<li>空间复杂度：最坏情况都是O(n)</li>
+</ul>
+<h1 id="%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95" tabindex="-1">二叉树的其他方法</h1>
+<h2 id="%E6%B7%B1%E5%BA%A6" tabindex="-1">深度</h2>
+<ul>
+<li>如果是空树，返回0</li>
+<li>否则，分别递归计算左子树的深度为m，右子树的深度为n，返回二者最大的那个加上1</li>
+</ul>
+<h2 id="%E7%BB%93%E7%82%B9%E4%B8%AA%E6%95%B0" tabindex="-1">结点个数</h2>
+<ul>
+<li>如果是空树，返回0</li>
+<li>否则，分别递归计算左子树的结点与右子树的结点m、n，求和加上1</li>
+</ul>
+<h2 id="%E5%8F%B6%E5%AD%90%E7%BB%93%E7%82%B9%E4%B8%AA%E6%95%B0" tabindex="-1">叶子结点个数</h2>
+<ul>
+<li>如果是空树，返回0</li>
+<li>否则，分别计算走左右子树的叶子结点个数，相加返回</li>
+<li>另外，如果左右子树为空，那么此时的根结点属于叶子结点</li>
+</ul>
+<h1 id="%E7%BA%BF%E7%B4%A2%E4%BA%8C%E5%8F%89%E6%A0%91" tabindex="-1">线索二叉树</h1>
+<ul>
+<li>为了解决寻找特定遍历序列中二叉树结点的前驱和后继</li>
+<li>解决方法1：通过遍历寻找，但是费时间</li>
+<li>解决方法2：再添加前驱和后继指针域，但是增加了存储负担</li>
+<li>解决方法3：利用二叉链表的空指针域，如果左孩子为空，就把空的左孩子指针域指向其前驱；如果右孩子为空，就把右孩子指针域指向后继。这种改变指向的指针就称为线索</li>
+</ul>
+<h2 id="%E6%9E%84%E9%80%A0%E6%80%9D%E8%B7%AF" tabindex="-1">构造思路</h2>
+<ul>
+<li>为了区分指针是指向孩子结点还是前驱后继，额外增添两个标志域来辨别，ltag和rtag</li>
+<li>ltag为0说明是左指针指向左子树，是1说明左指针指向前驱结点</li>
+<li>rtag为0说明是右指针指向右子树，是1说明右指针指向后继结点</li>
+</ul>
+<h2 id="%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81" tabindex="-1">相关代码</h2>
+<pre class='hljs'><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ThreadedBiTreeNode</span>{</span>
+    TElemType data;
+    <span class="hljs-keyword">int</span> ltag, rtag;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ThreadedBiTree</span> *<span class="hljs-title">lchild</span>, *<span class="hljs-title">rchild</span>;</span>
+} ThreadedBiTreeNode, *ThreadedBiTree;
+</div></code></pre>
+<h1 id="%E6%A0%91%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84" tabindex="-1">树的存储结构</h1>
+<h2 id="%E5%8F%8C%E4%BA%B2%E8%A1%A8%E7%A4%BA%E6%B3%95" tabindex="-1">双亲表示法</h2>
+<ul>
+<li>定义结构数组</li>
+<li>存放树的结点</li>
+<li>每个结点含有两个域：数据域和双亲域</li>
+<li>数据域：存放结点本身信息</li>
+<li>双亲域：指示本结点的双亲结点在数组中的位置</li>
+</ul>
+<h3 id="%E5%A6%82%E5%9B%BE-1" tabindex="-1">如图</h3>
+<p><img src="https://img-blog.csdnimg.cn/e99a7f72488645958720498d56209675.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="%E7%89%B9%E7%82%B9" tabindex="-1">特点</h3>
+<ul>
+<li>找双亲容易，找孩子麻烦</li>
+</ul>
+<h3 id="%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81-1" tabindex="-1">相关代码</h3>
+<pre class='hljs'><code><div><span class="hljs-comment">// 树的双亲表示</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> {</span>
+    <span class="hljs-comment">// 当前索引对应结点的数据</span>
+    TElemType data;
+    <span class="hljs-comment">// 当前索引对应结点的双亲索引</span>
+    <span class="hljs-keyword">int</span> parent;
+} TreeNode;
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAX_TREE_SIZE 100</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    TreeNode treeNode[MAX_TREE_SIZE];
+    <span class="hljs-comment">// 根结点的索引位置与实际结点个数（因为最大个数不一定存满）</span>
+    <span class="hljs-keyword">int</span> root, count;
+} PTree;
+</div></code></pre>
+<h2 id="%E5%AD%A9%E5%AD%90%E8%A1%A8%E7%A4%BA%E6%B3%95" tabindex="-1">孩子表示法</h2>
+<ul>
+<li>把每个结点的孩子排列起来，看做成一个单链表，则n个结点有n个孩子链表（叶子的孩子链表为空）。而且n个头指针又组成了一个顺序表（含有n个元素的数组）存储</li>
+</ul>
+<h2 id="%E5%A6%82%E5%9B%BE-2" tabindex="-1">如图</h2>
+<p><img src="https://img-blog.csdnimg.cn/be956534171740c9ad48ffb1ef130c9f.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="%E7%89%B9%E7%82%B9-1" tabindex="-1">特点</h2>
+<ul>
+<li>找孩子容易，找双亲难</li>
+</ul>
+<h2 id="%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81-2" tabindex="-1">相关代码</h2>
+<pre class='hljs'><code><div><span class="hljs-comment">// 树的孩子表示法</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CTNode</span> {</span>
+    TElemType data; <span class="hljs-comment">// 这个地方写成结点的索引也可以 int index;</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CTNode</span> * <span class="hljs-title">child</span>;</span>
+}CTNode;
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAX_NODE_SIZE 100</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    CTNode ctNode[MAX_NODE_SIZE];
+    <span class="hljs-comment">// 根结点的索引位置与实际结点个数（因为最大个数不一定存满）</span>
+    <span class="hljs-keyword">int</span> root, count;
+} CTree;
+</div></code></pre>
+<h2 id="%E5%AD%A9%E5%AD%90%E5%85%84%E5%BC%9F%E8%A1%A8%E7%A4%BA%E6%B3%95" tabindex="-1">孩子兄弟表示法</h2>
+<ul>
+<li>使用二叉链表作为树的存储结构，链表的每个结点的两个指针域分别指向其第一个孩子结点和下一个兄弟结点</li>
+<li>又称二叉树表示法</li>
+</ul>
+<h2 id="%E5%A6%82%E5%9B%BE-3" tabindex="-1">如图</h2>
+<p><img src="https://img-blog.csdnimg.cn/3a6c194ae3b44646a489b4e7d80775a7.png#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="%E7%89%B9%E7%82%B9-2" tabindex="-1">特点</h2>
+<h2 id="%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81-3" tabindex="-1">相关代码</h2>
+<pre class='hljs'><code><div><span class="hljs-comment">// 树的孩子兄弟表示法</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CBNode</span>{</span>
+    TElemType data;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CBNode</span> *<span class="hljs-title">firstChild</span>, *<span class="hljs-title">nextSibling</span>;</span>
+} CBNode;
+</div></code></pre>
+<h1 id="%E6%A0%91%E4%B8%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%BD%AC%E6%8D%A2" tabindex="-1">树与二叉树的转换</h1>
+<ul>
+<li>将树转化为二叉树进行处理，利用二叉树的算法进行对树的操作</li>
+<li>给定的一棵树，可以找到唯一的二叉树与之对应</li>
+<li>由于树与二叉树都可以用二叉链表（孩子兄弟存储结构）作为存储结构，则以二叉链表作为媒介可以实现树与二叉树的一一对应关系</li>
+<li>实质就是实现二者的互相解释器</li>
+</ul>
+<h2 id="%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%A0%91" tabindex="-1">树转换为二叉树</h2>
+<ul>
+<li>兄弟直接加上连线</li>
+<li>对每个结点，除了其左孩子以外，去除其与其余孩子之间的关系</li>
+<li>以树的根结点为轴心，将整树顺时针旋转45°</li>
+</ul>
+<h2 id="%E4%BA%8C%E5%8F%89%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%A0%91" tabindex="-1">二叉树转换为树</h2>
+<ul>
+<li>若p结点是双亲结点的左孩子，则将p的右孩子，右孩子的右孩子……沿着分支找到所有的右孩子，都与p的双亲用线连起来</li>
+<li>抹掉原来二叉树中双亲与右孩子之间的连线</li>
+<li>将结点按层次排列，形成树结构</li>
+</ul>
+<h2 id="%E6%A3%AE%E6%9E%97%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%A0%91" tabindex="-1">森林转换为二叉树</h2>
+<ul>
+<li>将各棵树分别转换为二叉树</li>
+<li>将每棵树的根结点用线相连</li>
+<li>以第一颗树根结点作为二叉树的根，再以根结点为轴心，顺时针旋转，构成二叉树型结构</li>
+</ul>
+<h2 id="%E4%BA%8C%E5%8F%89%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%A3%AE%E6%9E%97" tabindex="-1">二叉树转换为森林</h2>
+<ul>
+<li>将二叉树中根结点与其右孩子相连，以及右孩子的右孩子……的所有右孩子之间的连线全部抹掉，使之变成独立的二叉树（所有根结点与其所有右孩子的连线全部抹掉）</li>
+<li>然后将每个独立的二叉树还原成树</li>
+</ul>
+<h2 id="%E6%A0%91%E7%9A%84%E4%B8%89%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F" tabindex="-1">树的三种遍历方式</h2>
+<ul>
+<li>先根遍历：若树不为空，则先访问根结点，然后依次先根遍历（递归）各棵子树</li>
+<li>后根遍历：若树不为空，则先依次后根遍历各棵子树，然后访问根结点</li>
+<li>按层次遍历，若树不为空，则从上到下，从左到右访问树中的各个结点</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/f86e405495b9481db1db910fd47f055a.png#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>先根遍历顺序：ABCDE</li>
+<li>后根遍历顺序：BDCEA</li>
+<li>层次遍历顺序：ABCED</li>
+</ul>
+<h2 id="%E6%A3%AE%E6%9E%97%E7%9A%84%E9%81%8D%E5%8E%86" tabindex="-1">森林的遍历</h2>
+<h3 id="%E5%B0%86%E6%A3%AE%E6%9E%97%E7%9C%8B%E4%BD%9C%E4%B8%89%E4%B8%AA%E9%83%A8%E5%88%86%E7%BB%84%E6%88%90%EF%BC%9A" tabindex="-1">将森林看作三个部分组成：</h3>
+<ul>
+<li>森林中第一棵树的根结点（第一部分）</li>
+<li>森林中第一棵树的子树森林（第二部分）</li>
+<li>森林中其它树构成的森林（第三部分）</li>
+</ul>
+<h2 id="%E6%A3%AE%E6%9E%97%E7%9A%84%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F" tabindex="-1">森林的遍历方式</h2>
+<h3 id="%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E5%AE%9E%E8%B4%A8%E5%B0%B1%E6%98%AF%E5%AF%B9%E4%BB%8E%E5%B7%A6%E5%88%B0%E5%8F%B3%E7%9A%84%E6%AF%8F%E6%A3%B5%E6%A0%91%E8%BF%9B%E8%A1%8C%E6%A0%91%E7%9A%84%E5%85%88%E6%A0%B9%E9%81%8D%E5%8E%86" tabindex="-1">先序遍历：实质就是对从左到右的每棵树进行树的先根遍历</h3>
+<ul>
+<li>访问森林的第一部分</li>
+<li>先序遍历（递归）森林中的第第二部分</li>
+<li>先序遍历森林中的第三部分</li>
+</ul>
+<h3 id="%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E5%AE%9E%E8%B4%A8%E5%B0%B1%E6%98%AF%E4%BB%8E%E5%B7%A6%E5%88%B0%E5%8F%B3%E5%AF%B9%E6%AF%8F%E6%A3%B5%E6%A0%91%E8%BF%9B%E8%A1%8C%E6%A0%91%E7%9A%84%E5%90%8E%E6%A0%B9%E9%81%8D%E5%8E%86" tabindex="-1">中序遍历：实质就是从左到右对每棵树进行树的后根遍历</h3>
+<ul>
+<li>中序遍历森林中的第二部分</li>
+<li>访问森林中的第一部分</li>
+<li>中序遍历森林中的第三部分</li>
+<li>树的先序遍历顺序：ABCDEFGHIJ</li>
+<li>树的中序遍历顺序：BCDAFEHJIG</li>
+</ul>
+<h1 id="%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%EF%BC%88%E6%9C%80%E4%BC%98%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%89" tabindex="-1">哈夫曼树（最优二叉树）</h1>
+<ul>
+<li>给定N个权值作为N个叶子结点，构造一棵二叉树，若该树的带权路径长度达到最小，称这样的二叉树为最优二叉树，也称为哈夫曼树(Huffman Tree)。哈夫曼树是带权路径长度最短的树，权值较大的结点离根较近。（摘自知乎文章，我觉得这种说法最适合我理解）</li>
+<li>老师给出的定义：树的带权路径长度最短的树
+<code>&lt;img src=&quot;src/tree11.jpg&quot; alt=&quot;&quot;&gt;</code></li>
+</ul>
+<h2 id="%E7%9B%B8%E5%85%B3%E6%9C%AF%E8%AF%AD-1" tabindex="-1">相关术语</h2>
+<ul>
+<li>路径：从树中一个结点到另一个结点之间分支构成这两个结点的路径</li>
+<li>结点的路径长度：两个结点路径之间上的分支数</li>
+<li>树的路径长度：从根结点到每一个结点的路径之和。结点数目相同的二叉树中，完全二叉树的路径长度是最短的（这只是充分条件）</li>
+<li>权（权重）：将树中结点赋值</li>
+<li>结点的带权路径长度：从根结点到某结点之间的路径长度与该结点的权的乘机</li>
+<li>树的带权路径长度：树当中所有叶子结点的带权路径长度之和</li>
+<li>哈夫曼算法：构造哈夫曼树的算法</li>
+</ul>
+<h2 id="%E7%89%B9%E7%82%B9-3" tabindex="-1">特点</h2>
+<ul>
+<li>满二叉树不一定是哈夫曼树</li>
+<li>哈夫曼树中权越大的叶子离根越近</li>
+<li>具有相同的带权结点的哈夫曼树不唯一</li>
+<li>哈夫曼树中结点的度只有0或者2，没有度为1的结点</li>
+<li>包含n个叶子结点的哈夫曼树中共有2n-1个结点</li>
+</ul>
+<h2 id="%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E6%9E%84%E9%80%A0" tabindex="-1">哈夫曼树的构造</h2>
+<ul>
+<li>根据n个给定的权值{W1, W2, W3, ..., Wn}，构成n棵二叉树组成的森林F，每个二叉树只有一个根结点，权重为Wi</li>
+<li>在F中选取两个根结点权值最小的二叉树作为左右子树，构造一棵新的二叉树，且设置新的二叉树的根结点的权值为左右子树根结点的权值之和</li>
+<li>在F中删除这两个树（就是上一步用于构成新的二叉树的左右子树），同时将新得到的二叉树添加到森林中</li>
+<li>重复第二步与第三步，直到森林中只剩下一棵树，就是哈夫曼树</li>
+</ul>
+<h2 id="%E5%93%88%E5%A4%AB%E6%9B%BC%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0" tabindex="-1">哈夫曼算法的实现</h2>
+<ul>
+<li>采用顺序存储——一维结构数组</li>
+<li>结构如下</li>
+</ul>
+<pre class='hljs'><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-comment">// 假设权重取整数值</span>
+    <span class="hljs-keyword">int</span> weight;
+    <span class="hljs-comment">// 分别是双亲结点、左孩子、右孩子的索引值，-1代表没有</span>
+    <span class="hljs-keyword">int</span> parent, lchild, rchild;
+} HTNode, *HuffmanTree;
+</div></code></pre>
+<h2 id="%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81" tabindex="-1">算法代码</h2>
+<pre class='hljs'><code><div><span class="hljs-comment">// 初始化哈夫曼树，传入叶子结点的值组成的数组和叶子结点个数n（至少是2）</span>
+<span class="hljs-function">HuffmanTree <span class="hljs-title">createHT</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> weights[], <span class="hljs-keyword">int</span> n)</span></span>{
+    HuffmanTree huffmanTree = (HTNode *) <span class="hljs-built_in">malloc</span>((n * <span class="hljs-number">2</span><span class="hljs-number">-1</span>) * <span class="hljs-keyword">sizeof</span> (HTNode));
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;(<span class="hljs-number">2</span>*n<span class="hljs-number">-1</span>);i++){
+        huffmanTree[i].lchild = <span class="hljs-number">-1</span>;
+        huffmanTree[i].rchild = <span class="hljs-number">-1</span>;
+        huffmanTree[i].parent - <span class="hljs-number">-1</span>;
+    }
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;n;j++) huffmanTree[j].weight = weights[j];
+    <span class="hljs-keyword">return</span> huffmanTree;
+}
+
+<span class="hljs-comment">// 销毁哈夫曼树</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">destroyHT</span><span class="hljs-params">(HuffmanTree huffmanTree)</span></span>{
+    <span class="hljs-built_in">free</span>(huffmanTree);
+}
+
+<span class="hljs-comment">// 根据哈夫曼算法实现哈夫曼树</span>
+<span class="hljs-function">HuffmanTree <span class="hljs-title">realizeHT</span><span class="hljs-params">(HuffmanTree huffmanTree, <span class="hljs-keyword">int</span> n)</span></span>{
+    <span class="hljs-comment">// 进行n-1次合并</span>
+    <span class="hljs-comment">// 每次在当前森林里面的二叉树中找到两个根结点权值最小的</span>
+    <span class="hljs-comment">// 在剩下的n-1个顺序表中的结点逐个补全，这n-1个结点组成的子顺序表就是哈夫曼树</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=n;i&lt;<span class="hljs-number">2</span> * n<span class="hljs-number">-1</span>;i++){
+        <span class="hljs-comment">// 在huffmanTree[k](0&lt;= k &lt;= i)中选择两个其双亲域为-1，而且权值最小的结点，并返回它们在huffmanTree中的序号s1和s2</span>
+        Select(huffmanTree, i<span class="hljs-number">-1</span>, s1, s2);
+        <span class="hljs-comment">// 表示从森林中删除s1，s2</span>
+        huffmanTree[s1].parent = i;
+        huffmanTree[s2].parent = i;
+        <span class="hljs-comment">// s1，s2分别作为新二叉树的左右孩子</span>
+        huffmanTree[i].lchild = s1;
+        huffmanTree[i].rchild = s2;
+        huffmanTree[i].weight = huffmanTree[s1].weight + huffmanTree[s2].weight;
+    }
+}
+</div></code></pre>
+<h1 id="%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81" tabindex="-1">哈夫曼编码</h1>
+<ul>
+<li>是一种无损压缩算法，通过对不同的符号赋予不同的变长编码，使得频率较高的符号具有较短的编码，而出现频率低的符号具有较长的编码，从而实现对数据进行高效压缩。</li>
+</ul>
+<h2 id="%E7%89%B9%E7%82%B9-4" tabindex="-1">特点</h2>
+<ul>
+<li>统计每个字符在电文中的出现的平均概率，概率越大，要求编码越短</li>
+<li>把每个字符的概率值作为权值，构造哈夫曼树，概率越大的结点，路径越短</li>
+<li>在哈夫曼树的每个分支上标上0或者1，结点的左分支标0，右分支标1；把从根到每个叶子的路径上的标号连接起来，作为该叶子代表的字符的编码</li>
+<li>哈夫曼编码可以保证是前缀编码（一种不会产生歧义的编码），因为没有一片树叶是另一树叶的祖先，所以每个叶结点的编码就不可能是其它叶结点编码的前缀（就是一个编码不可能是另一个编码的某片段截取）</li>
+<li>能保证字符编码的总长度最短。哈夫曼树本身就是带权路径最短的树，所以编码的总长度最短</li>
+</ul>
+<blockquote>
+<p>声明：
+部分图片源于互联网、部分更通俗易懂的概念源于搜索
+教学看的是青岛大学王卓老师的
+源代码下载：https://gitee.com/PythonnotJava/Data-structure-and-algorithm-collection/tree/master/ReTree</p>
+</blockquote>
+
+    </div>
+</body>
+</html>
