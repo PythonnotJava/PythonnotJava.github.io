@@ -1,4 +1,4 @@
-# shucker.github.io
+# PythonnotJava.github.io
 My blog patform
 
 You can also visit the following link : 
