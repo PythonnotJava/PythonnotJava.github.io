@@ -1,0 +1,167 @@
+<html><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/zh_CN.js"></script><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script></head><body style="width: 1075px;"><div class="vditor-reset" id="preview"><h1 id="排序">排序<a id="vditorAnchor-排序" class="vditor-anchor" href="#排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h1>
+<blockquote>
+<p>声明：</p>
+<blockquote>
+<p>traversal是遍历数组</p>
+</blockquote>
+<blockquote>
+<p>swap是交换算法</p>
+</blockquote>
+</blockquote>
+<h2 id="冒泡排序">冒泡排序<a id="vditorAnchor-冒泡排序" class="vditor-anchor" href="#冒泡排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<ul>
+<li>冒泡排序每次把一个最大的数据往后移动</li>
+</ul>
+<pre><code class="language-c">void BubbleSort(int arr[], int n){
+    int i, j;
+    for (i = 0;i &lt; n - 1;++i){
+        for (j = 0; j &lt; n - i - 1;++j){
+            if (arr[j] &gt; arr[j + 1])
+                swap(&amp;arr[j], &amp;arr[j + 1]);
+        }
+    }
+    traversal(arr, n);
+}
+</code></pre>
+<h2 id="选择排序">选择排序<a id="vditorAnchor-选择排序" class="vditor-anchor" href="#选择排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<ul>
+<li>每次选取未排序中最小的数据换到的前面</li>
+</ul>
+<pre><code class="language-c">void SelectSort(int arr[], int n){
+    int i, j, minIndex;
+    for (i = 0;i &lt; n - 1;++i){
+        minIndex = i;
+        for (j = i + 1;j &lt; n;++j)
+            if (arr[minIndex] &gt; arr[j])
+                minIndex = j;
+        if (i != minIndex)
+            swap(&amp;arr[minIndex], &amp;arr[i]);
+    }
+    traversal(arr, n);
+}
+</code></pre>
+<h2 id="插入排序">插入排序<a id="vditorAnchor-插入排序" class="vditor-anchor" href="#插入排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<ul>
+<li>每次把一个数据往前面排好序的数据中比较，不满足往后移，满足则插入</li>
+</ul>
+<pre><code class="language-c">void InsertSort(int arr[], int n){
+    int i, j, value;
+    for (i = 0;i &lt; n - 1;i++){
+        j = i;
+        value = arr[i + 1];
+        while (j &gt;= 0 &amp;&amp; arr[j] &gt; value){
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = value;
+    }
+    traversal(arr, n);
+}
+</code></pre>
+<h2 id="希尔排序">希尔排序<a id="vditorAnchor-希尔排序" class="vditor-anchor" href="#希尔排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<ul>
+<li>每次对间隔数的数据排序，排完每轮之后缩减间隔再排</li>
+<li>希尔排序内部采取的是直接插入排序</li>
+</ul>
+<pre><code class="language-c">void ShellSort(int arr[], int n){
+    int i, j, gap, value;
+    for (gap = n / 2;gap &gt;= 1;gap--){
+        for (i = gap;i &lt; n;i++){
+            value = arr[i];
+            for (j = i - gap;j &gt;= 0 &amp;&amp; arr[j] &gt; value; j-= gap)
+                arr[j + gap] = arr[j];
+            arr[j + gap] = value;
+        }
+    }
+    traversal(arr, n);
+}
+</code></pre>
+<h2 id="归并排序">归并排序<a id="vditorAnchor-归并排序" class="vditor-anchor" href="#归并排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<ul>
+<li>基于二路归并算法，每次将排序好的数据段合并</li>
+</ul>
+<pre><code class="language-c">void Merge(int arr[], int reg[], int start, int end){
+    if (start &gt;= end) return;
+    int mid, len, leftStart, rightStart, leftEnd, rightEnd;
+    len = end - start;
+    mid = len / 2 + start;
+    leftStart = start;
+    rightStart = mid + 1;
+    leftEnd = mid;
+    rightEnd = end;
+    Merge(arr, reg, leftStart, leftEnd);
+    Merge(arr, reg, rightStart, rightEnd);
+    int k = start;
+    while (leftStart &lt;= leftEnd &amp;&amp; rightStart &lt;= rightEnd)
+        reg[k++] = (arr[leftStart] &lt; arr[rightStart]) ? arr[leftStart++] : arr[rightStart++];
+    while (leftStart &lt;= leftEnd)
+        reg[k++] = arr[leftStart++];
+    while (rightStart &lt;= rightEnd)
+        reg[k++] = arr[rightStart++];
+    for (int i = start;i &lt;= end;i++)
+        arr[i] = reg[i];
+}
+
+void MergeSort(int arr[], int n){
+    int reg[n];
+    Merge(arr, reg, 0, n - 1);
+    traversal(arr, n);
+}
+</code></pre>
+<h2 id="快速排序">快速排序<a id="vditorAnchor-快速排序" class="vditor-anchor" href="#快速排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<ul>
+<li>找到一个基准数据，将其排到左侧是小于它的数，右侧是不小于它的数的位置，并返回这个位置，然后递归地左右两侧再排</li>
+</ul>
+<pre><code class="language-c">int Quick(int arr[], int low, int high){
+    int pivot = arr[low];
+    while (low &lt; high){
+        while (low &lt; high &amp;&amp; arr[high] &gt;= pivot)
+            --high;
+        arr[low] = arr[high];
+        while (low &lt; high &amp;&amp; arr[low] &lt; pivot)
+            ++low;
+        arr[high] = arr[low];
+    }
+    arr[low] = pivot;
+    return low;
+}
+
+void QuickSortCore(int arr[], int low, int high){
+    if (low &lt; high){
+        int pivot = Quick(arr, low, high);
+        QuickSortCore(arr, low, pivot - 1);
+        QuickSortCore(arr, pivot + 1, high);
+    }
+}
+
+void QuickSort(int arr[], int n){
+    QuickSortCore(arr, 0, n - 1);
+    traversal(arr, n);
+}
+</code></pre>
+<h2 id="堆排序">堆排序<a id="vditorAnchor-堆排序" class="vditor-anchor" href="#堆排序"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<pre><code class="language-c">void HeapAdjust(int arr[], int start, int n){
+    int lchild = start * 2;
+    int rchild = start * 2 + 1;
+    int minIndex = start;
+    if (lchild &lt; n &amp;&amp; arr[lchild] &lt; arr[minIndex])
+        minIndex = lchild;
+    if (rchild &lt; n &amp;&amp; arr[rchild] &lt; arr[minIndex])
+        minIndex = rchild;
+    if (minIndex != start){
+        swap(&amp;arr[minIndex], &amp;arr[start]);
+        HeapAdjust(arr, minIndex, n);
+    }
+}
+
+void HeapSort(int arr[], int n){
+    for (int i = n / 2;i &gt;= 0;--i)
+        HeapAdjust(arr, i, n);
+    for (int i = n - 1;i &gt;= 0;--i){
+        printf(&quot;%d\t&quot;, arr[0]);
+        swap(&amp;arr[0], &amp;arr[i]);
+        HeapAdjust(arr, 0, i);
+    }
+}
+</code></pre>
+</div><script>    const previewElement = document.getElementById('preview');    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');    Vditor.codeRender(previewElement);    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mediaRender(previewElement);    Vditor.speechRender(previewElement); </script>  <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script></body></html>

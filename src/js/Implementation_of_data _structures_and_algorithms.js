@@ -1,6 +1,12 @@
 // 博客列表数据
     const blogList = [
       {
+        title: '排序算法最终版',
+        content: '考试前最后一次学排序算法，不在迷惑',
+        icon: 'https://img-blog.csdnimg.cn/img_convert/7b6054b134b88dd44660e5ab4f9d734a.png',
+        link: '../../h5/sjjg/resort.html'
+      },
+      {
         title: '重新排序算法',
         content: '重新学排序算法，包括直接排序、希尔排序、什么是堆、快速排序等等等……',
         icon: 'https://th.bing.com/th/id/R.90dd096532f7ee7b370af250f93f0b19?rik=Jz6godksJOXfKg&pid=ImgRaw&r=0',
