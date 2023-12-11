@@ -5,6 +5,12 @@ const blogList = [
         content: '更注重于安全性、可维护性等特性的内置类型',
         icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
         link: '../../h5/effpy/typing的一些类型.html'
+    },
+    {
+        title: '高效的Python1',
+        content: 'dataclass装饰器、contextmanager上下文管理器、type动态类创建',
+        icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
+        link: '../../h5/effpy/EfficientPython1.html'
     }
 ];
 
