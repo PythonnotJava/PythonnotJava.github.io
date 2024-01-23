@@ -23,6 +23,12 @@
         content: '快速入门一些Dart的高级语法以及语法糖（附源代码下载链接）',
         icon: 'https://img.quanxiaoha.com/quanxiaoha/164839133079354',
         link: '../../h5/other/Dart高级教程.html'
+      },
+      {
+        title: 'Dart同步操作文件',
+        content: 'Dart同步操作文件的一些方法的学习',
+        icon: 'https://img.quanxiaoha.com/quanxiaoha/164839133079354',
+        link: '../../h5/other/Dart同步操作文件.html'
       }
     ];
 
