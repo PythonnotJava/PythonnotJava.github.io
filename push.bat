@@ -1,3 +1,5 @@
+git init
 git add .
-git commit -m "New"
-git push origin master
+git commit -m "NEW"
+git push origin main
+pause
