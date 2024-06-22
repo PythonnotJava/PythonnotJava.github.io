@@ -1,0 +1,65 @@
+<!--临时版本-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>A little cookie</title>
+    <!-- 引入 Bootstrap 样式 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+
+        #dh {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        h1 {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-indent: 60pt;
+            color: white;
+            font-size: 36px;
+        }
+        p{
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<video autoplay muted loop id="bg-video">
+    <source src="bye.mp4" type="video/mp4">
+</video>
+
+<div id="dh">
+    <p>- 我走的那天还到你宿舍给你告别不？</p>
+    <p>* 不用，你就悄无声息地走就行了。</p>
+    <p>- 就像平常在学校一样，不打招呼是吧。</p>
+    <p>* 嗯</p>
+</div>
+
+<h1>那晚我迎着晚风走过，有一种大一第一天新生报道的感觉。</h1>
+
+</body>
+
+</html>
+
