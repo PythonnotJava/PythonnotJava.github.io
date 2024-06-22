@@ -11,6 +11,12 @@
         content: 'PyQt5系列进阶教程',
         icon: 'https://i0.wp.com/clay-atlas.com/wp-content/uploads/2019/08/Python_PyQt5.png?resize=982%2C1024&ssl=1',
         link: '../../h5/qt/blogPyQt5Depth.html'
+      },
+      {
+        title: 'DCQT',
+        content: '对PyQt5的封装，便于我自己的需求',
+        icon: 'https://i0.wp.com/clay-atlas.com/wp-content/uploads/2019/08/Python_PyQt5.png?resize=982%2C1024&ssl=1',
+        link: '../../h5/qt/DCQT.html'
       }
     ];
 
