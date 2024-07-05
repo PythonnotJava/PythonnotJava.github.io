@@ -33,7 +33,7 @@
       {
         title: 'Flutter自定义构建',
         content: 'Flutter自定义构建',
-        icon: 'https://www.bing.com/images/search?FORM=IARRTH&q=flutter',
+        icon: '../../img/Flutter.png',
         link: '../../h5/other/自定义Flutter的构建.html'
       }
     ];
