@@ -29,6 +29,12 @@
         content: 'Dart同步操作文件的一些方法的学习',
         icon: 'https://img.quanxiaoha.com/quanxiaoha/164839133079354',
         link: '../../h5/other/Dart同步操作文件.html'
+      },
+      {
+        title: 'Flutter自定义构建',
+        content: 'Flutter自定义构建',
+        icon: 'https://www.bing.com/images/search?FORM=IARRTH&q=flutter',
+        link: '../../h5/other/自定义Flutter的构建.html'
       }
     ];
 
