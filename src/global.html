@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,3 +110,116 @@
 </div>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>藏书阁</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2 url("global/global-src/mylove/ml.jpg") no-repeat center;
+      background-size: 100%;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .card {
+      flex: 1;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    a:hover{
+      padding: 5px;
+      color: yellow;
+    }
+    #type1 {
+      background-image: linear-gradient(to right, skyblue, lightsteelblue);
+    }
+    #type2 {
+      background-image: linear-gradient(to bottom, slategrey, palegoldenrod);
+    }
+    #type3 {
+      background-image: linear-gradient(to left, silver, lavender);
+    }
+    #type4 {
+      background-image: linear-gradient(to top, sienna, fuchsia);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="card" onclick="location.href='#'" id="type1">
+    <h2>Dart-Language</h2>
+    <ul>
+      <li><a href="h5/other/Dart语言快速入门.html">Dart语言快速入门</a></li>
+      <li><a href="h5/other/Dart快速入门（2）.html">Dart快速入门（2）</a></li>
+      <li><a href="h5/other/Dart高级教程.html">Dart高级教程</a></li>
+    </ul>
+  </div>
+  <div class="card" onclick="location.href='#'" id="type2">
+    <h2>Python-Matplotlib</h2>
+    <ul>
+      <li><a href="h5/other/blogMatplotlib.html">blogMatplotlib</a></li>
+    </ul>
+  </div>
+  <div class="card" onclick="location.href='#'" id="type3">
+    <h2>MakeFile</h2>
+    <ul>
+      <li><a href="global/index/mkf1.html">记录1</a></li>
+      <li><a href="global/index/mkf2.html">记录2</a></li>
+      <li><a href="global/index/mkf3.html">记录3</a></li>
+      <li><a href="global/index/mkf4.html">记录4</a></li>
+      <li><a href="global/index/mkf5.html">记录5</a></li>
+      <li><a href="global/index/mkf6.html">记录6</a></li>
+    </ul>
+  </div>
+  <br>
+</div>
+
+<!--New Line-->
+<div class="container">
+  <div class="card" onclick="location.href='#'" id="type4">
+    <h2>Python-PyQt5</h2>
+    <ul>
+      <li><a href="h5/qt/blogPyQt5.html">PyQt5入门</a></li>
+      <li><a href="h5/qt/blogPyQt5Depth.html">PyQt5入门（2）</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
+>>>>>>> e704743 (NEW)
