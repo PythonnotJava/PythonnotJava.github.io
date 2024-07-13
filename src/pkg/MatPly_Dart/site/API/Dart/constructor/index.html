@@ -1,0 +1,1560 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/PythonnotJava/MatPly/API/Dart/constructor/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../properties/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
+    
+    
+      
+        <title>构造函数 - MatPly Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="MatPly Docs" class="md-header__button md-logo" aria-label="MatPly Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MatPly Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              构造函数
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="MatPly Docs" class="md-nav__button md-logo" aria-label="MatPly Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    MatPly Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Guide/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dart版本的实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    构造函数
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    构造函数
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      默认构造函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="默认构造函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#number" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成一个全是number数据的矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成一个全是number数据的矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      全零矩阵与全一矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="全零矩阵与全一矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建从start开始，间隔为1的连续数据的矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建从start开始，间隔为1的连续数据的矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#startendrow-column" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建从start开始，到end结束，途中分为row * column份数的矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建从start开始，到end结束，途中分为row * column份数的矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建n阶单位矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建n阶单位矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成符合均匀分布的数据
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成符合均匀分布的数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      效果如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成符合正态分布数据
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成符合正态分布数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      从数据点拟合的概率密度函数效果如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成符合泊松分布数据
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成符合泊松分布数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      效果如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      指向C语言生成矩阵对象指针
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      工厂构造——深拷贝矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="工厂构造——深拷贝矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../properties/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../methods/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    重载操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../global_methods/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    全局设置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      默认构造函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="默认构造函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#number" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成一个全是number数据的矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成一个全是number数据的矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      全零矩阵与全一矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="全零矩阵与全一矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建从start开始，间隔为1的连续数据的矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建从start开始，间隔为1的连续数据的矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#startendrow-column" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建从start开始，到end结束，途中分为row * column份数的矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建从start开始，到end结束，途中分为row * column份数的矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建n阶单位矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建n阶单位矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成符合均匀分布的数据
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成符合均匀分布的数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      效果如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成符合正态分布数据
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成符合正态分布数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      从数据点拟合的概率密度函数效果如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成符合泊松分布数据
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成符合泊松分布数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      效果如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      指向C语言生成矩阵对象指针
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      工厂构造——深拷贝矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="工厂构造——深拷贝矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">构造函数</h1>
+<h2 id="_2">默认构造函数</h2>
+<pre><code class="language-text">MatrixType(
+  List&lt;List&lt;double&gt;&gt; data, {
+    bool identityMatrix = false,
+    bool principalDiagonalMatrix = false,
+    bool subDiagonalMatrix = false,
+    bool upperTriangularMatrix = false,
+    bool lowerTriangularMatrix = false,
+    bool singularMatrix  = false
+  })
+</code></pre>
+<blockquote>
+<p>默认构造函数必须传入一个二维数组，并接受指定一些矩阵的特殊性质，对于该特殊性质并未做出任何操作，考虑到一些矩阵的特殊性质——如对角方阵可以以O(n)的复杂度求解行列式值，该性质可以视为做出简易计算的接口。</p>
+</blockquote>
+<h3 id="example">example</h3>
+<pre><code class="language-dart">main() {
+  final List&lt;List&lt;double&gt;&gt; list = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 5, 9]
+  ];
+  MatrixType(list).visible();
+}
+
+/* outputs
+[
+ [1.00000    2.00000     3.00000    ]
+ [4.00000    5.00000     6.00000    ]
+ [7.00000    8.00000     9.00000    ]
+ [1.00000    5.00000     9.00000    ]
+]
+ */
+</code></pre>
+<h2 id="number">生成一个全是number数据的矩阵</h2>
+<pre><code class="language-text">MatrixType.filled({
+    required double number,
+    required int row,
+    required int column
+  })
+</code></pre>
+<blockquote>
+<p>全number矩阵会生成row和column大小，对row和column的检查<strong>不会</strong>在C语言中实现，而是交给了Dart来做。在MartixType的所有功能都是这种原理。</p>
+</blockquote>
+<h3 id="example_1">example</h3>
+<pre><code class="language-dart">main() {
+  set_visible_round('%.0f');
+  MatrixType.filled(number: 4, row: 3, column: 5).visible();
+}
+
+/* outputs
+[
+ [4 4 4 4 4]
+ [4 4 4 4 4]
+ [4 4 4 4 4]
+]
+ */
+</code></pre>
+<h2 id="_3">全零矩阵与全一矩阵</h2>
+<pre><code class="language-text">MatrixType.zeros({
+    required int row,
+    required int column
+  })
+
+MatrixType.ones({
+    required int row,
+    required int column
+  })
+</code></pre>
+<h3 id="example_2">example</h3>
+<pre><code class="language-dart">main() {
+  set_visible_round('%.0f');
+  MatrixType.ones(row: 3, column: 3).visible();
+  MatrixType.zeros(row: 2, column: 4).visible();
+}
+
+/* outputs
+[
+ [1 1 1]
+ [1 1 1]
+ [1 1 1]
+]
+[
+ [0 0 0 0]
+ [0 0 0 0]
+]
+ */
+</code></pre>
+<h2 id="start1">创建从start开始，间隔为1的连续数据的矩阵</h2>
+<pre><code class="language-text"> MatrixType.arrange({
+    required double? start,
+    required int row,
+    required int column
+  })
+</code></pre>
+<h3 id="example_3">example</h3>
+<pre><code class="language-dart">main() {
+
+  MatrixType.arrange(start: 0, row: 2, column: 10).visible();
+}
+
+/* outputs
+[
+ [0.00000    1.00000     2.00000     3.00000     4.00000     5.00000     6.00000     7.00000     8.00000     9.00000    ]
+ [10.00000   11.00000    12.00000    13.00000    14.00000    15.00000    16.00000    17.00000    18.00000    19.00000   ]
+]
+ */
+</code></pre>
+<h2 id="startendrow-column">创建从start开始，到end结束，途中分为row * column份数的矩阵</h2>
+<pre><code class="language-text"> MatrixType.linspace({
+    required double start,
+    required double end,
+    required int row,
+    required int column,
+    bool keep = true
+  }) 
+</code></pre>
+<blockquote>
+<p>keep参数决定了是否保留end</p>
+</blockquote>
+<h3 id="example_4">example</h3>
+<pre><code class="language-dart">main() {
+  MatrixType.linspace(start: 0, end: 10, row: 1, column: 10, keep: true).visible();
+  MatrixType.linspace(start: 0, end: 10, row: 1, column: 10, keep: false).visible();
+}
+
+/* outputs
+[
+ [0.00000    1.11111     2.22222     3.33333     4.44444     5.55556     6.66667     7.77778     8.88889     10.00000   ]
+]
+[
+ [0.00000    1.00000     2.00000     3.00000     4.00000     5.00000     6.00000     7.00000     8.00000     9.00000    ]
+]
+ */
+</code></pre>
+<h2 id="n">创建n阶单位矩阵</h2>
+<pre><code class="language-text">MatrixType.E({required int n})
+</code></pre>
+<h3 id="example_5">example</h3>
+<pre><code class="language-dart">main() {
+  set_visible_round('%.0f');
+  MatrixType.E(n: 5).visible();
+}
+
+/* outputs
+[
+ [1 0 0 0 0]
+ [0 1 0 0 0]
+ [0 0 1 0 0]
+ [0 0 0 1 0]
+ [0 0 0 0 1]
+]
+ */
+</code></pre>
+<h2 id="_4">生成符合均匀分布的数据</h2>
+<pre><code class="language-text">MatrixType.uniform({
+    double start = .0,
+    double end = 1.0,
+    required int row,
+    required int column,
+    int? seed
+  }) 
+</code></pre>
+<blockquote>
+<p>seed表明你是否设置针对此随机分布的种子</p>
+</blockquote>
+<h3 id="example_6">example</h3>
+<pre><code class="language-dart">// 基于FL_chart实现对均匀分布的散点图可视化
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'matply.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+  @override
+  State&lt;MyHomePage&gt; createState() =&gt; _MyHomePageState();
+}
+
+final List&lt;double&gt; xp = MatrixType.uniform(row: 1, column: 1000, seed: 1)[0] as List&lt;double&gt;;
+final List&lt;double&gt; yp = MatrixType.uniform(row: 1, column: 1000, seed: 2)[0] as List&lt;double&gt;;
+
+List&lt;ScatterSpot&gt; points = List.generate(xp.length, (i) {
+  return ScatterSpot(xp[i], yp[i]);
+});
+
+class _MyHomePageState extends State&lt;MyHomePage&gt; {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        body: Center(
+          child: ScatterChart(
+              ScatterChartData(
+                  scatterSpots: points
+              )
+          ),
+        )
+    );
+  }
+}
+
+</code></pre>
+<h3 id="_5">效果如下</h3>
+<p><img alt="uniform.png" src="../src/uniform.png" /></p>
+<h2 id="_6">生成符合正态分布数据</h2>
+<pre><code class="language-text">MatrixType.normal({
+    double mu = 0.0,
+    double sigma = 1.0,
+    required int row,
+    required int column,
+    int? seed
+  })
+</code></pre>
+<blockquote>
+<p>该正态分布数据的拟合基于Box-Muller方法，感谢@Djl的贡献，由于是自己按照原理实现，因此略有精度误差</p>
+</blockquote>
+<h3 id="example_7">example</h3>
+<pre><code class="language-dart">
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'matply.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+  @override
+  State&lt;MyHomePage&gt; createState() =&gt; _MyHomePageState();
+}
+
+var mt = MatrixType.normal(row: 1, column: 1000, mu: 1.0, sigma: 2.0);
+List&lt;double&gt; ps = mt[0] as List&lt;double&gt;;
+
+var fx = (double x) =&gt; (1 / (sqrt(2 * Pi) * 2.0) ) * exp(-(x - 1.0) * (x - 1.0) / (2 * 2.0 * 2.0));
+
+List&lt;ScatterSpot&gt; points = List.generate(ps.length, (i) =&gt; ScatterSpot(ps[i], fx(ps[i])));
+
+class _MyHomePageState extends State&lt;MyHomePage&gt; {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          Text('均值 : ${mt.mean()}'),
+        ],
+      ),
+      body: Center(
+        child: ScatterChart(
+          ScatterChartData(
+            scatterSpots: points
+          )
+        )
+      )
+    );
+  }
+}
+</code></pre>
+<h3 id="_7">从数据点拟合的概率密度函数效果如下</h3>
+<blockquote>
+<p>经计算，均值为0.97，与规定的1.0大差不差
+<img alt="normal.png" src="../src/normal.jpg" /></p>
+</blockquote>
+<h2 id="_8">生成符合泊松分布数据</h2>
+<pre><code class="language-text"> MatrixType.poisson({
+    required double lambda,
+    required int row,
+    required int column,
+    int? seed
+  })
+</code></pre>
+<h3 id="example_8">example</h3>
+<pre><code class="language-dart">
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'matply.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+  @override
+  State&lt;MyHomePage&gt; createState() =&gt; _MyHomePageState();
+}
+
+var mt = MatrixType.poisson(lambda: 5.5, row: 1, column: 1000);
+List&lt;int&gt; ps = (mt[0] as List&lt;double&gt;).map((double value) =&gt; value.toInt()).toList();
+
+class _MyHomePageState extends State&lt;MyHomePage&gt; {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: _buildHistogram(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHistogram() {
+    const binCount = 10;
+    final int minPs = (mt.min(dim: -1) as double).toInt();
+    final int maxPs = (mt.max(dim: -1) as double).toInt();
+    final binSize = (maxPs - minPs) / binCount;
+    final bins = List.generate(binCount, (_) =&gt; 0);
+
+    for (var value in ps) {
+      final bin = ((value - minPs) / binSize).floor();
+      if (bin &gt;= 0 &amp;&amp; bin &lt; bins.length) {
+        bins[bin]++;
+      }
+    }
+
+    final barGroups = List.generate(bins.length, (i) {
+      return BarChartGroupData(
+        x: i,
+        barRods: [
+          BarChartRodData(
+            width: 16, toY: bins[i].toDouble(),
+          ),
+        ],
+      );
+    });
+
+    return BarChart(
+      BarChartData(
+        alignment: BarChartAlignment.spaceAround,
+        titlesData: const FlTitlesData(
+          show: true,
+        ),
+        borderData: FlBorderData(show: false),
+        barGroups: barGroups,
+      ),
+    );
+  }
+}
+
+</code></pre>
+<h3 id="_9">效果如下</h3>
+<p><img alt="possion.png" src="../src/possion.jpg" /></p>
+<h2 id="c">指向C语言生成矩阵对象指针</h2>
+<pre><code class="language-text">MatrixType.__fromPointer(this.self, this.shape)
+</code></pre>
+<blockquote>
+<p>Warning ：不建议在Dart使用指针类，因此我设置了此构造函数为私有方法</p>
+</blockquote>
+<h2 id="_10">工厂构造——深拷贝矩阵</h2>
+<pre><code class="language-text">factory MatrixType.deepCopy(MatrixType other)
+</code></pre>
+<h3 id="example_9">example</h3>
+<pre><code class="language-dart">main() {
+
+  var m1 = MatrixType.E(n: 5);
+  var m2 = MatrixType.deepCopy(m1);
+  print(identityHashCode(m1));
+  print(identityHashCode(m2));
+  print(identical(m1, m2));
+}
+
+/* outputs
+21077322
+717773056
+false
+ */
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
