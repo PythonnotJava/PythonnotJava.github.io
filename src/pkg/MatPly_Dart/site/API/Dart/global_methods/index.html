@@ -308,6 +308,43 @@
                 
   
   
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Dart API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Dart API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -506,9 +543,53 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#initmpnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      initMp[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#signalnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signal[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getinstancesnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      getInstances[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#freempnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      freeMp[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -593,6 +674,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#initmpnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      initMp[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#signalnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signal[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getinstancesnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      getInstances[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#freempnew-from-v102" class="md-nav__link">
+    <span class="md-ellipsis">
+      freeMp[new from V1.0.2]
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -619,6 +736,17 @@
 <p>获取矩阵操作中的误差精度</p>
 <h2 id="set_seed">set_seed</h2>
 <p>设置随机种子</p>
+<h2 id="initmpnew-from-v102">initMp[new from V1.0.2]</h2>
+<p>在打算创建矩阵实例之前，可以通过无参数传入声明这是一个开端，此处毫无作用，仅仅为了规范；如果创建了第一个矩阵实例，则可以选择性传入这个矩阵的self值，此值将作为链表的头结点</p>
+<blockquote>
+<p>关于Mp的实现，它的底层是一个简单的链表结构，同时记录存储了多少个Pointer<Pointer\<Matrix>>?（因为创建失败返回空指针的也算）。凡涉及到__new__方法的创建，都会触发Signal信号，添加节点到Mp</p>
+</blockquote>
+<h2 id="signalnew-from-v102">Signal[new from V1.0.2]</h2>
+<p>手动添加新节点，不建议在开发中使用</p>
+<h2 id="getinstancesnew-from-v102">getInstances[new from V1.0.2]</h2>
+<p>获取存储矩阵的self个数，也就是创建了多少个矩阵实例</p>
+<h2 id="freempnew-from-v102">freeMp[new from V1.0.2]</h2>
+<p>统一释放内存，防止内存泄漏</p>
 
 
 
