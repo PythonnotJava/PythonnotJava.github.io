@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>每周汇报</title>
+    <style>
+        .list{
+            font-size: 18px;
+            font-weight: bolder;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function (){
+            let listLinks = document.body.querySelectorAll('a.link');
+            listLinks.forEach(function(link) {
+                link.setAttribute('target', '_blank');
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="block">
+        <ul>
+            <li class="list">
+                第1周（~2024.6.29）：<a href="https://www.robot-shadow.cn/extend/html/gaexa.html" class="link">
+                遗传算法学习与案例</a>
+            </li>
+            <li class="list">
+                第2周（6.29~7.6）：<a href="https://www.robot-shadow.cn/extend/html/gaexa.html" class="link">
+                遗传算法之旅行商问题</a>
+            </li>
+            <li class="list">
+                第3周（7.6~7.20）：<a href="https://www.robot-shadow.cn/extend/html/pytorch-learn.html" class="link">
+                两周的工作——pytorch的学习与工具matply开发汇报</a>
+            </li>
+            <li class="list">
+                第4周（7.20~7.27）：<a href="https://www.robot-shadow.cn/extend/flutter/pso/assets/pso.html" class="link">
+                粒子群算法学习与案例，使用python-numpy与dart-matply两种实现</a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
