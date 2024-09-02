@@ -857,6 +857,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension_csv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSV拓展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1265,6 +1286,8 @@
 <h2 id="_2">默认构造函数</h2>
 <pre><code class="language-text">MatrixType(
   List&lt;List&lt;double&gt;&gt; data, {
+    int? row,
+    int? column,
     bool identityMatrix = false,
     bool principalDiagonalMatrix = false,
     bool subDiagonalMatrix = false,
@@ -1274,7 +1297,10 @@
   })
 </code></pre>
 <blockquote>
-<p>默认构造函数必须传入一个二维数组，并接受指定一些矩阵的特殊性质，对于该特殊性质并未做出任何操作，考虑到一些矩阵的特殊性质——如对角方阵可以以O(n)的复杂度求解行列式值，该性质可以视为做出简易计算的接口。</p>
+<ol>
+<li>默认构造函数必须传入一个二维数组，并接受指定一些矩阵的特殊性质，对于该特殊性质并未做出任何操作，考虑到一些矩阵的特殊性质——如对角方阵可以以O(n)的复杂度求解行列式值，该性质可以视为做出简易计算的接口。</li>
+<li>注：自<strong>V1.0.8</strong>开始，基本构造函数添加了选择性传入形状（如果已知，但必须保证正整数，不做检查），则免去了计算机自动计算形状。</li>
+</ol>
 </blockquote>
 <h3 id="example">example</h3>
 <pre><code class="language-dart">main() {
@@ -1669,10 +1695,11 @@ class _MyHomePageState extends State&lt;MyHomePage&gt; {
 <h3 id="_9">效果如下</h3>
 <p><img alt="possion.png" src="../src/possion.png" /></p>
 <h2 id="c">指向C语言生成矩阵对象指针</h2>
-<pre><code class="language-text">MatrixType.__fromPointer(this.self, this.shape)
+<pre><code class="language-text">MatrixType.fromPointer(this.self, this.shape)
 </code></pre>
 <blockquote>
-<p>Warning ：不建议在Dart使用指针类，因此我设置了此构造函数为私有方法</p>
+<p>注:
+V1.0.8开始，fromPointer从__fromPointer设置为公有方法</p>
 </blockquote>
 <h2 id="_10">工厂构造——深拷贝矩阵</h2>
 <pre><code class="language-text">factory MatrixType.deepCopy(MatrixType other)

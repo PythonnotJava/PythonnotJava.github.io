@@ -239,7 +239,7 @@
         <li class="md-nav__item">
   <a href="#matply_1" class="md-nav__link">
     <span class="md-ellipsis">
-      什么是MatPly？
+      💡什么是MatPly？
     </span>
   </a>
   
@@ -248,7 +248,16 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      网页文档版本
+      💻平台支持
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗网页文档版本
     </span>
   </a>
   
@@ -257,7 +266,25 @@
         <li class="md-nav__item">
   <a href="#github" class="md-nav__link">
     <span class="md-ellipsis">
-      Github地址
+      🔗Github地址
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pub" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗pub仓库
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️Warning
     </span>
   </a>
   
@@ -530,6 +557,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/Dart/extension_csv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSV拓展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -574,7 +622,7 @@
         <li class="md-nav__item">
   <a href="#matply_1" class="md-nav__link">
     <span class="md-ellipsis">
-      什么是MatPly？
+      💡什么是MatPly？
     </span>
   </a>
   
@@ -583,7 +631,16 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      网页文档版本
+      💻平台支持
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗网页文档版本
     </span>
   </a>
   
@@ -592,7 +649,25 @@
         <li class="md-nav__item">
   <a href="#github" class="md-nav__link">
     <span class="md-ellipsis">
-      Github地址
+      🔗Github地址
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pub" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗pub仓库
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️Warning
     </span>
   </a>
   
@@ -621,20 +696,37 @@
 /_/  /_/\__,_/\__/_/   /_/\__, /  
                          /____/   
 </code></pre>
-<h2 id="matply_1">什么是MatPly？</h2>
+<h2 id="matply_1">💡什么是MatPly？</h2>
 <blockquote>
 <p>MatPly是使用C语言实现并被转换为多个语言版本的矩阵操作库<br />
-目前提供的语言以及支持平台的版本有：
-- Windows/Linux/Android平台下Dart语言版本</p>
+MatPly的运行机制如下：
+<img alt="procsee" src="API/Dart/src/process.png" /></p>
 </blockquote>
-<h2 id="_1">网页文档版本</h2>
+<h2 id="_1">💻平台支持</h2>
+<pre>
+✅ Windows       ✅ Linux     ✅ Android     
+❎ Mac           ❎ Web       ❎ IOS
+</pre>
+
+<h2 id="_2">🔗网页文档版本</h2>
 <blockquote>
 <p><a href="https://www.robot-shadow.cn/src/pkg/MatPly_Dart/site/">https://www.robot-shadow.cn/src/pkg/MatPly_Dart/site/</a></p>
 </blockquote>
-<h2 id="github">Github地址</h2>
+<h2 id="github">🔗Github地址</h2>
 <blockquote>
 <p><a href="https://github.com/PythonnotJava/MatPly">https://github.com/PythonnotJava/MatPly</a></p>
 </blockquote>
+<h2 id="pub">🔗pub仓库</h2>
+<blockquote>
+<p><a href="https://pub.dev/packages/matply">https://pub.dev/packages/matply</a></p>
+</blockquote>
+<h2 id="warning">⚠️Warning</h2>
+<p style="text-indent: 20pt;font-weight: lighter">
+Matply在调用C API时采用的dll文件，
+由源代码使用Path从pub下载源寻找dll的绝对路径，
+然而，在实际开发的时候，如Flutter编译生成可执行文件到别的客户端环境。
+是会发生dll查找失败的问题，这时您需要从MatPly的源代码（默认是C:\Users\USERNAME\AppData\Local\Pub\Cache\hosted）中将依赖的dll复制到您的资源文件夹中。重新赋值路径到pubCacheDir即可。
+</p>
 
 
 
