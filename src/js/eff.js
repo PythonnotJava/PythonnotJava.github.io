@@ -1,17 +1,23 @@
 // 博客列表数据
 const blogList = [
     {
-        title: '一些typing内置类型',
-        content: '更注重于安全性、可维护性等特性的内置类型',
-        icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
-        link: '../../h5/effpy/typing的一些类型.html'
-    },
-    {
         title: '高效的Python1',
         content: 'dataclass装饰器、contextmanager上下文管理器、type动态类创建',
         icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
         link: '../../h5/effpy/EfficientPython1.html'
-    }
+    },
+    {
+        title: '高效的Python2',
+        content: '更注重于安全性、可维护性等特性的内置类型',
+        icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
+        link: '../../h5/effpy/EfficientPython2.html'
+    },
+    {
+        title: '高效的Python3',
+        content: '尤其针对3.12版本做出的更新进行学习',
+        icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
+        link: '../../h5/effpy/EfficientPython3.html'
+    },
 ];
 
 const blogListContainer= document.getElementById('blogListContainer');
