@@ -1,0 +1,1 @@
+yolo pose predict model=yolov8n-pose.pt source=a.jpg

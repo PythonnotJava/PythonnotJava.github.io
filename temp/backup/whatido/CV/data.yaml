@@ -1,0 +1,4 @@
+train: C:/Users/25654/Desktop/whatido/CV/metrain # 训练集路径
+val: C:/Users/25654/Desktop/whatido/CV/mecheck    # 验证集路径
+nc: 1             # 类别数量
+names: ['mxc']     # 类别名称
