@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
       
       
 
@@ -546,36 +546,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initmpnew-from-v102" class="md-nav__link">
+  <a href="#initmp" class="md-nav__link">
     <span class="md-ellipsis">
-      initMp[new from V1.0.2]
+      initMp
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#signalnew-from-v102" class="md-nav__link">
+  <a href="#signal" class="md-nav__link">
     <span class="md-ellipsis">
-      Signal[new from V1.0.2]
+      Signal
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#getinstancesnew-from-v102" class="md-nav__link">
+  <a href="#getinstances" class="md-nav__link">
     <span class="md-ellipsis">
-      getInstances[new from V1.0.2]
+      getInstances
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#freempnew-from-v102" class="md-nav__link">
+  <a href="#freemp" class="md-nav__link">
     <span class="md-ellipsis">
-      freeMp[new from V1.0.2]
+      freeMp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set_mult_randnew-from-v109" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_mult_rand[new from V1.0.9]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_mult_randnew-from-v109" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_mult_rand[new from V1.0.9]
     </span>
   </a>
   
@@ -602,6 +620,27 @@
   
   <span class="md-ellipsis">
     CSV拓展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension_geometry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    几何模拟
   </span>
   
 
@@ -698,36 +737,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initmpnew-from-v102" class="md-nav__link">
+  <a href="#initmp" class="md-nav__link">
     <span class="md-ellipsis">
-      initMp[new from V1.0.2]
+      initMp
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#signalnew-from-v102" class="md-nav__link">
+  <a href="#signal" class="md-nav__link">
     <span class="md-ellipsis">
-      Signal[new from V1.0.2]
+      Signal
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#getinstancesnew-from-v102" class="md-nav__link">
+  <a href="#getinstances" class="md-nav__link">
     <span class="md-ellipsis">
-      getInstances[new from V1.0.2]
+      getInstances
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#freempnew-from-v102" class="md-nav__link">
+  <a href="#freemp" class="md-nav__link">
     <span class="md-ellipsis">
-      freeMp[new from V1.0.2]
+      freeMp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set_mult_randnew-from-v109" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_mult_rand[new from V1.0.9]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_mult_randnew-from-v109" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_mult_rand[new from V1.0.9]
     </span>
   </a>
   
@@ -759,21 +816,28 @@
 <p>获取矩阵操作中的误差精度</p>
 <h2 id="set_seed">set_seed</h2>
 <p>设置随机种子</p>
-<h2 id="initmpnew-from-v102">initMp[new from V1.0.2]</h2>
+<h2 id="initmp">initMp</h2>
 <p>在打算创建矩阵实例之前，可以通过无参数传入声明这是一个开端，此处毫无作用，仅仅为了规范；如果创建了第一个矩阵实例，则可以选择性传入这个矩阵的self值，此值将作为链表的头结点</p>
 <blockquote>
 <p>关于Mp的实现，它的底层是一个简单的链表结构，同时记录存储了多少个<code>Pointer&lt;Pointer&lt;Matrix&gt;&gt;?</code>（因为创建失败返回空指针的也算）。凡涉及到__new__方法的创建，都会触发Signal信号，添加节点到Mp</p>
 </blockquote>
-<h2 id="signalnew-from-v102">Signal[new from V1.0.2]</h2>
+<h2 id="signal">Signal</h2>
 <p>手动添加新节点，不建议在开发中使用</p>
-<h2 id="getinstancesnew-from-v102">getInstances[new from V1.0.2]</h2>
+<h2 id="getinstances">getInstances</h2>
 <p>获取存储矩阵的self个数，也就是创建了多少个矩阵实例</p>
-<h2 id="freempnew-from-v102">freeMp[new from V1.0.2]</h2>
+<h2 id="freemp">freeMp</h2>
 <p>统一释放内存，防止内存泄漏</p>
 <blockquote>
 <p>[new from V1.0.8]
 * 添加了地址进制指定，hex为true打印十六进制地址否则打印十进制地址。另外从</p>
 </blockquote>
+<h2 id="set_mult_randnew-from-v109">set_mult_rand[new from V1.0.9]</h2>
+<p>当开启多线程的时候，为了保护线程安全，C底层采用rand_s/rand_r来获取伪随机数，默认开启</p>
+<blockquote>
+<p>注：自1.0.9版本开始，如果一个随机模拟方法多次调用，一定要使用多线程安全；如果一个随机模拟方法只调用了一次，可以选择使用单线程模式</p>
+</blockquote>
+<h2 id="get_mult_randnew-from-v109">get_mult_rand[new from V1.0.9]</h2>
+<p>获取是否设置了使用多线程随机数</p>
 
 
 
