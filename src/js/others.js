@@ -36,6 +36,12 @@
         icon: 'https://img.quanxiaoha.com/quanxiaoha/164839133079354',
         link: '../../h5/other/自定义Flutter的构建.html'
       },
+      {
+        title: 'C#入门笔记',
+        content: 'C#入门笔记，基于.net 8.0',
+        icon: 'https://th.bing.com/th?id=OSK.GhOfIXkD4m2VC8BFLppZ1d0-SeI8Fj5pLmObRQzFIyY&w=102&h=102&c=7&o=6&dpr=1.3&pid=SANGAM',
+        link: '../../h5/other/C#入门笔记.html'
+      },
     ];
 
     const blogListContainer= document.getElementById('blogListContainer');
