@@ -14,11 +14,11 @@
         <link rel="prev" href="../..">
       
       
-        <link rel="next" href="../../API/Dart/">
+        <link rel="next" href="../plan/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
       
       
 
@@ -304,10 +304,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#matply-v110" class="md-nav__link">
+    <span class="md-ellipsis">
+      [🎉] Matply V1.1.0即将推出
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计划
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../omp_design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    omp设计
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -418,11 +469,53 @@
   
   
     <li class="md-nav__item">
+      <a href="../../API/Dart/global_methods/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    全局设置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../API/Dart/constructor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     构造函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API/Dart/operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    重载操作
   </span>
   
 
@@ -481,32 +574,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API/Dart/operators/" class="md-nav__link">
+      <a href="../../API/Dart/extension_geometry/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    重载操作
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../API/Dart/global_methods/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    全局设置
+    几何模拟
   </span>
   
 
@@ -528,27 +600,6 @@
   
   <span class="md-ellipsis">
     CSV拓展
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../API/Dart/extension_geometry/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    几何模拟
   </span>
   
 
@@ -608,6 +659,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#matply-v110" class="md-nav__link">
+    <span class="md-ellipsis">
+      [🎉] Matply V1.1.0即将推出
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -626,6 +686,17 @@
 <h1 id="_1">支持的语言与平台一览</h1>
 <h2 id="dart-on-windowslinuxandroid"><a href="../../API/Dart/">Dart on Windows/Linux/Android</a></h2>
 <p><img alt="process" src="../../API/Dart/src/process.png" /></p>
+<h2 id="matply-v110">[🎉] Matply V1.1.0即将推出</h2>
+<p style="text-indent: 2em">
+2024.12.15日，我已对Matply的C底层尽可能的实现基于Openmp的优化，并修复了部分已知和遇到的bug；另外，添加了部分的实用方法（具体见文档）。经过这次底层优化和测试的经验，我决定在不久实现一个原生的Dart's Matply，顺便可以解决全平台的问题。以下是重大的底层改变。
+</p>
+
+<ul>
+<li>移除设置单线程/多线程的方法，底层默认是多线程随机数生成函数，不需要担心线程冲突。</li>
+<li>C+Openmp自动优化模式。</li>
+<li>原生的异步模式解决底层函数回调的未优化问题</li>
+</ul>
+<p><a href="../../API/Dart/">下一篇：如何构建Dart版本的API</a></p>
 
 
 

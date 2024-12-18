@@ -11,14 +11,14 @@
         <link rel="canonical" href="https://github.com/PythonnotJava/MatPly/API/Dart/">
       
       
-        <link rel="prev" href="../../Guide/getting-started/">
+        <link rel="prev" href="../../Guide/omp_design/">
       
       
-        <link rel="next" href="constructor/">
+        <link rel="next" href="global_methods/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
       
       
 
@@ -262,6 +262,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Guide/plan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计划
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Guide/omp_design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    omp设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -420,11 +462,53 @@
   
   
     <li class="md-nav__item">
+      <a href="global_methods/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    全局设置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="constructor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     构造函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    重载操作
   </span>
   
 
@@ -483,32 +567,11 @@
   
   
     <li class="md-nav__item">
-      <a href="operators/" class="md-nav__link">
+      <a href="extension_geometry/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    重载操作
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="global_methods/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    全局设置
+    几何模拟
   </span>
   
 
@@ -530,27 +593,6 @@
   
   <span class="md-ellipsis">
     CSV拓展
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="extension_geometry/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    几何模拟
   </span>
   
 
@@ -634,29 +676,30 @@
 <p>对矩阵的一系列操作，完全使用C语言实现，而在Dart中，只需要在封装功能时做好错误检查即可。</p>
 <p>常量系列，完全采用C原生Math库中的常量，而且解析到Dart中，是完全支持Dart的语法分析的，如下案例</p>
 </blockquote>
-<pre><code class="language-dart">import 'lib/matply.dart';
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="s1">&#39;lib/matply.dart&#39;</span><span class="p">;</span>
 
-/// Constant tests
-main(){
-  print(e);
-  print(Pi);
-  print(nan.isNaN);
-  print(inf.isInfinite);
-  print(negativeinf.isNegative);
-  print(e * inf);
-  print(euler);  // [new from V1.0.8]
-}
+<span class="c1">/// Constant tests</span>
+<span class="n">main</span><span class="p">(){</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">Pi</span><span class="p">);</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">nan</span><span class="p">.</span><span class="n">isNaN</span><span class="p">);</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">inf</span><span class="p">.</span><span class="n">isInfinite</span><span class="p">);</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">negativeinf</span><span class="p">.</span><span class="n">isNegative</span><span class="p">);</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inf</span><span class="p">);</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">euler</span><span class="p">);</span><span class="w"> </span>
+<span class="p">}</span>
 
-/* outputs : 
-2.718281828459045
-3.141592653589793
-true
-true
-true
-Infinity
-0.5772156649015329
-* */
-</code></pre>
+<span class="cm">/* outputs : </span>
+<span class="cm">2.718281828459045</span>
+<span class="cm">3.141592653589793</span>
+<span class="cm">true</span>
+<span class="cm">true</span>
+<span class="cm">true</span>
+<span class="cm">Infinity</span>
+<span class="cm">0.5772156649015329</span>
+<span class="cm">* */</span>
+</code></pre></div>
+<p><a href="global_methods/">下一篇：对矩阵的全局设置</a></p>
 
 
 

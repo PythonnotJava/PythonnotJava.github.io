@@ -18,7 +18,7 @@ main(){
   print(inf.isInfinite);
   print(negativeinf.isNegative);
   print(e * inf);
-  print(euler);  // [new from V1.0.8]
+  print(euler); 
 }
 
 /* outputs : 
@@ -32,3 +32,4 @@ Infinity
 * */
 ```
 
+[下一篇：对矩阵的全局设置](global_methods.md)

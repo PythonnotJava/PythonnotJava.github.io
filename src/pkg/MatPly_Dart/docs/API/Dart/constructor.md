@@ -67,7 +67,7 @@ main() {
  */
 ```
 
-## 全零矩阵与全一矩阵
+## 全 0 / 1 矩阵
 ```text
 MatrixType.zeros({
     required int row,
@@ -523,7 +523,7 @@ main(){
 * */
 ```
 
-## 获取对称对角阵，设置sub为true得到副对角线对称阵[new from V1.0.7]
+## 获取对称对角阵，设置sub为true得到副对角线对称阵
 ```text
  MatrixType.Diag({
     required int n,
@@ -563,7 +563,7 @@ output
 * */
 ```
 
-## 指数分布[new from V1.0.9]
+## 指数分布
 ```text
 MatrixType.exponential({
     required int row,
@@ -594,7 +594,7 @@ Free Memory in location : 3044701056
  */
 ```
 
-## 伽马分布[new from V1.0.9]
+## 伽马分布
 ```text
  MatrixType.gamma({
     required int row,
@@ -626,7 +626,7 @@ Free Memory in location : 000001efb2bb7380
  */
 ```
 
-## 二项分布（伯努利分布）[new from V1.0.9]
+## 二项分布（伯努利分布）
 ```text
 MatrixType.binomial({
     required int row,
@@ -657,7 +657,7 @@ Free Memory in location : 000002069dfb7300
  */
 ```
 
-## 卡方分布[new from V1.0.9]
+## 卡方分布
 ```text
 MatrixType.chisquare({
     required int row,
@@ -702,7 +702,7 @@ Free Memory in location : 00000224f20d7380
  */
 ```
 
-## t分布[new from V1.0.9]
+## t分布
 ```text
 MatrixType.tdis({
     required int row,
@@ -731,7 +731,7 @@ main(){
 Free Memory in location : 000002ad7b887380
  */
 ```
-## F分布[new from V1.0.9]
+## F分布
 ```text
 MatrixType.fdis({
     required int row,
@@ -762,7 +762,7 @@ Free Memory in location : 000002c26e167380
  */
 ```
 
-## 几何分布[new from V1.0.9]
+## 几何分布
 ```text
 MatrixType.geometric({
     required int row,
@@ -792,7 +792,7 @@ Free Memory in location : 000001e2e1977380
  */
 ```
 
-## 负二项分布[new from V1.0.9]
+## 负二项分布
 ```text
 MatrixType.nbinomial({
     required int row,
@@ -823,7 +823,7 @@ Free Memory in location : 0000023d8ca17380
  */
 ```
 
-## 对数正态分布[new from V1.0.9]
+## 对数正态分布
 ```text
 MatrixType.lognormal({
     required int row,
@@ -860,7 +860,7 @@ Free Memory in location : 00000146475573a0
  */
 ```
 
-## 柯西分布[new from V1.0.9]
+## 柯西分布
 ```text
 MatrixType.cauchydis({
     required int row,
@@ -891,7 +891,7 @@ Free Memory in location : 000001e62cd87380
  */
 ```
 
-## 多项式分布[new from V1.0.9]
+## 多项式分布
 ```text
 MatrixType.multinomial({
     required List<double> p,
@@ -922,7 +922,7 @@ Free Memory in location : 00000276fd067320
  */
 ```
 
-## 贝塔分布[new from V1.0.9]
+## 贝塔分布
 ```text
 MatrixType.beta({
     required int row,
@@ -953,7 +953,7 @@ Free Memory in location : 000001dd73d47300
  */
 ```
 
-## 维纳过程[new from V1.0.9]
+## 维纳过程
 ```text
 MatrixType.wiener_process({
     required int row,
@@ -987,7 +987,7 @@ Free Memory in location : 0000028f4ab81da0
  */
 ```
 
-## 维纳过程某时间戳[new from V1.0.9]
+## 维纳过程某时间戳
 ```text
 MatrixType.wiener_process_stage({
     required int row,
@@ -1019,7 +1019,7 @@ Free Memory in location : 000001e34b087350
  */
 ```
 
-## 狄利克雷分布[new from V1.0.9]
+## 狄利克雷分布
 ```text
 MatrixType.dirichlet({
     required List<num> alpha,
@@ -1049,7 +1049,7 @@ Free Memory in location : 0000019b3a2f7040
  */
 ```
 
-## 拉普拉斯分布[new from V1.0.9]
+## 拉普拉斯分布
 ```text
 MatrixType.laplacedis({
     required int row,
@@ -1080,7 +1080,7 @@ Free Memory in location : 0000023bc58b7300
  */
 ```
 
-## 耿贝尔分布[new from V1.0.9]
+## 耿贝尔分布
 ```text
 MatrixType.gumbel({
     required int row,
@@ -1111,7 +1111,7 @@ Free Memory in location : 0000021ce0bd1d80
  */
 ```
 
-## 超几何分布[new from V1.0.9]
+## 超几何分布
 ```text
 MatrixType.hypergeometric({
     required int row,
@@ -1143,7 +1143,7 @@ Free Memory in location : 000001d91f5c7300
  */
 ```
 
-## 对数级数分布[new from V1.0.9]
+## 对数级数分布
 ```text
 MatrixType.logseries({
     required int row,
@@ -1173,7 +1173,7 @@ Free Memory in location : 00000188144a7300
  */
 ```
 
-## 韦伯分布[new from V1.0.9]
+## 韦伯分布
 ```text
 MatrixType.weibull({
     required int row,
@@ -1204,7 +1204,7 @@ Free Memory in location : 000001bf5b3a1d80
  */
 ```
 
-## 三角分布[new from V1.0.9]
+## 三角分布
 ```text
 MatrixType.triangular({
     required int row,
@@ -1236,7 +1236,7 @@ Free Memory in location : 000001ca14a87300
  */
 ```
 
-## 幂定律分布[new from V1.0.9]
+## 幂定律分布
 ```text
 MatrixType.power_law({
     required int row,
@@ -1267,7 +1267,7 @@ Free Memory in location : 000002bf4a287300
  */
 ```
 
-## 瑞利分布[new from V1.0.9]
+## 瑞利分布
 ```text
 MatrixType.rayleigh({
     required int row,
@@ -1297,7 +1297,7 @@ Free Memory in location : 000002246e4b7300
  */
 ```
 
-## 稳定分布[new from V1.0.9]
+## 稳定分布
 ```text
 MatrixType.stabledis({
     required int row,
@@ -1330,7 +1330,7 @@ Free Memory in location : 0000029729597350
  */
 ```
 
-## 帕累托分布[new from V1.0.9]
+## 帕累托分布
 ```text
 MatrixType.pareto({
     required int row,
@@ -1361,7 +1361,7 @@ Free Memory in location : 00000142854c7300
  */
 ```
 
-## [new from V1.0.9]
+## 
 ```text
 MatrixType.rice({
     required int row,
@@ -1392,7 +1392,7 @@ Free Memory in location : 0000022585957350
  */
 ```
 
-## 逆高斯分布[new from V1.0.9]
+## 逆高斯分布
 ```text
 MatrixType.wald({
     required int row,
@@ -1423,12 +1423,4 @@ Free Memory in location : 000002f0d1f97350
  */
 ```
 
-## [new from V1.0.9]
-```text
-
-```
-
-### example
-```dart
-
-```
+[下一篇：重载操作符](operators.md)

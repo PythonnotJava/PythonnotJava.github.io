@@ -57,14 +57,18 @@ set singularMatrix(bool value) => this.self.ref.spc.ref.singularMatrix = value;
 
 ## 数学工具封装的属性
 ```text
-acos\asin\atan\cos\sin\tan\cosh\sinh\tanh\exp\log\log10\sqrt\ceil\fabs
+acos\asin\atan\cos\sin\tan\cosh\sinh\tanh\exp\log\log10\sqrt\ceil\fabs\degrees  
+
+[new from V1.1.0]
+degrees：数值转为角度
 ```
 
-在利用这些数学方法来处理矩阵中*正负无穷大*和*nan*数据时，可以使用*setMask*来处理这些数据的值变换，但这也会修改矩阵！因此，你可以采用矩阵深拷贝避免。
+> 备注：在利用这些数学方法来处理矩阵中*正负无穷大*和*nan*数据时，可以使用*setMask*来处理这些数据的值变换，但这也会修改矩阵！因此，你可以采用矩阵深拷贝避免。
 
-## deepcopy[new from V1.0.8]
+## deepcopy
 提供实例的深拷贝方法
 
+## At[new from V1.1.0]
+快速修改某单元数据，传入的是一个三元素的记录类型，分别表示：row索引、column索引、值
 
-
-
+[下一篇：几何数据模拟](extension_geometry.md)

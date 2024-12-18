@@ -11,14 +11,12 @@
         <link rel="canonical" href="https://github.com/PythonnotJava/MatPly/API/Dart/extension_csv/">
       
       
-        <link rel="prev" href="../global_methods/">
+        <link rel="prev" href="../extension_geometry/">
       
-      
-        <link rel="next" href="../extension_geometry/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
     
     
       
@@ -26,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
       
       
 
@@ -64,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#csvnew-from-v108" class="md-skip">
+        <a href="#csv" class="md-skip">
           Skip to content
         </a>
       
@@ -262,6 +260,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Guide/plan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计划
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Guide/omp_design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    omp设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -371,11 +411,53 @@
   
   
     <li class="md-nav__item">
+      <a href="../global_methods/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    全局设置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../constructor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     构造函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    重载操作
   </span>
   
 
@@ -434,32 +516,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../operators/" class="md-nav__link">
+      <a href="../extension_geometry/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    重载操作
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../global_methods/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    全局设置
+    几何模拟
   </span>
   
 
@@ -548,27 +609,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../extension_geometry/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    几何模拟
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -643,20 +683,20 @@
                   
 
 
-<h1 id="csvnew-from-v108">CSV读取器[new from V1.0.8]</h1>
+<h1 id="csv">CSV读取器</h1>
 <h2 id="properties">properties</h2>
-<pre><code class="language-text">late final String path;  文件路径
+<div class="highlight"><pre><span></span><code>late final String path;  文件路径
 List&lt;String&gt;? rowLabels;  行标签
 List&lt;String&gt;? colLabels;  列标签
 List&lt;int&gt;? shape;  形状（包含行标签）
 List&lt;List&lt;String&gt;&gt;? content;  初始读取的字符串数据
 List&lt;List&lt;double&gt;&gt;? data;  转换字符串数据到数字型数据
-</code></pre>
+</code></pre></div>
 <h2 id="methods">methods</h2>
-<pre><code class="language-text">CSVReader(this.path)
+<div class="highlight"><pre><span></span><code>CSVReader(this.path)
 在构造时传入文件路径且必须保证文件路径存在
-</code></pre>
-<pre><code class="language-text">Future&lt;void&gt; read_csv_async({
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Future&lt;void&gt; read_csv_async({
     bool first_col_is_labels = true,
     String loss_column_label = &quot;Unnamed&quot;,
     Encoding encoding = utf8
@@ -669,14 +709,14 @@ void read_csv_sync({
 }) 
 异/同步读取方法。三个参数分别是第一列是否是列标签、在第一列不是标签的情况下替换方案、读取时编码格式。  
 只有调用了read_csv_async或者read_csv_sync才能写入到rowLabels、colLabels、shape以及content
-</code></pre>
-<pre><code class="language-text">Future&lt;List&lt;List&lt;double&gt;&gt;&gt; convertToNumberAsync({double replace = double.nan})
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Future&lt;List&lt;List&lt;double&gt;&gt;&gt; convertToNumberAsync({double replace = double.nan})
 
 List&lt;List&lt;double&gt;&gt; convertToNumberSync({double replace = double.nan})
 将content属性转换生成data数据的方法，当数据不是数字型数据，可以使用replace替换
-</code></pre>
+</code></pre></div>
 <h1 id="matrixtype">MatrixType拓展</h1>
-<pre><code class="language-text">static Future&lt;MatrixType&gt; read_csv_async(
+<div class="highlight"><pre><span></span><code>static Future&lt;MatrixType&gt; read_csv_async(
     String path, {
     bool first_col_is_labels = true,
     String loss_column_label = &quot;Unnamed&quot;,
@@ -691,7 +731,7 @@ static MatrixType read_csv_sync(
     double replace = double.nan
 })
 注意：生成的MatrixType保留了第一行是行标签的替换（一般是NaN、NaN……）。
-</code></pre>
+</code></pre></div>
 
 
 

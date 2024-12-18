@@ -1,4 +1,4 @@
-# CSV读取器[new from V1.0.8]
+# CSV读取器
 
 ## properties
 ```text
