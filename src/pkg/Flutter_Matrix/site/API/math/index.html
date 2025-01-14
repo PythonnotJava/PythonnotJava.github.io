@@ -1,0 +1,2005 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/PythonnotJava/flutter_matrix/API/math/">
+      
+      
+        <link rel="prev" href="../functools/">
+      
+      
+        <link rel="next" href="../random/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>纯数学工具 - Flutter_Matrix Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Flutter_Matrix Docs" class="md-header__button md-logo" aria-label="Flutter_Matrix Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Flutter_Matrix Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              纯数学工具
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Flutter_Matrix Docs" class="md-nav__button md-logo" aria-label="Flutter_Matrix Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Flutter_Matrix Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../define/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    类型定义和构建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basement/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基础操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auxiliary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    辅助
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    函数工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    纯数学工具
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    纯数学工具
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+    <span class="md-ellipsis">
+      min
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="min">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+    <span class="md-ellipsis">
+      max
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="max">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#argmin" class="md-nav__link">
+    <span class="md-ellipsis">
+      argmin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="argmin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#argmin_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      argmin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="argmin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_range" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_range
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get_range">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sum" class="md-nav__link">
+    <span class="md-ellipsis">
+      sum
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础数学函数集合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础数学函数集合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      power
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="power">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atan2" class="md-nav__link">
+    <span class="md-ellipsis">
+      atan2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="atan2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      diff
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dft_complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      dft_complex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dft_complex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fft_complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      fft_complex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fft_complex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dft" class="md-nav__link">
+    <span class="md-ellipsis">
+      dft
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dft">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linalg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    复数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    可视化处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+    <span class="md-ellipsis">
+      min
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="min">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+    <span class="md-ellipsis">
+      max
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="max">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#argmin" class="md-nav__link">
+    <span class="md-ellipsis">
+      argmin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="argmin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#argmin_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      argmin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="argmin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_range" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_range
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get_range">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sum" class="md-nav__link">
+    <span class="md-ellipsis">
+      sum
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础数学函数集合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础数学函数集合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      power
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="power">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atan2" class="md-nav__link">
+    <span class="md-ellipsis">
+      atan2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="atan2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      diff
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dft_complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      dft_complex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dft_complex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fft_complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      fft_complex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fft_complex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dft" class="md-nav__link">
+    <span class="md-ellipsis">
+      dft
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dft">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">纯数学工具</h1>
+<h2 id="min">min</h2>
+<blockquote>
+<p>Object min({int dim = -1})</p>
+<p>获取最小值<br />
+注意：double.nan也会参与到比较中，因此要提前处理，很多操作都需注意</p>
+</blockquote>
+<h3 id="test">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.1f&quot;;
+  List&lt;List&lt;double&gt;&gt; data = [
+    [4, 1, 0, 9],
+    [0, 3, -double.infinity, 9],
+    [5, 6, 3, double.nan],
+    [1, 2, 3, double.infinity],
+  ];
+  var mt = Matrix.fromList(data);
+  print(mt.min(dim: 0));
+  print(mt.min(dim: 1));
+  print(mt.min(dim: 11));
+}
+</code></pre></div>
+<h3 id="output">output</h3>
+<div class="highlight"><pre><span></span><code>[0.0, -Infinity, NaN, 1.0]
+[0.0, 1.0, -Infinity, NaN]
+NaN
+</code></pre></div>
+<h2 id="max">max</h2>
+<blockquote>
+<p>Object max({int dim = -1})</p>
+<p>获取最小值</p>
+</blockquote>
+<h3 id="test_1">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.1f&quot;;
+  List&lt;List&lt;double&gt;&gt; data = [
+    [4, 1, 0, 9],
+    [0, 3, double.infinity, 9],
+    [5, 6, 3, double.nan],
+    [1, 2, 3, -double.infinity],
+  ];
+  var mt = Matrix.fromList(data);
+  print(mt.max(dim: 0));
+  print(mt.max(dim: 1));
+  print(mt.max(dim: 11));
+}
+</code></pre></div>
+<h3 id="output_1">output</h3>
+<div class="highlight"><pre><span></span><code>[9.0, Infinity, NaN, 3.0]
+[5.0, 6.0, Infinity, NaN]
+NaN
+</code></pre></div>
+<h2 id="argmin">argmin</h2>
+<blockquote>
+<p>Object argmin({int dim = -1})</p>
+<p>获取最小值索引，如果多个相同，只返回第一个</p>
+</blockquote>
+<h3 id="test_2">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.1f&quot;;
+  List&lt;List&lt;double&gt;&gt; data = [
+    [4, 1, 0, 9],
+    [0, 3, -double.infinity, 9],
+    [5, 6, 3, -32],
+    [1, 2, 3, -double.infinity],
+  ];
+  var mt = Matrix.fromList(data);
+  print(mt.argmin(dim: 0));
+  print(mt.argmin(dim: 1));
+  print(mt.argmin(dim: 11));
+}
+</code></pre></div>
+<h3 id="output_2">output</h3>
+<div class="highlight"><pre><span></span><code>[2, 2, 3, 3]
+[1, 0, 1, 3]
+6
+</code></pre></div>
+<h2 id="argmin_1">argmin</h2>
+<blockquote>
+<p>Object argmin({int dim = -1})</p>
+<p>获取最大值索引，如果多个相同，只返回第一个</p>
+</blockquote>
+<h3 id="test_3">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.1f&quot;;
+  List&lt;List&lt;double&gt;&gt; data = [
+    [4, 1, 0, 9],
+    [0, 3, -double.infinity, 9],
+    [5, 6, 3, -32],
+    [1, 2, 3, -double.infinity],
+  ];
+  var mt = Matrix.fromList(data);
+  print(mt.argmax(dim: 0));
+  print(mt.argmax(dim: 1));
+  print(mt.argmax(dim: 11));
+}
+</code></pre></div>
+<h3 id="output_3">output</h3>
+<div class="highlight"><pre><span></span><code>[3, 3, 1, 2]
+[2, 2, 2, 0]
+3
+</code></pre></div>
+<h2 id="get_range">get_range</h2>
+<blockquote>
+<p>Object get_range({int dim = -1})</p>
+<p>获取数据范围</p>
+</blockquote>
+<h3 id="test_4">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.1f&quot;;
+  List&lt;List&lt;double&gt;&gt; data = [
+    [4, 1, 0, 9],
+    [0, 3, -double.infinity, 9],
+    [5, 6, 3, -32],
+    [1, 2, 3, -double.infinity],
+  ];
+  var mt = Matrix.fromList(data);
+  print(mt.get_range(dim: 0));
+  print(mt.get_range(dim: 1));
+  print(mt.get_range(dim: 11));
+}
+</code></pre></div>
+<h3 id="output_4">output</h3>
+<div class="highlight"><pre><span></span><code>[[0.0, 9.0], [-Infinity, 9.0], [-32.0, 6.0], [-Infinity, 3.0]]
+[[0.0, 5.0], [1.0, 6.0], [-Infinity, 3.0], [-Infinity, 9.0]]
+[-Infinity, 9.0]
+</code></pre></div>
+<h2 id="sum">sum</h2>
+<blockquote>
+<p>Object sum({int dim = -1})</p>
+<p>数据求和</p>
+</blockquote>
+<h3 id="test_5">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.1f&quot;;
+  List&lt;List&lt;double&gt;&gt; data = [
+    [4, 1, 0, 9],
+    [0, 3, -double.infinity, 9],
+    [5, 6, 3, -32],
+    [1, 2, 3, -double.infinity],
+  ];
+  var mt = Matrix.fromList(data);
+  print(mt.sum(dim: 0));
+  print(mt.sum(dim: 1));
+  mt.setMask(nag_inf_mask: 0);
+  print(mt.sum(dim: 11));
+}
+</code></pre></div>
+<h3 id="output_5">output</h3>
+<div class="highlight"><pre><span></span><code>[14.0, -Infinity, -18.0, -Infinity]
+[10.0, 12.0, -Infinity, -Infinity]
+14.0
+</code></pre></div>
+<h2 id="_2">基础数学函数集合</h2>
+<div class="highlight"><pre><span></span><code>Matrix get sin =&gt; _math_basement_single_realize(0);  // 正弦函数
+Matrix get cos =&gt; _math_basement_single_realize(1);  // 余弦函数
+Matrix get tan =&gt; _math_basement_single_realize(2);  // 正切函数
+Matrix get asin =&gt; _math_basement_single_realize(3);  // 反正弦函数
+Matrix get acos =&gt; _math_basement_single_realize(4);  // 反余弦函数
+Matrix get atan =&gt; _math_basement_single_realize(5);  // 反正切函数
+Matrix get sinh =&gt; _math_basement_single_realize(6);  // 双曲正弦函数
+Matrix get cosh =&gt; _math_basement_single_realize(7);  // 双曲余弦函数
+Matrix get tanh =&gt; _math_basement_single_realize(8);  // 双曲正切函数
+Matrix get asinh =&gt; _math_basement_single_realize(9);  // 反双曲正弦函数
+Matrix get acosh =&gt; _math_basement_single_realize(10);  // 反双曲余弦函数
+Matrix get atanh =&gt; _math_basement_single_realize(11);  // 反双曲正切函数
+Matrix get exp =&gt; _math_basement_single_realize(12);  // e^(x)
+Matrix get log =&gt; _math_basement_single_realize(13);  // ln(x)
+Matrix get sqrt =&gt; _math_basement_single_realize(14);  // 二次开根
+Matrix get log10 =&gt; _math_basement_single_realize(15);  // 以10为底数的对数函数
+Matrix get square =&gt; _math_basement_single_realize(16);  // 平方
+Matrix get cube =&gt; _math_basement_single_realize(17);  // 三次方
+Matrix get abs =&gt; _math_basement_single_realize(18);  // 绝对值
+Matrix get ceil =&gt; _math_basement_single_realize(19);  // 向上取整
+Matrix get floor =&gt; _math_basement_single_realize(20);  // 向下取整
+Matrix get round =&gt; _math_basement_single_realize(21);  // 四舍五入函数
+Matrix get degree =&gt; _math_basement_single_realize(22);  // 弧度转角度
+Matrix get radian =&gt; _math_basement_single_realize(23);  // 角度转弧度
+</code></pre></div>
+<h3 id="test_6">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;dart:math&#39;;
+
+import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%3.5f&quot;;
+  Matrix matrix = Matrix([
+    [0.0, pi / 2, pi],
+    [-pi / 4, -1.0, 1.0],
+    [2.0, -2.0, 0.5]
+  ]);
+  print(&#39;----------------------------------------&#39;);
+  matrix.visible(start_point: &#39;Original Matrix&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.sin.visible(start_point: &#39;func &quot;sin&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.cos.visible(start_point: &#39;func &quot;cos&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  // 注意，这里有一个计算精度不足引起的意外值，tan(pi / 2)
+  matrix.tan.visible(start_point: &#39;func &quot;tan&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.asin.visible(start_point: &#39;func &quot;asin&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.acos.visible(start_point: &#39;func &quot;acos&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.atan.visible(start_point: &#39;func &quot;atan&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.sinh.visible(start_point: &#39;func &quot;sinh&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.cosh.visible(start_point: &#39;func &quot;cosh&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.tanh.visible(start_point: &#39;func &quot;tanh&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.asinh.visible(start_point: &#39;func &quot;asinh&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.acosh.visible(start_point: &#39;func &quot;acosh&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.atanh.visible(start_point: &#39;func &quot;atanh&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.exp.visible(start_point: &#39;func &quot;exp&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.log.visible(start_point: &#39;func &quot;log (ln)&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.sqrt.visible(start_point: &#39;func &quot;sqrt&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.log10.visible(start_point: &#39;func &quot;log10&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.square.visible(start_point: &#39;func &quot;square&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.cube.visible(start_point: &#39;func &quot;cube&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.abs.visible(start_point: &#39;func &quot;abs&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.ceil.visible(start_point: &#39;func &quot;ceil&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.floor.visible(start_point: &#39;func &quot;floor&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.round.visible(start_point: &#39;func &quot;round&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.degree.visible(start_point: &#39;func &quot;degree&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+  matrix.radian.visible(start_point: &#39;func &quot;radian&quot;&#39;, end_point: &#39;----------------------------------------&#39;);
+}
+</code></pre></div>
+<h3 id="output_6">output</h3>
+<div class="highlight"><pre><span></span><code>----------------------------------------
+Original Matrix
+[
+ [  0.00000   1.57080   3.14159]
+ [ -0.78540  -1.00000   1.00000]
+ [  2.00000  -2.00000   0.50000]
+]
+----------------------------------------
+func &quot;sin&quot;
+[
+ [  0.00000   1.00000   0.00000]
+ [ -0.70711  -0.84147   0.84147]
+ [  0.90930  -0.90930   0.47943]
+]
+----------------------------------------
+func &quot;cos&quot;
+[
+ [  1.00000   0.00000  -1.00000]
+ [  0.70711   0.54030   0.54030]
+ [ -0.41615  -0.41615   0.87758]
+]
+----------------------------------------
+func &quot;tan&quot;
+[
+ [  0.00000 16331239353195370.00000  -0.00000]
+ [ -1.00000  -1.55741   1.55741]
+ [ -2.18504   2.18504   0.54630]
+]
+----------------------------------------
+func &quot;asin&quot;
+[
+ [  0.00000       NaN       NaN]
+ [ -0.90334  -1.57080   1.57080]
+ [      NaN       NaN   0.52360]
+]
+----------------------------------------
+func &quot;acos&quot;
+[
+ [  1.57080       NaN       NaN]
+ [  2.47414   3.14159   0.00000]
+ [      NaN       NaN   1.04720]
+]
+----------------------------------------
+func &quot;atan&quot;
+[
+ [  0.00000   1.00388   1.26263]
+ [ -0.66577  -0.78540   0.78540]
+ [  1.10715  -1.10715   0.46365]
+]
+----------------------------------------
+func &quot;sinh&quot;
+[
+ [  0.00000   2.30130  11.54874]
+ [ -0.86867  -1.17520   1.17520]
+ [  3.62686  -3.62686   0.52110]
+]
+----------------------------------------
+func &quot;cosh&quot;
+[
+ [  1.00000   2.50918  11.59195]
+ [  1.32461   1.54308   1.54308]
+ [  3.76220   3.76220   1.12763]
+]
+----------------------------------------
+func &quot;tanh&quot;
+[
+ [  0.00000   0.91715   0.99627]
+ [ -0.65579  -0.76159   0.76159]
+ [  0.96403  -0.96403   0.46212]
+]
+----------------------------------------
+func &quot;asinh&quot;
+[
+ [  0.00000   1.23340   1.86230]
+ [ -0.72123  -0.88137   0.88137]
+ [  1.44364  -1.44364   0.48121]
+]
+----------------------------------------
+func &quot;acosh&quot;
+[
+ [      NaN   1.02323   1.81153]
+ [      NaN       NaN   0.00000]
+ [  1.31696       NaN       NaN]
+]
+----------------------------------------
+func &quot;atanh&quot;
+[
+ [  0.00000       NaN       NaN]
+ [ -1.05931 -Infinity  Infinity]
+ [      NaN       NaN   0.54931]
+]
+----------------------------------------
+func &quot;exp&quot;
+[
+ [  1.00000   4.81048  23.14069]
+ [  0.45594   0.36788   2.71828]
+ [  7.38906   0.13534   1.64872]
+]
+----------------------------------------
+func &quot;log (ln)&quot;
+[
+ [-Infinity   0.45158   1.14473]
+ [      NaN       NaN   0.00000]
+ [  0.69315       NaN  -0.69315]
+]
+----------------------------------------
+func &quot;sqrt&quot;
+[
+ [  0.00000   1.25331   1.77245]
+ [      NaN       NaN   1.00000]
+ [  1.41421       NaN   0.70711]
+]
+----------------------------------------
+func &quot;log10&quot;
+[
+ [-Infinity   0.19612   0.49715]
+ [      NaN       NaN   0.00000]
+ [  0.30103       NaN  -0.30103]
+]
+----------------------------------------
+func &quot;square&quot;
+[
+ [  0.00000   2.46740   9.86960]
+ [  0.61685   1.00000   1.00000]
+ [  4.00000   4.00000   0.25000]
+]
+----------------------------------------
+func &quot;cube&quot;
+[
+ [  0.00000   3.87578  31.00628]
+ [ -0.48447  -1.00000   1.00000]
+ [  8.00000  -8.00000   0.12500]
+]
+----------------------------------------
+func &quot;abs&quot;
+[
+ [  0.00000   1.57080   3.14159]
+ [  0.78540   1.00000   1.00000]
+ [  2.00000   2.00000   0.50000]
+]
+----------------------------------------
+func &quot;ceil&quot;
+[
+ [  0.00000   2.00000   4.00000]
+ [ -0.00000  -1.00000   1.00000]
+ [  2.00000  -2.00000   1.00000]
+]
+----------------------------------------
+func &quot;floor&quot;
+[
+ [  0.00000   1.00000   3.00000]
+ [ -1.00000  -1.00000   1.00000]
+ [  2.00000  -2.00000   0.00000]
+]
+----------------------------------------
+func &quot;round&quot;
+[
+ [  0.00000   2.00000   3.00000]
+ [ -1.00000  -1.00000   1.00000]
+ [  2.00000  -2.00000   1.00000]
+]
+----------------------------------------
+func &quot;degree&quot;
+[
+ [  0.00000  90.00000 180.00000]
+ [-45.00000 -57.29578  57.29578]
+ [114.59156 -114.59156  28.64789]
+]
+----------------------------------------
+func &quot;radian&quot;
+[
+ [  0.00000   0.02742   0.05483]
+ [ -0.01371  -0.01745   0.01745]
+ [  0.03491  -0.03491   0.00873]
+]
+----------------------------------------
+</code></pre></div>
+<h2 id="power">power</h2>
+<blockquote>
+<p>Matrix power({required double number, bool reverse = false})</p>
+<p>矩阵数据的幂次方，如果反转则表示数据的矩阵数据次方</p>
+</blockquote>
+<h3 id="test_7">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%3.5f&quot;;
+  Matrix matrix = Matrix.fromList([
+    [1, 2, 3],
+    [3, 7, 9]
+  ]);
+  matrix.power(number: 0.5, reverse: false).visible();
+  matrix.power(number: 0.5, reverse: true).visible();
+}
+</code></pre></div>
+<h3 id="output_7">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [  1.00000   1.41421   1.73205]
+ [  1.73205   2.64575   3.00000]
+]
+[
+ [  0.50000   0.25000   0.12500]
+ [  0.12500   0.00781   0.00195]
+]
+</code></pre></div>
+<h2 id="atan2">atan2</h2>
+<blockquote>
+<p>Matrix atan2({required double number, bool reverse = false})</p>
+<p>四象限的反正切函数</p>
+</blockquote>
+<h3 id="test_8">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;dart:math&#39;;
+import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%3.5f&quot;;
+  Matrix matrix = Matrix.fromList([
+    [1, -1, 0],
+  ]);
+  matrix.atan2(number: -1, reverse: false).visible();
+  matrix.atan2(number: -1, reverse: true).visible();
+  matrix.atan2(number: -1, reverse: false).degree.visible();
+  matrix.atan2(number: -1, reverse: true).degree.visible();
+}
+</code></pre></div>
+<h3 id="output_8">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [  2.35619  -2.35619   3.14159]
+]
+[
+ [ -0.78540  -2.35619  -1.57080]
+]
+[
+ [135.00000 -135.00000 180.00000]
+]
+[
+ [-45.00000 -135.00000 -90.00000]
+]
+</code></pre></div>
+<h2 id="diff">diff</h2>
+<blockquote>
+<p>Matrix diff(double Function(double) func)</p>
+<p>中心差分函数，借鉴于<a href="https://www.gnu.org/software/gsl/">GSL2.8</a><br />
+案例请查看：<a href="../functools/#customize">customize</a></p>
+</blockquote>
+<h2 id="dft_complex">dft_complex</h2>
+<blockquote>
+<p>Matrix dft_complex()</p>
+<p>操作矩阵必须是<code>row*2</code>形状，将矩阵每行视为复数的实部和虚部并进行离散傅里叶变换</p>
+</blockquote>
+<h3 id="test_9">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;dart:math&#39;;
+
+import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.2f&quot;;
+  Matrix matrix = MatrixGeometry.curve(func: (x) =&gt; cos(x), x1: 0, x2: 1, size: 20)..visible();
+  matrix.dft_complex().visible();
+}
+</code></pre></div>
+<h3 id="output_9">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  1.00]
+ [ 0.05  1.00]
+ [ 0.11  0.99]
+ [ 0.16  0.99]
+ [ 0.21  0.98]
+ [ 0.26  0.97]
+ [ 0.32  0.95]
+ [ 0.37  0.93]
+ [ 0.42  0.91]
+ [ 0.47  0.89]
+ [ 0.53  0.86]
+ [ 0.58  0.84]
+ [ 0.63  0.81]
+ [ 0.68  0.77]
+ [ 0.74  0.74]
+ [ 0.79  0.70]
+ [ 0.84  0.67]
+ [ 0.89  0.63]
+ [ 0.95  0.58]
+ [ 1.00  0.54]
+]
+[
+ [10.00 16.75]
+ [ 1.11  3.09]
+ [ 0.26  1.75]
+ [-0.03  1.23]
+ [-0.18  0.94]
+ [-0.27  0.76]
+ [-0.34  0.62]
+ [-0.40  0.51]
+ [-0.44  0.41]
+ [-0.49  0.32]
+ [-0.53  0.24]
+ [-0.57  0.16]
+ [-0.61  0.07]
+ [-0.66 -0.03]
+ [-0.71 -0.15]
+ [-0.78 -0.30]
+ [-0.87 -0.51]
+ [-1.02 -0.84]
+ [-1.31 -1.49]
+ [-2.17 -3.55]
+]
+</code></pre></div>
+<h2 id="fft_complex">fft_complex</h2>
+<blockquote>
+<p>Matrix fft_complex()</p>
+<p>快速傅里叶变换版本，必须保证row大小是不小于2且是2的幂次方</p>
+</blockquote>
+<h3 id="test_10">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;dart:math&#39;;
+
+import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.2f&quot;;
+  Matrix matrix = MatrixGeometry.curve(func: (x) =&gt; cos(x), x1: 0, x2: 1, size: 16)..visible();
+  matrix.fft_complex().visible();
+}
+</code></pre></div>
+<h3 id="output_10">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  1.00]
+ [ 0.07  1.00]
+ [ 0.13  0.99]
+ [ 0.20  0.98]
+ [ 0.27  0.96]
+ [ 0.33  0.94]
+ [ 0.40  0.92]
+ [ 0.47  0.89]
+ [ 0.53  0.86]
+ [ 0.60  0.83]
+ [ 0.67  0.79]
+ [ 0.73  0.74]
+ [ 0.80  0.70]
+ [ 0.87  0.65]
+ [ 0.93  0.60]
+ [ 1.00  0.54]
+]
+[
+ [ 8.00 13.39]
+ [ 0.81  2.55]
+ [ 0.10  1.45]
+ [-0.15  1.01]
+ [-0.27  0.76]
+ [-0.36  0.59]
+ [-0.43  0.46]
+ [-0.48  0.35]
+ [-0.53  0.24]
+ [-0.58  0.14]
+ [-0.64  0.02]
+ [-0.71 -0.12]
+ [-0.79 -0.30]
+ [-0.92 -0.59]
+ [-1.16 -1.13]
+ [-1.87 -2.82]
+]
+</code></pre></div>
+<h2 id="dft">dft</h2>
+<blockquote>
+<p>List<List\<Complex>> dft()</p>
+<p>dft是二维矩阵的离散傅里叶变换，操作对象是每个实数数据点，生成的是处理好的复数二维列表</p>
+</blockquote>
+<h3 id="test_11">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main() {
+  data_format = &quot;%2.2f&quot;;
+  Matrix matrix = Matrix.linspace(start: 0, end: 1, row: 1, column: 20)..visible();
+  Matrix cos_ = matrix.cos..visible();
+  print(cos_.dft());
+}
+</code></pre></div>
+<h3 id="output_11">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  0.05  0.11  0.16  0.21  0.26  0.32  0.37  0.42  0.47  0.53  0.58  0.63  0.68  0.74  0.79  0.84  0.89  0.95  1.00]
+]
+[
+ [ 1.00  1.00  0.99  0.99  0.98  0.97  0.95  0.93  0.91  0.89  0.86  0.84  0.81  0.77  0.74  0.70  0.67  0.63  0.58  0.54]
+]
+[[Complex(16.75440903166811, 0.0), Complex(-0.22811740242052814, -1.6397084473410628), Complex(0.13183474464253353, -0.7823464082156386), Complex(0.1967357416501282, -0.496947233565983), Complex(0.21922035792340794, -0.3480366366936396), Complex(0.2294742441387881, -0.2527066108991086), Complex(0.23488177535739072, -0.1835420189577598), Complex(0.23795253166182712, -0.12869438763744284), Complex(0.2397154208503811, -0.08205846872985462), Complex(0.24063637522371917, -0.039997759504330294), Complex(0.2409233902765915, -3.069124650216493e-15), Complex(0.2406363752237164, 0.03999775950432752), Complex(0.23971542085038544, 0.08205846872986033), Complex(0.23795253166180874, 0.1286943876374329), Complex(0.2348817753573971, 0.18354201895776023), Complex(0.22947424413878847, 0.25270661089910473), Complex(0.21922035792341624, 0.34803663669363605), Complex(0.196735741650134, 0.4969472335659874), Complex(0.1318347446425323, 0.782346408215624), Complex(-0.22811740242051415, 1.6397084473410648)]]
+</code></pre></div>
+<p><a href="../random/">下一篇：概率论与数理统计</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+    
+  </body>
+</html>
