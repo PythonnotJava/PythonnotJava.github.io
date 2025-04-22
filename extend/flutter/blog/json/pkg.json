@@ -1,0 +1,8 @@
+{
+  "pkgs" : [
+    "sjjg.json",
+    "qt.json",
+    "py.json",
+    "other.json"
+  ]
+}
