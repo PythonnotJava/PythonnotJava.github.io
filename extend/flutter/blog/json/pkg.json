@@ -1,8 +1,0 @@
-{
-  "pkgs" : [
-    "https://www.robot-shadow.cn/extend/flutter/blog/json/sjjg.json",
-    "https://www.robot-shadow.cn/extend/flutter/blog/json/qt.json",
-    "https://www.robot-shadow.cn/extend/flutter/blog/json/py.json",
-    "https://www.robot-shadow.cn/extend/flutter/blog/json/other.json"
-  ]
-}
