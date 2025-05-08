@@ -1,6 +1,12 @@
 // 博客列表数据
     const blogList = [
       {
+        title: 'Gurobi单变量非线性优化问题',
+        content: 'Gurobi单变量非线性优化问题的几种改进快速计算的方法',
+        icon: 'https://www.go-soft.cn/static/upload/image/20230310/1678433049669047.jpg',
+        link: '../../h5/other/Gurobi单变量非线性优化问题.html'
+      },
+      {
         title: 'Matplotlib',
         content: 'Matplotlib超详细的入门教程，几乎涵盖所有基础内容',
         icon: 'https://files.realpython.com/media/python-plotting-matplotlib.7b528c0f5f0b.jpg',
