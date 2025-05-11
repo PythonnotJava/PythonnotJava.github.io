@@ -1,6 +1,12 @@
 // 博客列表数据
     const blogList = [
       {
+        title: '新版本Conda修改虚拟环境路径和包路径的方法',
+        content: '新版本Conda修改虚拟环境路径和包路径的方法',
+        icon: 'https://anaconda.org/static/img/anaconda-symbol.svg',
+        link: '../../h5/other/新版本Conda修改虚拟环境路径和包路径的方法.html'
+      },
+      {
         title: 'Gurobi单变量非线性优化问题',
         content: 'Gurobi单变量非线性优化问题的几种改进快速计算的方法',
         icon: 'https://www.go-soft.cn/static/upload/image/20230310/1678433049669047.jpg',
