@@ -1,0 +1,2095 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/PythonnotJava/flutter_matrix/API/geometry/">
+      
+      
+        <link rel="prev" href="../ml/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>几何模型 - Flutter_Matrix Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Flutter_Matrix Docs" class="md-header__button md-logo" aria-label="Flutter_Matrix Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Flutter_Matrix Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              几何模型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Flutter_Matrix Docs" class="md-nav__button md-logo" aria-label="Flutter_Matrix Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Flutter_Matrix Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../define/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    类型定义和构建
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    基础操作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    工具辅助
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    函数工具
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    纯数学工具
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    概率论与数理统计
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linalg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    线性代数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../complex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    复数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    可视化处理
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    机器学习工具测试
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    几何模型
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    几何模型
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rotatetransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      rotateTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rotateTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projectiontransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      projectionTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="projectionTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sheartransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      shearTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shearTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaletransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      scaleTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="scaleTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      curve
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom_curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      custom_curve
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="custom_curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellipse_edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      ellipse_edge
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ellipse_edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellipse_area" class="md-nav__link">
+    <span class="md-ellipsis">
+      ellipse_area
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ellipse_area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#line" class="md-nav__link">
+    <span class="md-ellipsis">
+      line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xline" class="md-nav__link">
+    <span class="md-ellipsis">
+      xline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yline" class="md-nav__link">
+    <span class="md-ellipsis">
+      yline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="yline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      camera
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="camera">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rotatetransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      rotateTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rotateTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projectiontransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      projectionTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="projectionTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sheartransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      shearTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shearTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaletransform" class="md-nav__link">
+    <span class="md-ellipsis">
+      scaleTransform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="scaleTransform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      curve
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom_curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      custom_curve
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="custom_curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellipse_edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      ellipse_edge
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ellipse_edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellipse_area" class="md-nav__link">
+    <span class="md-ellipsis">
+      ellipse_area
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ellipse_area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#line" class="md-nav__link">
+    <span class="md-ellipsis">
+      line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xline" class="md-nav__link">
+    <span class="md-ellipsis">
+      xline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yline" class="md-nav__link">
+    <span class="md-ellipsis">
+      yline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="yline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      camera
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="camera">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">几何模拟</h1>
+<blockquote>
+<p>该模块中返回的都是size * 2的形状的矩阵数据来表示size个点</p>
+</blockquote>
+<h2 id="rotatetransform">rotateTransform</h2>
+<ul>
+<li>点阵的旋转变换</li>
+<li>radian为true表示弧度制，否则角度制
+<div class="highlight"><pre><span></span><code>T rotateTransform({required double theta, bool radian = true})
+</code></pre></div></li>
+</ul>
+<h3 id="test">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;dart:math&#39;;
+
+import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.2f&quot;;
+  var t = Matrix.fromList(
+    List.generate((10), (x) =&gt; [x.toDouble(), x * 2])
+  )..visible();
+  final a = t.rotateTransform(theta: 90, radian: false)..visible();
+  final b = t.rotateTransform(theta: pi / 2, radian: true)..visible();
+  print(a == b);
+}
+</code></pre></div>
+<h3 id="output">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  0.00]
+ [ 1.00  2.00]
+ [ 2.00  4.00]
+ [ 3.00  6.00]
+ [ 4.00  8.00]
+ [ 5.00 10.00]
+ [ 6.00 12.00]
+ [ 7.00 14.00]
+ [ 8.00 16.00]
+ [ 9.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [-2.00  1.00]
+ [-4.00  2.00]
+ [-6.00  3.00]
+ [-8.00  4.00]
+ [-10.00  5.00]
+ [-12.00  6.00]
+ [-14.00  7.00]
+ [-16.00  8.00]
+ [-18.00  9.00]
+]
+[
+ [ 0.00  0.00]
+ [-2.00  1.00]
+ [-4.00  2.00]
+ [-6.00  3.00]
+ [-8.00  4.00]
+ [-10.00  5.00]
+ [-12.00  6.00]
+ [-14.00  7.00]
+ [-16.00  8.00]
+ [-18.00  9.00]
+]
+true
+</code></pre></div>
+<h2 id="projectiontransform">projectionTransform</h2>
+<ul>
+<li>投影变换, ux和uy分别是x轴和y轴上的投影分量
+<div class="highlight"><pre><span></span><code>T projectionTransform({required double ux, required double uy})
+</code></pre></div></li>
+</ul>
+<h3 id="test_1">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;dart:math&#39;;
+
+import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.2f&quot;;
+  var t = Matrix.fromList(
+      List.generate((10), (x) =&gt; [x.toDouble(), x * 2])
+  )..visible();
+  // 投到y轴上
+  t.projectionTransform(ux: 0, uy: 1).visible();
+  // 投到x轴上
+  t.projectionTransform(ux: 1, uy: 0).visible();
+  // 投到y = x上
+  t.projectionTransform(ux: 1 / sqrt2, uy: 1 / sqrt2).visible();
+}
+</code></pre></div>
+<h3 id="output_1">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  0.00]
+ [ 1.00  2.00]
+ [ 2.00  4.00]
+ [ 3.00  6.00]
+ [ 4.00  8.00]
+ [ 5.00 10.00]
+ [ 6.00 12.00]
+ [ 7.00 14.00]
+ [ 8.00 16.00]
+ [ 9.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [ 0.00  2.00]
+ [ 0.00  4.00]
+ [ 0.00  6.00]
+ [ 0.00  8.00]
+ [ 0.00 10.00]
+ [ 0.00 12.00]
+ [ 0.00 14.00]
+ [ 0.00 16.00]
+ [ 0.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [ 1.00  0.00]
+ [ 2.00  0.00]
+ [ 3.00  0.00]
+ [ 4.00  0.00]
+ [ 5.00  0.00]
+ [ 6.00  0.00]
+ [ 7.00  0.00]
+ [ 8.00  0.00]
+ [ 9.00  0.00]
+]
+[
+ [ 0.00  0.00]
+ [ 1.50  1.50]
+ [ 3.00  3.00]
+ [ 4.50  4.50]
+ [ 6.00  6.00]
+ [ 7.50  7.50]
+ [ 9.00  9.00]
+ [10.50 10.50]
+ [12.00 12.00]
+ [13.50 13.50]
+]
+</code></pre></div>
+<h2 id="sheartransform">shearTransform</h2>
+<ul>
+<li>剪切变换，alongX为true表示沿着x轴，否则沿着y轴
+<div class="highlight"><pre><span></span><code>T shearTransform({required double k, bool alongX = true})
+</code></pre></div></li>
+</ul>
+<h3 id="test_2">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.2f&quot;;
+  var t = Matrix.fromList(
+      List.generate((10), (x) =&gt; [x.toDouble(), x * 2])
+  )..visible();
+  t.shearTransform(k: 2, alongX: true).visible();
+  t.shearTransform(k: 2, alongX: false).visible();
+}
+</code></pre></div>
+<h3 id="output_2">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  0.00]
+ [ 1.00  2.00]
+ [ 2.00  4.00]
+ [ 3.00  6.00]
+ [ 4.00  8.00]
+ [ 5.00 10.00]
+ [ 6.00 12.00]
+ [ 7.00 14.00]
+ [ 8.00 16.00]
+ [ 9.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [ 5.00  2.00]
+ [10.00  4.00]
+ [15.00  6.00]
+ [20.00  8.00]
+ [25.00 10.00]
+ [30.00 12.00]
+ [35.00 14.00]
+ [40.00 16.00]
+ [45.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [ 1.00  4.00]
+ [ 2.00  8.00]
+ [ 3.00 12.00]
+ [ 4.00 16.00]
+ [ 5.00 20.00]
+ [ 6.00 24.00]
+ [ 7.00 28.00]
+ [ 8.00 32.00]
+ [ 9.00 36.00]
+]
+</code></pre></div>
+<h2 id="scaletransform">scaleTransform</h2>
+<ul>
+<li>缩放变换，sx和sy分别是x轴和y轴坐标的缩放倍数
+<div class="highlight"><pre><span></span><code>T scaleTransform({required double sx, required double sy})
+</code></pre></div></li>
+</ul>
+<h3 id="test_3">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.2f&quot;;
+  var t = Matrix.fromList(
+      List.generate((10), (x) =&gt; [x.toDouble(), x * 2])
+  )..visible();
+  t
+    ..scaleTransform(sx: 2, sy: 1)
+    ..visible()
+    ..scaleTransform(sx: 1, sy: 2)
+    ..visible()
+    ..scaleTransform(sx: 0.5, sy: 0.5)
+    ..visible();
+}
+</code></pre></div>
+<h3 id="output_3">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  0.00]
+ [ 1.00  2.00]
+ [ 2.00  4.00]
+ [ 3.00  6.00]
+ [ 4.00  8.00]
+ [ 5.00 10.00]
+ [ 6.00 12.00]
+ [ 7.00 14.00]
+ [ 8.00 16.00]
+ [ 9.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [ 1.00  2.00]
+ [ 2.00  4.00]
+ [ 3.00  6.00]
+ [ 4.00  8.00]
+ [ 5.00 10.00]
+ [ 6.00 12.00]
+ [ 7.00 14.00]
+ [ 8.00 16.00]
+ [ 9.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [ 1.00  2.00]
+ [ 2.00  4.00]
+ [ 3.00  6.00]
+ [ 4.00  8.00]
+ [ 5.00 10.00]
+ [ 6.00 12.00]
+ [ 7.00 14.00]
+ [ 8.00 16.00]
+ [ 9.00 18.00]
+]
+[
+ [ 0.00  0.00]
+ [ 1.00  2.00]
+ [ 2.00  4.00]
+ [ 3.00  6.00]
+ [ 4.00  8.00]
+ [ 5.00 10.00]
+ [ 6.00 12.00]
+ [ 7.00 14.00]
+ [ 8.00 16.00]
+ [ 9.00 18.00]
+]
+</code></pre></div>
+<h2 id="curve">curve</h2>
+<ul>
+<li>生成从x1到x2的数据（允许x1不小于x2）</li>
+<li>bias是数据的随机偏移，不传入则不偏移，便宜范围是(-bias,bias)</li>
+<li>uniform表示生成的数据是否均匀还是区间内随机性的</li>
+<li>vec是相对坐标
+<div class="highlight"><pre><span></span><code>static T curve&lt;T extends MatrixBase&lt;T&gt;&gt;(
+      {required double Function(double) func,
+      required double x1,
+      required double x2,
+      required int size,
+      int? seed,
+      double? bias,
+      bool uniform = true,
+      List&lt;double&gt; vec = OriginVector})
+</code></pre></div></li>
+</ul>
+<h3 id="test_4">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.2f&quot;;
+  MatrixGeometry.curve&lt;Matrix&gt;(func: (x) =&gt; x * 2, x1: 0, x2: 5, size: 10, uniform: true).visible();
+  MatrixGeometry.curve&lt;Matrix&gt;(func: (x) =&gt; x * 2, x1: 5, x2: 0, size: 10, uniform: true).visible();
+  // y = 2 * x + 1
+  MatrixGeometry.curve&lt;Matrix&gt;(func: (x) =&gt; x * 2, x1: 0, x2: 5, size: 10, vec: [0, 1], uniform: true).visible(format: &quot;%2.5f&quot;);
+  MatrixGeometry.curve&lt;Matrix&gt;(func: (x) =&gt; x * 2, x1: 5, x2: 9, size: 10, bias: 1, uniform: false).visible();
+}
+</code></pre></div>
+<h3 id="output_4">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 0.00  0.00]
+ [ 0.56  1.11]
+ [ 1.11  2.22]
+ [ 1.67  3.33]
+ [ 2.22  4.44]
+ [ 2.78  5.56]
+ [ 3.33  6.67]
+ [ 3.89  7.78]
+ [ 4.44  8.89]
+ [ 5.00 10.00]
+]
+[
+ [ 5.00 10.00]
+ [ 4.44  8.89]
+ [ 3.89  7.78]
+ [ 3.33  6.67]
+ [ 2.78  5.56]
+ [ 2.22  4.44]
+ [ 1.67  3.33]
+ [ 1.11  2.22]
+ [ 0.56  1.11]
+ [ 0.00  0.00]
+]
+[
+ [ 0.00000  1.00000]
+ [ 0.55556  2.11111]
+ [ 1.11111  3.22222]
+ [ 1.66667  4.33333]
+ [ 2.22222  5.44444]
+ [ 2.77778  6.55556]
+ [ 3.33333  7.66667]
+ [ 3.88889  8.77778]
+ [ 4.44444  9.88889]
+ [ 5.00000 11.00000]
+]
+[
+ [ 5.95 11.71]
+ [ 7.45 14.43]
+ [ 8.09 15.70]
+ [ 5.48 10.99]
+ [ 8.78 17.94]
+ [ 7.56 15.24]
+ [ 7.20 15.13]
+ [ 6.81 14.29]
+ [ 5.18 10.51]
+ [ 8.43 16.87]
+]
+</code></pre></div>
+<h2 id="custom_curve">custom_curve</h2>
+<ul>
+<li>根据参数方程定义任意曲线。theta_from和theta_to表示参数的范围
+<div class="highlight"><pre><span></span><code>static T custom_curve&lt;T extends MatrixBase&lt;T&gt;&gt;(
+      {required double Function(double) xfunc,
+      required double Function(double) yfunc,
+      required double theta_from,
+      required double theta_to,
+      required int size,
+      int? seed,
+      double? bias,
+      bool uniform = true,
+      List&lt;double&gt; vec = OriginVector})
+</code></pre></div></li>
+</ul>
+<h3 id="test_5">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;dart:math&#39;;
+
+import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.5f&quot;;
+  // ⚪: x^ 2 + y^2 = 4 
+  MatrixGeometry.custom_curve&lt;Matrix&gt;(
+      xfunc: (x) =&gt; 2.0 * cos(x),
+      yfunc: (y) =&gt; 2.0 * sin(y),
+      theta_from: 0,
+      theta_to: 2 * pi,
+      size: 10,
+      uniform: true
+  ).visible();
+}
+</code></pre></div>
+<h3 id="output_5">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 2.00000  0.00000]
+ [ 1.53209  1.28558]
+ [ 0.34730  1.96962]
+ [-1.00000  1.73205]
+ [-1.87939  0.68404]
+ [-1.87939 -0.68404]
+ [-1.00000 -1.73205]
+ [ 0.34730 -1.96962]
+ [ 1.53209 -1.28558]
+ [ 2.00000 -0.00000]
+]
+</code></pre></div>
+<h2 id="ellipse_edge">ellipse_edge</h2>
+<ul>
+<li>椭圆边缘数据模拟，a是长轴半径，b是短轴半径</li>
+<li>circle_edge类似使用方法
+<div class="highlight"><pre><span></span><code>static T ellipse_edge&lt;T extends MatrixBase&lt;T&gt;&gt;(
+      {required double a,
+      required double b,
+      required int size,
+      int? seed,
+      double? bias,
+      bool uniform = true,
+      List&lt;double&gt; vec = OriginVector})
+</code></pre></div></li>
+</ul>
+<h3 id="test_6">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.5f&quot;;
+  // (x - 2) ^ 2 / 16 + (y - 2) ^ 2 / 9 = 1的椭圆
+  MatrixGeometry.ellipse_edge&lt;Matrix&gt;(a: 4, b: 3, size: 20, uniform: true, vec: [2, 1])
+    ..visible();
+}
+</code></pre></div>
+<h3 id="output_6">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 6.00000  1.00000]
+ [ 5.78327  1.97410]
+ [ 5.15656  2.84264]
+ [ 4.18779  3.51150]
+ [ 2.98194  3.90820]
+ [ 1.66968  3.98975]
+ [ 0.39322  3.74732]
+ [-0.70913  3.20717]
+ [-1.51790  2.42784]
+ [-1.94545  1.49378]
+ [-1.94545  0.50622]
+ [-1.51790 -0.42784]
+ [-0.70913 -1.20717]
+ [ 0.39322 -1.74732]
+ [ 1.66968 -1.98975]
+ [ 2.98194 -1.90820]
+ [ 4.18779 -1.51150]
+ [ 5.15656 -0.84264]
+ [ 5.78327  0.02590]
+ [ 6.00000  1.00000]
+]
+</code></pre></div>
+<h2 id="ellipse_area">ellipse_area</h2>
+<ul>
+<li>椭圆内部数据的模拟</li>
+<li>circle_area类似使用方法
+<div class="highlight"><pre><span></span><code>static T ellipse_area&lt;T extends MatrixBase&lt;T&gt;&gt;(
+      {required double a,
+      required double b,
+      required int size,
+      int? seed,
+      bool uniform = true,
+      List&lt;double&gt; vec = OriginVector})
+</code></pre></div></li>
+</ul>
+<h3 id="test_7">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.5f&quot;;
+  // x ^ 2 / 16 + y ^ 2 / 9 = 1的椭圆
+  MatrixGeometry.ellipse_area&lt;Matrix&gt;(a: 4, b: 3, size: 20, uniform: true).visible();
+}
+</code></pre></div>
+<h3 id="output_7">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 3.22287  0.00000]
+ [ 0.46328  0.02573]
+ [ 2.98519  1.13001]
+ [ 2.26187  1.06242]
+ [ 0.38793  1.27462]
+ [ 0.00000  0.81251]
+ [-0.25467  0.20340]
+ [-1.32227  1.69598]
+ [-3.05319  0.79245]
+ [-2.60754  0.67613]
+ [-0.37296  0.00000]
+ [-1.64220 -0.87490]
+ [-0.01710 -0.56296]
+ [-1.99511 -0.21927]
+ [-0.70147 -1.56219]
+ [-0.00000 -1.86214]
+ [ 0.08222 -2.06282]
+ [ 0.20992 -1.01844]
+ [ 1.71985 -0.14007]
+ [ 1.54497 -0.59273]
+]
+</code></pre></div>
+<h2 id="line">line</h2>
+<ul>
+<li>根据斜率和偏移模拟直线
+<div class="highlight"><pre><span></span><code>static T line&lt;T extends MatrixBase&lt;T&gt;&gt;(
+      {required double k,
+      required double b,
+      required double x1,
+      required double x2,
+      required int size,
+      int? seed,
+      double? bias,
+      bool uniform = true,
+      List&lt;double&gt; vec = OriginVector}) 
+</code></pre></div></li>
+</ul>
+<h3 id="test_8">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.5f&quot;;
+  // y = 2 * x - 1
+  MatrixGeometry.line&lt;Matrix&gt;(k: 2, b: -1, x1: -1, x2: 1, size: 10, uniform: false).visible();
+  MatrixGeometry.line&lt;Matrix&gt;(k: 2, b: -1, x1: -1, x2: 1, size: 10, uniform: true).visible();
+}
+</code></pre></div>
+<h3 id="output_8">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [-0.54631 -2.09261]
+ [ 0.95080  0.90159]
+ [ 0.03006 -0.93987]
+ [ 0.54977  0.09954]
+ [-0.80347 -2.60695]
+ [ 0.86927  0.73855]
+ [ 0.81680  0.63361]
+ [-0.79911 -2.59822]
+ [-0.31727 -1.63453]
+ [ 0.11127 -0.77746]
+]
+[
+ [-1.00000 -3.00000]
+ [-0.77778 -2.55556]
+ [-0.55556 -2.11111]
+ [-0.33333 -1.66667]
+ [-0.11111 -1.22222]
+ [ 0.11111 -0.77778]
+ [ 0.33333 -0.33333]
+ [ 0.55556  0.11111]
+ [ 0.77778  0.55556]
+ [ 1.00000  1.00000]
+]
+</code></pre></div>
+<h2 id="xline">xline</h2>
+<ul>
+<li>与x轴平行的线：y = a
+<div class="highlight"><pre><span></span><code>static List&lt;List&lt;double&gt;&gt; xline(
+          {required double a,
+          required double x1,
+          required double x2,
+          required int size,
+          int? seed,
+          double? bias,
+          bool uniform = true,
+          List&lt;double&gt; vec = OriginVector})
+</code></pre></div></li>
+</ul>
+<h3 id="test_9">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.5f&quot;;
+  // y = 3
+  MatrixGeometry.xline&lt;Matrix&gt;(a: 3, x1: 5, x2: 10, size: 10, uniform: true).visible();
+}
+</code></pre></div>
+<h3 id="output_9">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 5.00000  3.00000]
+ [ 5.55556  3.00000]
+ [ 6.11111  3.00000]
+ [ 6.66667  3.00000]
+ [ 7.22222  3.00000]
+ [ 7.77778  3.00000]
+ [ 8.33333  3.00000]
+ [ 8.88889  3.00000]
+ [ 9.44444  3.00000]
+ [10.00000  3.00000]
+]
+</code></pre></div>
+<h2 id="yline">yline</h2>
+<ul>
+<li>与y轴平行的直线：x = a
+<div class="highlight"><pre><span></span><code>static List&lt;List&lt;double&gt;&gt; yline(
+          {required double a,
+          required double y1,
+          required double y2,
+          required int size,
+          int? seed,
+          double? bias,
+          bool uniform = true,
+          List&lt;double&gt; vec = OriginVector})
+</code></pre></div></li>
+</ul>
+<h3 id="test_10">test</h3>
+<div class="highlight"><pre><span></span><code>import &#39;package:flutter_matrix/matrix_type.dart&#39;;
+
+main(){
+  data_format = &quot;%2.5f&quot;;
+  // x = 3
+  MatrixGeometry.yline&lt;Matrix&gt;(a: 3, y1: 1, y2: 19, size: 10).visible();
+}
+</code></pre></div>
+<h3 id="output_10">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [ 3.00000  1.00000]
+ [ 3.00000  3.00000]
+ [ 3.00000  5.00000]
+ [ 3.00000  7.00000]
+ [ 3.00000  9.00000]
+ [ 3.00000 11.00000]
+ [ 3.00000 13.00000]
+ [ 3.00000 15.00000]
+ [ 3.00000 17.00000]
+ [ 3.00000 19.00000]
+]
+</code></pre></div>
+<h2 id="camera">camera</h2>
+<ul>
+<li>eye是视觉点，a、b、c、d表示ax + by + cz + d = 0这个平面，target是表示目标的点集
+<div class="highlight"><pre><span></span><code>static T camera&lt;T extends MatrixBase&lt;T&gt;&gt;({
+    required List&lt;double&gt; eye,
+    required List&lt;List&lt;double&gt;&gt; target,
+    required double a,
+    required double b,
+    required double c,
+    required double d,
+  }) 
+</code></pre></div></li>
+</ul>
+<h3 id="test_11">test</h3>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="s1">&#39;package:flutter_matrix/matrix_type.dart&#39;</span><span class="p">;</span>
+
+<span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">data_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;%2.10f&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">[</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">]</span>
+<span class="w">  </span><span class="p">];</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">mt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MatrixGeometry</span><span class="p">.</span><span class="n">camera</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&gt;</span><span class="p">(</span><span class="nl">eye:</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="m">9</span><span class="p">],</span><span class="w"> </span><span class="nl">target:</span><span class="w"> </span><span class="n">vertices</span><span class="p">,</span><span class="w"> </span><span class="nl">a:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="nl">b:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="nl">c:</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="nl">d:</span><span class="w"> </span><span class="m">1</span><span class="p">);</span>
+<span class="w">  </span><span class="n">mt</span><span class="p">.</span><span class="n">visible</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="output_11">output</h3>
+<div class="highlight"><pre><span></span><code>[
+ [-0.2500000000 -0.7500000000  0.0000000000]
+ [-0.8928571429 -0.7500000000  0.3214285714]
+ [ 0.9615384615 -1.2692307692 -0.3461538462]
+ [ 0.8750000000  0.3750000000 -1.1250000000]
+ [-1.1153846154  0.8076923077 -0.3461538462]
+]
+</code></pre></div>
+<p><a href="../linalg/">下一篇：线性代数</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
