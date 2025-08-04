@@ -18,6 +18,18 @@ const blogList = [
         icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
         link: '../../h5/effpy/EfficientPython3.html'
     },
+    {
+        title: '高效的Python4',
+        content: 'Python中的高效迭代器学习',
+        icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
+        link: '../../h5/effpy/EfficientPython4.html'
+    },
+    {
+        title: '高效的Python3',
+        content: '使用标准库进行并发、并行编程',
+        icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
+        link: '../../h5/effpy/EfficientPython5.html'
+    },
 ];
 
 const blogListContainer= document.getElementById('blogListContainer');
