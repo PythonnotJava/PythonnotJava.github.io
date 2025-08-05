@@ -25,7 +25,7 @@ const blogList = [
         link: '../../h5/effpy/EfficientPython4.html'
     },
     {
-        title: '高效的Python3',
+        title: '高效的Python5',
         content: '使用标准库进行并发、并行编程',
         icon: "https://www.devacademy.es/wp-content/uploads/2018/10/python-logo-1024x1024.png",
         link: '../../h5/effpy/EfficientPython5.html'
