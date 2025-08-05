@@ -1,0 +1,24 @@
+site_name: 宿舍做饭中的设计
+site_url: https://www.robot-shadow.cn/
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+theme:
+  name: material
+
+plugins:
+  - search
+
+nav:
+  - Home: 宿舍做饭中的设计.md
+  - API Reference:
+    - 卤鸡腿: 1.md
+    - 鸡汤鸡蛋波纹面: 2.md
+    - 火腿炒鸡蛋: 3.md
+    - 剁椒蒜蓉阳春拌面: 4.md
+    - 火腿刀削面: 5.md
+# mkdocs build
