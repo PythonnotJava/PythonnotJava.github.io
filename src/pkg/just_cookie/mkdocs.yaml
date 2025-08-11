@@ -14,11 +14,13 @@ plugins:
   - search
 
 nav:
-  - Home: 宿舍做饭中的设计.md
+  - Home: cookie_design.md
   - API Reference:
     - 卤鸡腿: 1.md
     - 鸡汤鸡蛋波纹面: 2.md
     - 火腿炒鸡蛋: 3.md
     - 剁椒蒜蓉阳春拌面: 4.md
     - 火腿刀削面: 5.md
+    - 类似胡辣汤、豆腐脑卤汁的汤汁设计: 6.md
+    - 类似胡辣汤、豆腐脑卤汁的汤汁设计——改良版: 7.md
 # mkdocs build
