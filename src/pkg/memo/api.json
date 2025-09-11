@@ -16,11 +16,18 @@
       "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python2.json",
       "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python3.json",
       "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python4.json",
-      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python5.json"
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python5.json",
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/新版本Conda修改虚拟环境路径和包路径的方法.json"
     ],
     "UI设计" : [
       "https://www.robot-shadow.cn/src/pkg/memo/dir/UIDesign/PyQt5基础.json",
       "https://www.robot-shadow.cn/src/pkg/memo/dir/UIDesign/PyQt5进阶.json"
+    ],
+    "DataStructure" : [
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/DataStructure/七大排序算法.json"
+    ],
+    "Optimal" : [
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Optimal/Gurobi单变量非线性优化问题.json"
     ]
   }
 }
