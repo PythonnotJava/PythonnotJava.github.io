@@ -28,6 +28,15 @@
     ],
     "Optimal" : [
       "https://www.robot-shadow.cn/src/pkg/memo/dir/Optimal/Gurobi单变量非线性优化问题.json"
+    ],
+    "App" : [
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/App/本地化精灵天赋系统.json",
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/App/简雅Pad++ for Python.json",
     ]
-  }
+  },
+  "push" : [
+    "https://www.robot-shadow.cn/src/pkg/memo/dir/App/本地化精灵天赋系统.json",
+    "https://www.robot-shadow.cn/src/pkg/memo/dir/App/简雅Pad++ for Python.json",
+    "https://www.robot-shadow.cn/src/pkg/memo/dir/App/WordTransfer.json"
+  ]
 }
