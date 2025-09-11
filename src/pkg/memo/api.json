@@ -1,6 +1,26 @@
 {
   "version" : "1.0.0",
-  "pkg" : [
-
-  ]
+  "template" : {
+    "coverPath" : "",
+    "author" : "",
+    "title" : "",
+    "pubTime" : "",
+    "filePath" : "",
+    "avatar" : "",
+    "fileType" : "",
+    "topic" : ""
+  },
+  "pkg" : {
+    "Python" : [
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python1.json",
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python2.json",
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python3.json",
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python4.json",
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/Python/高效的Python5.json"
+    ],
+    "UI设计" : [
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/UIDesign/PyQt5基础.json",
+      "https://www.robot-shadow.cn/src/pkg/memo/dir/UIDesign/PyQt5进阶.json"
+    ]
+  }
 }
