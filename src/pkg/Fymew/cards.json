@@ -1,0 +1,21 @@
+{
+  "saying" : [
+    "吸入痛苦，呼出胜利。",
+    "今天又是元气满满的一天呢~",
+    "竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。",
+    "回首向来萧瑟处，归去，也无风雨也无晴。"
+  ],
+  "pictures" : [
+    "https://images.pexels.com/photos/620337/pexels-photo-620337.jpeg",
+    "https://images.pexels.com/photos/34043113/pexels-photo-34043113.jpeg",
+    "https://images.pexels.com/photos/620337/pexels-photo-620337.jpeg",
+    "https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg",
+    "https://images.pexels.com/photos/17655655/pexels-photo-17655655.jpeg"
+  ],
+  "pairs" : [
+    {
+      "saying" : "海上生明月，天涯共此时。",
+      "picture" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/sea_moon.jpg"
+    }
+  ]
+}
