@@ -1,0 +1,29 @@
+{
+  "src" : [
+    {
+      "type" : 1,
+      "url" : "",
+      "title" : "Fymew1.0.0版本正式发布",
+      "cover" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/fymew.jpg",
+      "content" : "Fymew1.0.0版本正式发布"
+    },
+    {
+      "type" : 0,
+      "url" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/SpotiMate.io-向阳而生-HuaChenYu.mp3",
+      "name" : "向阳而生",
+      "mimetype" : "mp3",
+      "description" : "《向阳而生》是华晨宇演唱的流行歌曲，由吕易秋作词，华晨宇作曲，郑楠、华晨宇编曲，收录于华晨宇的第五张录音室专辑《希忘Hope》中，于2022年12月20日随专辑通过天娱传媒发行 ；2023年4月，该曲的“2023华晨宇火星演唱会”现场版正式上线；2024年5月4日，华晨宇在烟台海边开日出演唱会，他为此特意改编创作了一首长达十余分钟的《向阳而生》日出版。\n《向阳而生》的旋律在晨光中悠扬响起时，数万颗心随着海浪与歌声轻轻摇曳，共迎从地平线跃起的希望之光。这一刻，太阳仿佛被歌者以及听众们唱出来了。偶像的身份被赋予了不同的意义与希望，给予积极向上的力量，既是双向奔赴的热情，也是赋予听众的希望。\n2023年1月22日，华晨宇在“四海同春”2023全球华侨华人春节大联欢中演唱该曲；2024年9月19日，该曲获得2024微博音乐盛典“年度推荐MV”奖。",
+      "cover" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/向阳而生.png",
+      "content" : "向阳而生 - 华晨宇"
+    },
+    {
+      "type" : 0,
+      "url" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/Viva La Vida.mp3",
+      "name" : "Viva La Vida",
+      "mimetype" : "mp3",
+      "description" : "《生命万岁》（西班牙语：Viva la Vida；西班牙语：[ˈbiβa la ˈβiða]），是英国另类摇滚乐队酷玩乐队的一首歌曲，收录于乐队的同名专辑《玩酷人生》中。歌曲由乐队全体成员创作，于2008年6月13日作为专辑的第2张单曲发行。“Viva la Vida”在西班牙语中是“长寿”与“过人生”的意思。歌曲的歌词参考了法国大革命历史事件，其伴奏包含一段循环的弦乐部分和数位处理的琴声。\n歌曲发行后获得了乐评好评，并取得了商业成功。其于英国单曲排行榜 《UK Singles Chart》 和《公告牌》百强单曲榜《公告牌》夺冠，是乐队第一首在英美两国夺冠的歌曲。在第51届格莱美奖，歌曲获得了年度歌曲奖。《生命万岁》是美国第六首数字下载量突破400万的歌曲，截至2013年6月其全美销量已超过600万。到2014年，歌曲的销量已突破710万。",
+      "content" : "生命万岁 - 酷玩乐队",
+      "cover" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/Viva-La-Vida-Chords-by-Coldplay.jpg"
+    }
+  ]
+}
