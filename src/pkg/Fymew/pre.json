@@ -26,7 +26,9 @@
       "cover" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/Viva-La-Vida-Chords-by-Coldplay.jpg"
     },
     {
-      "type" : 2
+      "type" : 2,
+      "content" : "年度听歌报告",
+      "cover" : "https://www.robot-shadow.cn/src/pkg/Fymew/img/yearly.png"
     }
   ]
 }
