@@ -1,5 +1,11 @@
 // 博客列表数据
     const blogList = [
+    {
+        title: 'Python无缝衔接Flutter的可行思路',
+        content: 'Python无缝衔接Flutter的可行思路',
+        icon: 'http://PythonnotJava.github.io/src/img/pyflutter.jpg',
+        link: '../../h5/other/Python无缝衔接Flutter的可行思路.html'
+    },
       {
         title: 'Dart补充',
         content: 'Dart补充，尤其关于类的方面',
