@@ -3,7 +3,7 @@
     {
         title: 'Python无缝衔接Flutter的可行思路',
         content: 'Python无缝衔接Flutter的可行思路',
-        icon: 'http://PythonnotJava.github.io/src/img/pyflutter.jpg',
+        icon: 'https://PythonnotJava.github.io/src/img/pyflutter.jpg',
         link: '../../h5/other/Python无缝衔接Flutter的可行思路.html'
     },
       {
