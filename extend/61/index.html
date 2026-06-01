@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>童心回收站</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    overflow:hidden;
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+    background:linear-gradient(180deg,#070f24,#13234a,#34507e);
+    color:#fff;
+}
+
+/* 背景画布 */
+#stars{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-2;
+}
+
+/* 月亮 */
+.moon{
+    position:fixed;
+    top:8%;
+    right:10%;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fff7d6,#ffe9a8);
+    box-shadow:0 0 40px 10px rgba(255,233,168,.4);
+    z-index:-1;
+    animation:moonGlow 5s ease-in-out infinite;
+}
+@keyframes moonGlow{
+    0%,100%{box-shadow:0 0 40px 10px rgba(255,233,168,.35);}
+    50%{box-shadow:0 0 55px 16px rgba(255,233,168,.55);}
+}
+
+/* 页面 */
+.page{
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    text-align:center;
+    opacity:1;
+    transition:opacity .6s ease;
+}
+
+.page.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+.title{
+    font-size:clamp(30px,8vw,46px);
+    margin-bottom:22px;
+    text-shadow:0 0 20px rgba(255,217,102,.5);
+    animation:floatTitle 4s ease-in-out infinite;
+}
+@keyframes floatTitle{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+h2{
+    font-size:clamp(22px,5vw,30px);
+    margin-bottom:10px;
+    text-shadow:0 0 16px rgba(255,217,102,.4);
+}
+
+.subtitle{
+    font-size:clamp(15px,4vw,19px);
+    line-height:1.9;
+    opacity:.92;
+}
+
+.hint{
+    font-size:14px;
+    opacity:.6;
+    margin-top:8px;
+}
+
+.btn{
+    margin-top:38px;
+    padding:14px 30px;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(135deg,#ffe08a,#ffcb52);
+    color:#3a2c00;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 8px 24px rgba(255,203,82,.35);
+    transition:transform .25s,box-shadow .25s,opacity .25s;
+}
+.btn:hover{
+    transform:translateY(-3px) scale(1.04);
+    box-shadow:0 12px 30px rgba(255,203,82,.5);
+}
+.btn:active{transform:scale(.97);}
+.btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
+}
+
+.hidden{opacity:0;pointer-events:none;}
+
+/* 气泡 */
+.bubbles{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:18px;
+    margin-top:26px;
+    max-width:480px;
+}
+.bubble{
+    width:78px;
+    height:78px;
+    border-radius:50%;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(6px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:38px;
+    cursor:pointer;
+    animation:float 3s ease-in-out infinite;
+    transition:transform .25s,background .25s;
+}
+.bubble:nth-child(2){animation-delay:.4s;}
+.bubble:nth-child(3){animation-delay:.8s;}
+.bubble:nth-child(4){animation-delay:1.2s;}
+.bubble:nth-child(5){animation-delay:1.6s;}
+.bubble:nth-child(6){animation-delay:2s;}
+.bubble:hover{transform:scale(1.12);}
+.bubble.popped{
+    background:rgba(255,217,102,.3);
+    border-color:rgba(255,217,102,.6);
+    box-shadow:0 0 18px rgba(255,217,102,.5);
+}
+.bubble.pop{animation:pop .4s ease;}
+@keyframes pop{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.3);}
+    100%{transform:scale(1);}
+}
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+
+.message{
+    margin-top:26px;
+    font-size:clamp(17px,4.5vw,22px);
+    line-height:1.8;
+    min-height:100px;
+    transition:opacity .4s;
+}
+
+.collected{
+    margin-top:14px;
+    font-size:15px;
+    opacity:.75;
+}
+
+/* 进度条 */
+.progress{
+    width:80%;
+    max-width:420px;
+    height:22px;
+    background:rgba(255,255,255,.14);
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:30px;
+    box-shadow:inset 0 0 8px rgba(0,0,0,.2);
+}
+.bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#ffe08a,#ffcb52);
+    border-radius:20px;
+    transition:width .1s linear;
+}
+.percent{
+    margin-top:12px;
+    font-size:20px;
+    font-weight:bold;
+    color:#ffd966;
+}
+
+/* 选项 */
+.choice{
+    width:280px;
+    max-width:85vw;
+    padding:16px;
+    margin:10px;
+    border-radius:20px;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.18);
+    cursor:pointer;
+    font-size:17px;
+    transition:transform .25s,background .25s;
+}
+.choice:hover{
+    transform:scale(1.04);
+    background:rgba(255,217,102,.22);
+}
+.choice:active{transform:scale(.98);}
+
+.result{
+    margin-top:24px;
+    font-size:clamp(18px,5vw,22px);
+    line-height:2;
+    min-height:90px;
+}
+
+/* 结尾 */
+.ending{
+    font-size:clamp(18px,5vw,24px);
+    line-height:2.1;
+}
+.footer{
+    margin-top:34px;
+    opacity:.7;
+    font-size:15px;
+}
+
+.fadeIn{animation:fadeIn 1.5s ease forwards;}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* 飘落爱心容器 */
+#hearts{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:5;
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<div class="moon"></div>
+<div id="hearts"></div>
+
+<!-- 第一页 -->
+<div id="page1" class="page">
+    <div class="title">✨ 儿童节快乐 ✨</div>
+    <div class="subtitle">
+        欢迎来到<br>
+        <b>童心回收站</b><br><br>
+        这里存放着成年人<br>遗失已久的东西
+    </div>
+    <button class="btn" onclick="showPage(2)">开始寻找 →</button>
+</div>
+
+<!-- 第二页 -->
+<div id="page2" class="page hidden">
+    <h2>寻找你的童年</h2>
+    <div class="hint">点亮每一个回忆气泡</div>
+
+    <div class="bubbles">
+        <div class="bubble" onclick="showMsg(this,'🍭','小时候一根棒棒糖<br>能开心整个下午')">🍭</div>
+        <div class="bubble" onclick="showMsg(this,'📺','动画片结束后<br>真的会准时回家吃饭')">📺</div>
+        <div class="bubble" onclick="showMsg(this,'🌈','小时候总觉得<br>未来一定会闪闪发光')">🌈</div>
+        <div class="bubble" onclick="showMsg(this,'🎈','一个气球<br>就能开心一整天')">🎈</div>
+        <div class="bubble" onclick="showMsg(this,'📖','课本最后一页<br>总有奇怪的涂鸦')">📖</div>
+        <div class="bubble" onclick="showMsg(this,'🪁','风筝飞起来时<br>感觉自己也会飞')">🪁</div>
+    </div>
+
+    <div class="message" id="msg">轻轻点一下试试 👆</div>
+    <div class="collected" id="collected">已找回 0 / 6 个回忆</div>
+
+    <button class="btn" id="nextBtn" onclick="startDetect()" disabled>下一步</button>
+</div>
+
+<!-- 第三页 -->
+<div id="page3" class="page hidden">
+    <h2>正在检测童心...</h2>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="percent" id="percent">0%</div>
+    <div class="message" id="detect"></div>
+</div>
+
+<!-- 第四页 -->
+<div id="page4" class="page hidden">
+    <h2>请选择今天最想要的东西</h2>
+
+    <div class="choice" onclick="choose('🍫🍬🍭🍪🧃<br><br>零食已发放成功<br><small style=opacity:.7>请尽情享用，不许分给大人</small>')">
+        A. 一袋零食
+    </div>
+    <div class="choice" onclick="choose('📜<br><br>获得：今天不用长大许可证<br><small style=opacity:.7>有效期：永久</small>')">
+        B. 一天假期
+    </div>
+    <div class="choice" onclick="choose('⏳<br><br>获得：返回童年5分钟体验卡<br><small style=opacity:.7>记得多笑一会儿</small>')">
+        C. 时光机
+    </div>
+
+    <div class="result" id="choiceResult"></div>
+</div>
+
+<!-- 第五页 -->
+<div id="page5" class="page hidden">
+    <div class="ending fadeIn">
+        其实<br><br>
+        小时候盼着长大<br><br>
+        长大以后<br>
+        又偷偷怀念小时候<br><br><br>
+        🌟 祝你儿童节快乐 🌟<br><br>
+        愿你永远拥有<br>
+        重新喜欢这个世界的能力
+    </div>
+    <div class="footer fadeIn">—— 来自某个希望你开心的人</div>
+    <button class="btn fadeIn" onclick="restart()">再玩一次 ↺</button>
+</div>
+
+<script>
+/* ---------- 页面切换 ---------- */
+let current = 1;
+
+function showPage(n){
+    const cur = document.getElementById("page"+current);
+    const next = document.getElementById("page"+n);
+    cur.classList.add("hidden");
+    setTimeout(()=>{
+        next.classList.remove("hidden");
+        current = n;
+    },300);
+}
+
+/* ---------- 气泡收集 ---------- */
+const found = new Set();
+const TOTAL = 6;
+
+function showMsg(el, icon, text){
+    const msg = document.getElementById("msg");
+    msg.style.opacity = 0;
+    setTimeout(()=>{
+        msg.innerHTML = icon + "<br><br>" + text;
+        msg.style.opacity = 1;
+    },200);
+
+    // 点击反馈动画
+    el.classList.remove("pop");
+    void el.offsetWidth;       // 重置动画
+    el.classList.add("pop");
+    el.classList.add("popped");
+
+    if(!found.has(icon)){
+        found.add(icon);
+        document.getElementById("collected").textContent =
+            `已找回 ${found.size} / ${TOTAL} 个回忆`;
+        if(found.size >= 3){
+            document.getElementById("nextBtn").disabled = false;
+        }
+        if(found.size === TOTAL){
+            document.getElementById("collected").innerHTML =
+                "🎉 全部回忆都找回来啦！";
+        }
+    }
+}
+
+/* ---------- 检测动画 ---------- */
+const detectLines = [
+    "正在扫描笑容残留量...",
+    "检测到大量被压抑的好奇心...",
+    "发现一颗藏起来的糖...",
+    "正在唤醒沉睡的想象力...",
+    "童心信号越来越强..."
+];
+
+function startDetect(){
+    showPage(3);
+
+    const bar = document.getElementById("bar");
+    const percent = document.getElementById("percent");
+    const result = document.getElementById("detect");
+
+    let p = 0, lineIdx = 0;
+    bar.style.width = "0%";
+    percent.textContent = "0%";
+    result.innerHTML = detectLines[0];
+
+    setTimeout(()=>{
+        const timer = setInterval(()=>{
+            p += 2;
+            bar.style.width = p + "%";
+            percent.textContent = p + "%";
+
+            const idx = Math.min(detectLines.length-1, Math.floor(p/20));
+            if(idx !== lineIdx){
+                lineIdx = idx;
+                result.innerHTML = detectLines[idx];
+            }
+
+            if(p >= 100){
+                clearInterval(timer);
+                result.innerHTML =
+                    "检测完成 ✅<br><br>" +
+                    "年龄：成年人<br>" +
+                    "童心：██████████ 98%<br><br>" +
+                    "<small style='opacity:.7'>结论：你只是把童心藏起来了</small>";
+                setTimeout(()=>showPage(4), 2600);
+            }
+        },45);
+    },500);
+}
+
+/* ---------- 选择 ---------- */
+function choose(text){
+    document.getElementById("choiceResult").innerHTML = text;
+    setTimeout(()=>{
+        showPage(5);
+        rainHearts();
+    },2600);
+}
+
+function restart(){
+    found.clear();
+    document.getElementById("collected").textContent = "已找回 0 / 6 个回忆";
+    document.getElementById("msg").innerHTML = "轻轻点一下试试 👆";
+    document.getElementById("nextBtn").disabled = true;
+    document.querySelectorAll(".bubble").forEach(b=>b.classList.remove("popped"));
+    document.getElementById("choiceResult").innerHTML = "";
+    showPage(1);
+}
+
+/* ---------- 飘落爱心 ---------- */
+function rainHearts(){
+    const box = document.getElementById("hearts");
+    const emojis = ["💛","🌟","🎈","✨","🍬"];
+    for(let i=0;i<28;i++){
+        const span = document.createElement("span");
+        span.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        span.style.cssText = `
+            position:absolute;
+            top:-40px;
+            left:${Math.random()*100}%;
+            font-size:${18+Math.random()*22}px;
+            opacity:${.6+Math.random()*.4};
+            transition:transform 0s;
+        `;
+        box.appendChild(span);
+
+        const dur = 4000 + Math.random()*3000;
+        const drift = (Math.random()-.5)*120;
+        requestAnimationFrame(()=>{
+            span.style.transition = `transform ${dur}ms linear, opacity ${dur}ms`;
+            span.style.transform = `translate(${drift}px, ${innerHeight+80}px) rotate(${Math.random()*360}deg)`;
+            span.style.opacity = 0;
+        });
+        setTimeout(()=>span.remove(), dur+200);
+    }
+}
+
+/* ---------- 星空（闪烁 + 流星） ---------- */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+}
+resize();
+window.addEventListener("resize", ()=>{
+    resize();
+    initStars();
+});
+
+let stars = [];
+function initStars(){
+    stars = [];
+    const count = Math.floor(innerWidth*innerHeight/8000);
+    for(let i=0;i<count;i++){
+        stars.push({
+            x:Math.random()*canvas.width,
+            y:Math.random()*canvas.height,
+            r:Math.random()*1.6+.3,
+            a:Math.random(),
+            speed:Math.random()*.02+.005
+        });
+    }
+}
+initStars();
+
+let meteors = [];
+function spawnMeteor(){
+    meteors.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height*.4,
+        len:Math.random()*80+60,
+        speed:Math.random()*6+6,
+        life:1
+    });
+}
+setInterval(()=>{ if(Math.random()<.6) spawnMeteor(); }, 2200);
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // 闪烁星星
+    stars.forEach(s=>{
+        s.a += s.speed;
+        const alpha = .4 + Math.abs(Math.sin(s.a))*.6;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fill();
+    });
+
+    // 流星
+    meteors.forEach(m=>{
+        const grad = ctx.createLinearGradient(m.x, m.y, m.x+m.len, m.y+m.len);
+        grad.addColorStop(0,"rgba(255,255,255,.9)");
+        grad.addColorStop(1,"rgba(255,255,255,0)");
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(m.x+m.len, m.y+m.len);
+        ctx.stroke();
+        m.x += m.speed;
+        m.y += m.speed;
+        m.life -= .01;
+    });
+    meteors = meteors.filter(m=>m.life>0 && m.x<canvas.width);
+
+    requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
