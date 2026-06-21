@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RemindAI — 技能开发指南</title>
+    <meta name="description" content="RemindAI 技能开发指南：从零开始创建自定义技能包，SKILL.md 与 tools.json 完整参考。" />
+    <link rel="icon" href="assets/logo_egg.png" type="image/png" />
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #13131a;
+            --card: #1a1a24;
+            --border: #2a2a3a;
+            --text: #e8e8ed;
+            --text-dim: #8888aa;
+            --accent: #7c5cfc;
+            --accent2: #00c8ff;
+            --green: #4caf50;
+            --orange: #ff9800;
+            --red: #f44336;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 14px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            backdrop-filter: blur(20px); background: rgba(10,10,15,0.85);
+            border-bottom: 1px solid var(--border); z-index: 100;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; }
+        .nav-brand img { width: 30px; height: 30px; border-radius: 8px; }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .nav-links { display: flex; gap: 18px; align-items: center; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color .2s; }
+        .nav-links a:hover { color: var(--text); }
+        .back-link { color: var(--text-dim) !important; text-decoration: none; font-size: 13px; transition: color .2s; }
+        .back-link:hover { color: var(--accent2) !important; }
+
+        /* lang switcher */
+        .lang-switcher { position: relative; }
+        .lang-toggle {
+            display: flex; align-items: center; gap: 6px; padding: 5px 10px;
+            border-radius: 8px; border: 1px solid var(--border); background: var(--card);
+            color: var(--text); font-size: 12px; cursor: pointer; transition: all .2s; font-family: inherit;
+        }
+        .lang-toggle:hover { border-color: var(--accent); }
+        .lang-dropdown {
+            position: absolute; top: calc(100% + 6px); right: 0; background: var(--card);
+            border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+            opacity: 0; visibility: hidden; transform: translateY(-6px); transition: all .2s;
+            min-width: 130px; box-shadow: 0 12px 40px rgba(0,0,0,.5); z-index: 200;
+        }
+        .lang-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+        .lang-option {
+            display: block; width: 100%; padding: 9px 14px; border: none; background: transparent;
+            color: var(--text); font-size: 13px; text-align: left; cursor: pointer; transition: background .15s; font-family: inherit;
+        }
+        .lang-option:hover { background: rgba(124,92,252,.15); }
+        .lang-option.active { color: var(--accent2); font-weight: 600; background: rgba(0,200,255,.08); }
+
+        /* Layout */
+        .doc-layout { display: flex; max-width: 1300px; margin: 0 auto; padding-top: 62px; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky; top: 62px; width: 240px; min-width: 240px;
+            max-height: calc(100vh - 62px); overflow-y: auto; padding: 28px 16px 40px 20px;
+            border-right: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        .sidebar-title {
+            font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-dim); margin-bottom: 14px;
+        }
+        .sidebar a {
+            display: block; padding: 7px 12px; margin-bottom: 2px; border-radius: 6px;
+            text-decoration: none; color: var(--text-dim); font-size: 13px; transition: all .2s;
+        }
+        .sidebar a:hover { background: rgba(124,92,252,.08); color: var(--text); }
+        .sidebar a.active { background: rgba(124,92,252,.15); color: var(--accent2); font-weight: 600; }
+
+        /* Main */
+        .main-area { flex: 1; padding: 36px 52px 80px; max-width: 920px; }
+
+        .doc-hero {
+            margin-bottom: 40px; padding-bottom: 28px; border-bottom: 1px solid var(--border);
+        }
+        .doc-hero h1 {
+            font-size: 32px; font-weight: 800; margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .doc-hero p { font-size: 15px; color: var(--text-dim); max-width: 600px; }
+
+        /* Sections */
+        .section { margin-bottom: 52px; scroll-margin-top: 80px; }
+        .section h2 {
+            font-size: 24px; font-weight: 700; margin-bottom: 6px; display: flex;
+            align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 2px solid var(--border);
+        }
+        .section h2 .icon { font-size: 24px; }
+        .section > .desc { font-size: 14.5px; color: var(--text-dim); margin-bottom: 20px; }
+        .section h3 { font-size: 18px; font-weight: 600; color: var(--accent2); margin: 24px 0 10px; }
+        .section h4 { font-size: 15px; font-weight: 600; color: var(--accent); margin: 18px 0 8px; }
+        .section p { font-size: 14.5px; margin-bottom: 12px; color: var(--text); }
+        .section ul, .section ol { margin: 0 0 14px 20px; font-size: 14.5px; }
+        .section li { margin-bottom: 6px; }
+        .section li code, .section p code, .section td code {
+            background: rgba(0,200,255,.1); color: var(--accent2);
+            padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+        }
+
+        /* Code block */
+        .code-block {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 18px 22px; overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px; line-height: 1.8; color: var(--text-dim); margin: 12px 0 18px;
+            position: relative;
+        }
+        .code-block .comment { color: #555577; }
+        .code-block .key { color: var(--accent); }
+        .code-block .str { color: #c3e88d; }
+        .code-block .val { color: #c792ea; }
+        .code-block .type { color: #ffcb6b; }
+
+        /* Callout */
+        .callout {
+            display: flex; gap: 12px; padding: 14px 18px; border-radius: 10px;
+            margin: 14px 0; font-size: 13.5px; line-height: 1.6;
+        }
+        .callout .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+        .callout-tip { background: rgba(76,175,80,.08); border: 1px solid rgba(76,175,80,.2); }
+        .callout-tip .icon { color: var(--green); }
+        .callout-warn { background: rgba(255,152,0,.08); border: 1px solid rgba(255,152,0,.2); }
+        .callout-warn .icon { color: var(--orange); }
+        .callout-info { background: rgba(0,200,255,.06); border: 1px solid rgba(0,200,255,.15); }
+        .callout-info .icon { color: var(--accent2); }
+
+        /* Table */
+        .doc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 12px 0 18px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+        .doc-table th, .doc-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+        .doc-table th { background: var(--card); font-weight: 600; color: var(--text-dim); font-size: 11.5px; text-transform: uppercase; letter-spacing: .5px; }
+        .doc-table tr:last-child td { border-bottom: none; }
+        .doc-table tr:hover td { background: rgba(124,92,252,.04); }
+
+        /* File tree */
+        .file-tree {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 18px 22px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+            line-height: 1.8; color: var(--text-dim); margin: 12px 0 18px;
+        }
+        .file-tree .dir { color: var(--accent2); }
+        .file-tree .file { color: var(--accent); }
+        .file-tree .optional { color: #666; }
+        .file-tree .comment { color: #555; }
+
+        /* Footer */
+        footer {
+            text-align: center; padding: 36px; border-top: 1px solid var(--border);
+            color: var(--text-dim); font-size: 12px; margin-left: 240px;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-area { padding: 28px 18px 60px; }
+            footer { margin-left: 0; }
+            nav { padding: 12px 18px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+    <div style="display:flex;align-items:center;gap:14px;">
+        <div class="nav-brand">
+            <img src="assets/logo_egg.png" alt="Logo" />
+            <span>RemindAI</span>
+        </div>
+        <a href="index.html" class="back-link" data-i18n="nav.home">← 首页</a>
+        <a href="configure.html" class="back-link" data-i18n="nav.guide">📖 配置指南</a>
+        <a href="changelog.html" class="back-link" data-i18n="nav.changelog">📋 版本历史</a>
+    </div>
+    <div class="nav-right">
+        <div class="nav-links">
+            <a href="https://github.com/PythonnotJava/RemindAI" target="_blank">GitHub</a>
+        </div>
+        <div class="lang-switcher">
+            <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+                <span>🌐</span><span id="langLabel">中文</span><span style="font-size:10px;">▾</span>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-option active" data-lang="zh-CN">🇨🇳 中文</button>
+                <button class="lang-option" data-lang="en">🇺🇸 English</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="doc-layout">
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-title" data-i18n="side.title">技能开发</div>
+    <a href="#overview" class="active" data-i18n="side.overview">概述</a>
+    <a href="#anatomy" data-i18n="side.anatomy">技能结构</a>
+    <a href="#skillmd" data-i18n="side.skillmd">SKILL.md</a>
+    <a href="#toolsjson" data-i18n="side.toolsjson">tools.json</a>
+    <a href="#tutorial" data-i18n="side.tutorial">实战教程</a>
+    <a href="#best" data-i18n="side.best">最佳实践</a>
+    <a href="#builtin" data-i18n="side.builtin">内置技能参考</a>
+    <a href="#distribute" data-i18n="side.distribute">打包分发</a>
+</aside>
+
+<!-- Main -->
+<main class="main-area">
+
+<div class="doc-hero">
+    <h1 data-i18n="hero.title">🧩 技能开发指南</h1>
+    <p data-i18n="hero.desc">从零开始创建自定义技能包，为 RemindAI 的 AI 注入新的能力。</p>
+</div>
+
+<!-- ==================== 概述 ==================== -->
+<section class="section" id="overview">
+    <h2><span class="icon">📋</span> <span data-i18n="s1.title">什么是技能</span></h2>
+    <p class="desc" data-i18n="s1.desc">技能（Skill）是 RemindAI 的扩展机制，让 AI 在对话中获得额外的系统提示词和工具定义。技能以 ZIP 包形式分发，导入后自动加载。</p>
+    <p data-i18n="s1.p1">一个技能由两部分组成：</p>
+    <ul>
+        <li data-i18n="s1.l1"><code>SKILL.md</code> — <strong>系统提示词</strong>：定义 AI 的行为规范、知识领域和使用策略。这是技能的核心。</li>
+        <li data-i18n="s1.l2"><code>tools.json</code> — <strong>工具定义</strong>（可选）：OpenAI 格式的 Function Calling 工具定义，让 AI 能调用自定义函数。</li>
+    </ul>
+    <div class="callout callout-info">
+        <span class="icon">ℹ️</span>
+        <span data-i18n="s1.info"><code>SKILL.md</code> 是必须的，<code>tools.json</code> 是可选的。有些技能只需要提供行为指导（纯提示词技能），不需要定义新工具。</span>
+    </div>
+</section>
+
+<!-- ==================== 技能结构 ==================== -->
+<section class="section" id="anatomy">
+    <h2><span class="icon">🗂️</span> <span data-i18n="s2.title">技能包结构</span></h2>
+    <p class="desc" data-i18n="s2.desc">一个标准的技能包解压后如下：</p>
+
+    <div class="file-tree">
+<span class="dir">my-awesome-skill/</span>
+├── <span class="file">SKILL.md</span>          <span class="comment"># 必须 — 系统提示词 (Markdown 格式)</span>
+├── <span class="optional">tools.json</span>       <span class="comment"># 可选 — OpenAI 格式工具定义</span>
+└── <span class="optional">.skill_meta.json</span> <span class="comment"># 自动生成 — 不要手动创建</span>
+    </div>
+
+    <p data-i18n="s2.p1">打包时，将 <code>SKILL.md</code> 和 <code>tools.json</code>（如果有）放入一个文件夹，然后将该文件夹压缩为 <code>.zip</code> 文件即可。</p>
+
+    <div class="callout callout-tip">
+        <span class="icon">💡</span>
+        <span data-i18n="s2.tip">ZIP 文件的名称将成为导入后的技能名称。建议使用简洁有意义的英文名称，如 <code>code-reviewer.zip</code>。</span>
+    </div>
+
+    <h3 data-i18n="s2.metaTitle">.skill_meta.json（自动管理）</h3>
+    <p data-i18n="s2.metaDesc">导入后，RemindAI 会自动在技能目录中生成 <code>.skill_meta.json</code>，记录技能 ID、安装时间、激活状态和排序索引。<strong>不要手动创建或修改此文件。</strong></p>
+    <div class="code-block">
+{
+  <span class="key">"id"</span>: <span class="str">"550e8400-e29b-41d4-a716-446655440000"</span>,
+  <span class="key">"installed_at"</span>: <span class="str">"2026-06-21T10:30:00.000"</span>,
+  <span class="key">"is_active"</span>: <span class="val">true</span>,
+  <span class="key">"sort_index"</span>: <span class="type">3</span>
+}
+    </div>
+</section>
+
+<!-- ==================== SKILL.md ==================== -->
+<section class="section" id="skillmd">
+    <h2><span class="icon">📝</span> <span data-i18n="s3.title">SKILL.md — 系统提示词</span></h2>
+    <p class="desc" data-i18n="s3.desc"><code>SKILL.md</code> 是技能的灵魂。它会在对话开始时注入到 AI 的系统提示词中，定义 AI 的行为准则。写好 SKILL.md 是开发技能的关键。</p>
+
+    <h3 data-i18n="s3.formatTitle">格式要求</h3>
+    <ul>
+        <li data-i18n="s3.f1">使用 <strong>Markdown</strong> 格式编写</li>
+        <li data-i18n="s3.f2">推荐使用 <code>#</code> 标题划分章节（如概述、触发条件、使用策略、边界等）</li>
+        <li data-i18n="s3.f3">使用 <code>&gt;</code> 引用块写简短描述，作为技能的"一句话说明"</li>
+        <li data-i18n="s3.f4">使用 <code>```</code> 代码块展示示例</li>
+        <li data-i18n="s3.f5">使用列表组织操作步骤和规则</li>
+    </ul>
+
+    <h3 data-i18n="s3.templateTitle">推荐模板</h3>
+    <div class="code-block">
+<span class="comment"># 技能名称</span>
+
+<span class="key">&gt; 一句话描述这个技能做什么、适用场景。</span>
+
+<span class="comment">## 触发条件</span>
+
+以下情况应主动使用此技能：
+- 条件 1
+- 条件 2
+
+<span class="comment">## 使用策略</span>
+
+1. **步骤一**：说明
+2. **步骤二**：说明
+3. **降级方案**：当条件不满足时的处理
+
+<span class="comment">## 工具行为</span>
+
+<span class="comment">### tool_name_1</span>
+
+描述此工具的功能、参数和返回值。
+
+<span class="comment">### tool_name_2</span>
+
+描述此工具的功能、参数和返回值。
+
+<span class="comment">## 边界</span>
+
+- 不可操作的路径或资源
+- 安全限制
+- 性能约束
+    </div>
+
+    <h3 data-i18n="s3.principlesTitle">写作原则</h3>
+    <table class="doc-table">
+        <thead><tr><th data-i18n="s3.pc1">原则</th><th data-i18n="s3.pc2">说明</th></tr></thead>
+        <tbody>
+            <tr><td data-i18n="s3.p1.label"><strong>明确触发条件</strong></td><td data-i18n="s3.p1.desc">告诉 AI 何时应该调用此技能，避免不必要的触发</td></tr>
+            <tr><td data-i18n="s3.p2.label"><strong>写清边界</strong></td><td data-i18n="s3.p2.desc">明确告诉 AI 什么不能做，比告诉它做什么更重要</td></tr>
+            <tr><td data-i18n="s3.p3.label"><strong>给出示例</strong></td><td data-i18n="s3.p3.desc">用代码块或具体场景展示期望的行为</td></tr>
+            <tr><td data-i18n="s3.p4.label"><strong>考虑降级</strong></td><td data-i18n="s3.p4.desc">当条件不满足时，AI 应该如何优雅地处理</td></tr>
+            <tr><td data-i18n="s3.p5.label"><strong>保持精炼</strong></td><td data-i18n="s3.p5.desc">系统提示词会占用 context 窗口，避免冗余描述</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ==================== tools.json ==================== -->
+<section class="section" id="toolsjson">
+    <h2><span class="icon">🔧</span> <span data-i18n="s4.title">tools.json — 工具定义</span></h2>
+    <p class="desc" data-i18n="s4.desc"><code>tools.json</code> 使用 <strong>OpenAI Function Calling</strong> 格式定义工具。AI 在对话中可以调用这些工具，RemindAI 会将调用请求路由到对应的执行器。</p>
+
+    <h3 data-i18n="s4.formatTitle">文件格式</h3>
+    <p data-i18n="s4.formatDesc">文件是一个 JSON 数组，每个元素是一个工具定义：</p>
+    <div class="code-block">
+[
+  {
+    <span class="key">"type"</span>: <span class="str">"function"</span>,
+    <span class="key">"function"</span>: {
+      <span class="key">"name"</span>: <span class="str">"my_tool_name"</span>,
+      <span class="key">"description"</span>: <span class="str">"工具功能的详细描述，AI 会根据这段文字决定何时调用此工具"</span>,
+      <span class="key">"parameters"</span>: {
+        <span class="key">"type"</span>: <span class="str">"object"</span>,
+        <span class="key">"properties"</span>: {
+          <span class="key">"param1"</span>: {
+            <span class="key">"type"</span>: <span class="str">"string"</span>,
+            <span class="key">"description"</span>: <span class="str">"参数说明"</span>
+          },
+          <span class="key">"param2"</span>: {
+            <span class="key">"type"</span>: <span class="str">"number"</span>,
+            <span class="key">"description"</span>: <span class="str">"另一个参数说明"</span>,
+            <span class="key">"default"</span>: <span class="type">42</span>
+          }
+        },
+        <span class="key">"required"</span>: [<span class="str">"param1"</span>]
+      }
+    }
+  }
+]
+    </div>
+
+    <h3 data-i18n="s4.typesTitle">支持的参数类型</h3>
+    <table class="doc-table">
+        <thead><tr><th data-i18n="s4.tc1">类型</th><th data-i18n="s4.tc2">说明</th><th data-i18n="s4.tc3">示例</th></tr></thead>
+        <tbody>
+            <tr><td><code>string</code></td><td data-i18n="s4.t1">字符串</td><td>文件路径、命令名称</td></tr>
+            <tr><td><code>number</code></td><td data-i18n="s4.t2">数字</td><td>端口号、超时时间</td></tr>
+            <tr><td><code>boolean</code></td><td data-i18n="s4.t3">布尔值</td><td>是否递归、是否覆盖</td></tr>
+            <tr><td><code>array</code></td><td data-i18n="s4.t4">数组</td><td>文件列表、标签集</td></tr>
+            <tr><td><code>object</code></td><td data-i18n="s4.t5">对象</td><td>嵌套配置</td></tr>
+            <tr><td><code>enum</code></td><td data-i18n="s4.t6">枚举（在 string 上使用）</td><td>排序方式、输出格式</td></tr>
+        </tbody>
+    </table>
+
+    <h3 data-i18n="s4.enumTitle">使用 enum 限定值</h3>
+    <div class="code-block">
+<span class="key">"format"</span>: {
+  <span class="key">"type"</span>: <span class="str">"string"</span>,
+  <span class="key">"enum"</span>: [<span class="str">"json"</span>, <span class="str">"csv"</span>, <span class="str">"markdown"</span>],
+  <span class="key">"description"</span>: <span class="str">"输出格式"</span>,
+  <span class="key">"default"</span>: <span class="str">"json"</span>
+}
+    </div>
+
+    <div class="callout callout-warn">
+        <span class="icon">⚠️</span>
+        <span data-i18n="s4.warn">工具的 <code>description</code> 字段非常重要 — AI 根据它来决定何时调用此工具。务必用清晰的语言描述工具的功能和适用场景。</span>
+    </div>
+</section>
+
+<!-- ==================== 实战教程 ==================== -->
+<section class="section" id="tutorial">
+    <h2><span class="icon">🚀</span> <span data-i18n="s5.title">实战教程：创建 "代码审查" 技能</span></h2>
+    <p class="desc" data-i18n="s5.desc">通过一个完整的示例，演示如何从零创建一个实用的技能包。</p>
+
+    <h3 data-i18n="s5.step1Title">步骤一：创建目录结构</h3>
+    <div class="file-tree">
+<span class="dir">code-reviewer/</span>
+├── <span class="file">SKILL.md</span>
+└── <span class="file">tools.json</span>
+    </div>
+
+    <h3 data-i18n="s5.step2Title">步骤二：编写 SKILL.md</h3>
+    <div class="code-block">
+<span class="comment"># 代码审查专家</span>
+
+<span class="key">&gt; 专注于代码质量审查，检查潜在 Bug、安全漏洞、性能问题和代码风格。适用于 PR Review、代码自查等场景。</span>
+
+<span class="comment">## 触发条件</span>
+
+以下情况应主动激活此技能：
+- 用户要求审查代码或 PR
+- 用户说"帮我看看这段代码"
+- 用户提交了新代码要求反馈
+
+<span class="comment">## 审查维度</span>
+
+按以下优先级审查代码：
+
+1. **🔴 安全漏洞** (P0)
+   - SQL 注入、XSS、路径遍历
+   - 硬编码密钥/密码
+   - 不安全的依赖版本
+
+2. **🟡 Bug 风险** (P1)
+   - 空指针/空引用
+   - 边界条件未处理
+   - 并发/竞态条件
+   - 资源泄漏（文件句柄、数据库连接）
+
+3. **🟢 性能问题** (P2)
+   - N+1 查询
+   - 不必要的循环嵌套
+   - 大对象在循环中重复创建
+
+4. **📋 代码风格** (P3)
+   - 命名规范
+   - 函数长度（建议 &lt; 50 行）
+   - 重复代码
+
+<span class="comment">## 输出格式</span>
+
+每个发现的问题用以下格式输出：
+
+```
+[严重程度] 文件:行号 — 问题描述
+> 建议的修复方案
+```
+
+<span class="comment">## 边界</span>
+
+- 只审查工作目录内的文件
+- 不自动修改代码，只给出建议
+- 不审查 node_modules/、.git/ 等目录
+    </div>
+
+    <h3 data-i18n="s5.step3Title">步骤三：编写 tools.json</h3>
+    <p data-i18n="s5.step3Desc">为代码审查技能添加一个专用的扫描工具：</p>
+    <div class="code-block">
+[
+  {
+    <span class="key">"type"</span>: <span class="str">"function"</span>,
+    <span class="key">"function"</span>: {
+      <span class="key">"name"</span>: <span class="str">"review_scan"</span>,
+      <span class="key">"description"</span>: <span class="str">"扫描指定目录的代码文件，返回文件列表和行数统计。用于审查前了解代码规模。"</span>,
+      <span class="key">"parameters"</span>: {
+        <span class="key">"type"</span>: <span class="str">"object"</span>,
+        <span class="key">"properties"</span>: {
+          <span class="key">"directory"</span>: {
+            <span class="key">"type"</span>: <span class="str">"string"</span>,
+            <span class="key">"description"</span>: <span class="str">"要扫描的目录路径（相对于工作目录）"</span>
+          },
+          <span class="key">"extensions"</span>: {
+            <span class="key">"type"</span>: <span class="str">"array"</span>,
+            <span class="key">"items"</span>: { <span class="key">"type"</span>: <span class="str">"string"</span> },
+            <span class="key">"description"</span>: <span class="str">"要扫描的文件扩展名，如 ['.dart', '.py', '.js']。留空扫描所有文件。"</span>
+          },
+          <span class="key">"max_files"</span>: {
+            <span class="key">"type"</span>: <span class="str">"number"</span>,
+            <span class="key">"description"</span>: <span class="str">"最多扫描的文件数量，默认 100"</span>,
+            <span class="key">"default"</span>: <span class="type">100</span>
+          }
+        },
+        <span class="key">"required"</span>: [<span class="str">"directory"</span>]
+      }
+    }
+  }
+]
+    </div>
+
+    <h3 data-i18n="s5.step4Title">步骤四：打包并导入</h3>
+    <ol>
+        <li data-i18n="s5.s4l1">将 <code>code-reviewer/</code> 文件夹压缩为 <code>code-reviewer.zip</code></li>
+        <li data-i18n="s5.s4l2">在 RemindAI 的「技能」页面，点击 <kbd>+</kbd> 导入 ZIP</li>
+        <li data-i18n="s5.s4l3">确认导入成功，卡片上显示 1 个工具</li>
+        <li data-i18n="s5.s4l4">在对话中试试：<em>"帮我审查一下 src/ 目录下的代码"</em></li>
+    </ol>
+</section>
+
+<!-- ==================== 最佳实践 ==================== -->
+<section class="section" id="best">
+    <h2><span class="icon">⭐</span> <span data-i18n="s6.title">最佳实践</span></h2>
+    <p class="desc" data-i18n="s6.desc">这些经验来自内置技能的开发过程，能帮你写出更好的技能。</p>
+
+    <h3 data-i18n="s6.promptTitle">SKILL.md 写作技巧</h3>
+    <ul>
+        <li data-i18n="s6.p1"><strong>用引用块写一句话摘要</strong> — <code>&gt; 描述</code>，让 AI 快速理解技能用途</li>
+        <li data-i18n="s6.p2"><strong>明确列出触发条件</strong> — 用"以下情况应主动调用 xxx"的句式</li>
+        <li data-i18n="s6.p3"><strong>给出使用策略编号列表</strong> — 1-2-3 步骤让 AI 按序执行</li>
+        <li data-i18n="s6.p4"><strong>写清边界和限制</strong> — "不可操作的路径"、"超时保护"等</li>
+        <li data-i18n="s6.p5"><strong>为每个工具单独写一节</strong> — 描述功能、参数含义和行为规则</li>
+    </ul>
+
+    <h3 data-i18n="s6.toolsTitle">tools.json 注意事项</h3>
+    <ul>
+        <li data-i18n="s6.t1"><strong>description 要精确</strong> — 这是 AI 决策的唯一依据，模糊的描述会导致错误调用</li>
+        <li data-i18n="s6.t2"><strong>合理使用 required</strong> — 必填参数越少越好，可选参数设合理默认值</li>
+        <li data-i18n="s6.t3"><strong>参数名用 snake_case</strong> — 如 <code>file_path</code> 而非 <code>filePath</code></li>
+        <li data-i18n="s6.t4"><strong>善用 enum</strong> — 对有限选项使用枚举，避免 AI 猜测值</li>
+        <li data-i18n="s6.t5"><strong>工具数量控制在 1-5 个</strong> — 太多工具会增加 AI 选择的困惑</li>
+    </ul>
+
+    <h3 data-i18n="s6.testingTitle">测试技能</h3>
+    <p data-i18n="s6.testingDesc">导入技能后，通过以下方式测试：</p>
+    <ol>
+        <li data-i18n="s6.test1">在新对话中（确保技能已启用），用不同的表述触发技能</li>
+        <li data-i18n="s6.test2">检查 AI 是否正确识别了触发条件</li>
+        <li data-i18n="s6.test3">验证工具调用是否正确传参</li>
+        <li data-i18n="s6.test4">查看 SKILL.md 内容（点击卡片上的 📄 按钮）确认注入正确</li>
+        <li data-i18n="s6.test5">迭代优化 SKILL.md 中的措辞</li>
+    </ol>
+</section>
+
+<!-- ==================== 内置技能参考 ==================== -->
+<section class="section" id="builtin">
+    <h2><span class="icon">📚</span> <span data-i18n="s7.title">内置技能参考</span></h2>
+    <p class="desc" data-i18n="s7.desc">RemindAI 内置了三个元技能，它们是最好的学习参考。你可以在技能页面点击 📄 按钮查看完整的 SKILL.md。</p>
+
+    <table class="doc-table">
+        <thead><tr><th data-i18n="s7.c1">技能</th><th data-i18n="s7.c2">工具数</th><th data-i18n="s7.c3">核心要点</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><strong>ToolShell</strong></td>
+                <td>10+</td>
+                <td data-i18n="s7.r1">文件操作 + Shell/Python 执行 + 记忆管理。展示了沙盒边界、操作确认、路径保护等安全模式的写法。</td>
+            </tr>
+            <tr>
+                <td><strong>Schedule</strong></td>
+                <td>7</td>
+                <td data-i18n="s7.r2">SCHEDULE.md 计划管理。展示了如何通过文件驱动的 CRUD 操作、优先级系统和归档策略来组织工作流。</td>
+            </tr>
+            <tr>
+                <td><strong>System</strong></td>
+                <td>2</td>
+                <td data-i18n="s7.r3">环境探测。展示了如何用最少的工具做最多的事：探测 + 脱敏，简洁高效。</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ==================== 打包分发 ==================== -->
+<section class="section" id="distribute">
+    <h2><span class="icon">📦</span> <span data-i18n="s8.title">打包与分发</span></h2>
+    <p class="desc" data-i18n="s8.desc">开发完成后，将技能打包为 ZIP 文件并分发给其他用户。</p>
+
+    <h3 data-i18n="s8.packTitle">打包步骤</h3>
+    <ol>
+        <li data-i18n="s8.p1">确保目录中包含 <code>SKILL.md</code>（必须）和 <code>tools.json</code>（可选）</li>
+        <li data-i18n="s8.p2">删除 <code>.skill_meta.json</code>（这是导入后自动生成的，不应包含在分发包中）</li>
+        <li data-i18n="s8.p3">将文件夹压缩为 <code>.zip</code> 文件</li>
+        <li data-i18n="s8.p4">ZIP 可以是单层目录包裹（如 <code>my-skill.zip</code> 内含 <code>my-skill/SKILL.md</code>），也可以直接包含文件。RemindAI 会自动处理两种情况。</li>
+    </ol>
+
+    <div class="callout callout-tip">
+        <span class="icon">💡</span>
+        <span data-i18n="s8.tip">推荐使用命令行打包以确保结构正确：</span>
+    </div>
+    <div class="code-block">
+<span class="comment"># macOS / Linux</span>
+<span class="key">cd</span> code-reviewer/
+<span class="key">zip</span> -r ../code-reviewer.zip SKILL.md tools.json
+
+<span class="comment"># Windows (PowerShell)</span>
+<span class="key">Compress-Archive</span> -Path SKILL.md, tools.json -DestinationPath ..\code-reviewer.zip
+    </div>
+
+    <h3 data-i18n="s8.shareTitle">分享渠道</h3>
+    <ul>
+        <li data-i18n="s8.s1"><a href="https://skillsmp.com" target="_blank" style="color:var(--accent2)">Skills MP</a> — 技能市场平台</li>
+        <li data-i18n="s8.s2"><a href="https://claudskills.com" target="_blank" style="color:var(--accent2)">Claud Skills</a> — 社区技能库</li>
+        <li data-i18n="s8.s3"><a href="https://www.skills.sh" target="_blank" style="color:var(--accent2)">Skills.sh</a> — 开放技能平台</li>
+        <li data-i18n="s8.s4">GitHub — 创建仓库发布 Release</li>
+    </ul>
+</section>
+
+</main>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p data-i18n="footer.license">MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a></p>
+    <p style="margin-top:6px;">
+        <a href="index.html" data-i18n="footer.home">← 首页</a> ·
+        <a href="configure.html" data-i18n="footer.guide">📖 配置指南</a> ·
+        <a href="changelog.html" data-i18n="footer.changelog">📋 版本历史</a>
+    </p>
+</footer>
+
+<!-- i18n -->
+<script>
+(function(){
+const T={
+'zh-CN':{
+'nav.home':'← 首页','nav.guide':'📖 配置指南','nav.changelog':'📋 版本历史',
+'side.title':'技能开发','side.overview':'概述','side.anatomy':'技能结构',
+'side.skillmd':'SKILL.md','side.toolsjson':'tools.json','side.tutorial':'实战教程',
+'side.best':'最佳实践','side.builtin':'内置技能参考','side.distribute':'打包分发',
+'hero.title':'🧩 技能开发指南','hero.desc':'从零开始创建自定义技能包，为 RemindAI 的 AI 注入新的能力。',
+'s1.title':'什么是技能','s1.desc':'技能（Skill）是 RemindAI 的扩展机制，让 AI 在对话中获得额外的系统提示词和工具定义。技能以 ZIP 包形式分发，导入后自动加载。',
+'s1.p1':'一个技能由两部分组成：','s1.l1':'<code>SKILL.md</code> — <strong>系统提示词</strong>：定义 AI 的行为规范、知识领域和使用策略。这是技能的核心。',
+'s1.l2':'<code>tools.json</code> — <strong>工具定义</strong>（可选）：OpenAI 格式的 Function Calling 工具定义，让 AI 能调用自定义函数。',
+'s1.info':'<code>SKILL.md</code> 是必须的，<code>tools.json</code> 是可选的。有些技能只需要提供行为指导（纯提示词技能），不需要定义新工具。',
+'s2.title':'技能包结构','s2.desc':'一个标准的技能包解压后如下：','s2.p1':'打包时，将 <code>SKILL.md</code> 和 <code>tools.json</code>（如果有）放入一个文件夹，然后将该文件夹压缩为 <code>.zip</code> 文件即可。',
+'s2.tip':'ZIP 文件的名称将成为导入后的技能名称。建议使用简洁有意义的英文名称，如 <code>code-reviewer.zip</code>。',
+'s2.metaTitle':'.skill_meta.json（自动管理）','s2.metaDesc':'导入后，RemindAI 会自动在技能目录中生成 <code>.skill_meta.json</code>，记录技能 ID、安装时间、激活状态和排序索引。<strong>不要手动创建或修改此文件。</strong>',
+'s3.title':'SKILL.md — 系统提示词','s3.desc':'<code>SKILL.md</code> 是技能的灵魂。它会在对话开始时注入到 AI 的系统提示词中，定义 AI 的行为准则。写好 SKILL.md 是开发技能的关键。',
+'s3.formatTitle':'格式要求','s3.f1':'使用 <strong>Markdown</strong> 格式编写','s3.f2':'推荐使用 <code>#</code> 标题划分章节（如概述、触发条件、使用策略、边界等）',
+'s3.f3':'使用 <code>&gt;</code> 引用块写简短描述，作为技能的"一句话说明"','s3.f4':'使用 <code>```</code> 代码块展示示例','s3.f5':'使用列表组织操作步骤和规则',
+'s3.templateTitle':'推荐模板','s3.principlesTitle':'写作原则','s3.pc1':'原则','s3.pc2':'说明',
+'s3.p1.label':'明确触发条件','s3.p1.desc':'告诉 AI 何时应该调用此技能，避免不必要的触发',
+'s3.p2.label':'写清边界','s3.p2.desc':'明确告诉 AI 什么不能做，比告诉它做什么更重要',
+'s3.p3.label':'给出示例','s3.p3.desc':'用代码块或具体场景展示期望的行为',
+'s3.p4.label':'考虑降级','s3.p4.desc':'当条件不满足时，AI 应该如何优雅地处理',
+'s3.p5.label':'保持精炼','s3.p5.desc':'系统提示词会占用 context 窗口，避免冗余描述',
+'s4.title':'tools.json — 工具定义','s4.desc':'<code>tools.json</code> 使用 <strong>OpenAI Function Calling</strong> 格式定义工具。AI 在对话中可以调用这些工具，RemindAI 会将调用请求路由到对应的执行器。',
+'s4.formatTitle':'文件格式','s4.formatDesc':'文件是一个 JSON 数组，每个元素是一个工具定义：',
+'s4.typesTitle':'支持的参数类型','s4.tc1':'类型','s4.tc2':'说明','s4.tc3':'示例',
+'s4.t1':'字符串','s4.t2':'数字','s4.t3':'布尔值','s4.t4':'数组','s4.t5':'对象','s4.t6':'枚举（在 string 上使用）',
+'s4.enumTitle':'使用 enum 限定值','s4.warn':'工具的 <code>description</code> 字段非常重要 — AI 根据它来决定何时调用此工具。务必用清晰的语言描述工具的功能和适用场景。',
+'s5.title':'实战教程：创建 "代码审查" 技能','s5.desc':'通过一个完整的示例，演示如何从零创建一个实用的技能包。',
+'s5.step1Title':'步骤一：创建目录结构','s5.step2Title':'步骤二：编写 SKILL.md',
+'s5.step3Title':'步骤三：编写 tools.json','s5.step3Desc':'为代码审查技能添加一个专用的扫描工具：',
+'s5.step4Title':'步骤四：打包并导入','s5.s4l1':'将 <code>code-reviewer/</code> 文件夹压缩为 <code>code-reviewer.zip</code>',
+'s5.s4l2':'在 RemindAI 的「技能」页面，点击 <kbd>+</kbd> 导入 ZIP','s5.s4l3':'确认导入成功，卡片上显示 1 个工具',
+'s5.s4l4':'在对话中试试：<em>"帮我审查一下 src/ 目录下的代码"</em>',
+'s6.title':'最佳实践','s6.desc':'这些经验来自内置技能的开发过程，能帮你写出更好的技能。',
+'s6.promptTitle':'SKILL.md 写作技巧','s6.p1':'<strong>用引用块写一句话摘要</strong> — <code>&gt; 描述</code>，让 AI 快速理解技能用途',
+'s6.p2':'<strong>明确列出触发条件</strong> — 用"以下情况应主动调用 xxx"的句式','s6.p3':'<strong>给出使用策略编号列表</strong> — 1-2-3 步骤让 AI 按序执行',
+'s6.p4':'<strong>写清边界和限制</strong> — "不可操作的路径"、"超时保护"等','s6.p5':'<strong>为每个工具单独写一节</strong> — 描述功能、参数含义和行为规则',
+'s6.toolsTitle':'tools.json 注意事项','s6.t1':'<strong>description 要精确</strong> — 这是 AI 决策的唯一依据，模糊的描述会导致错误调用',
+'s6.t2':'<strong>合理使用 required</strong> — 必填参数越少越好，可选参数设合理默认值','s6.t3':'<strong>参数名用 snake_case</strong> — 如 <code>file_path</code> 而非 <code>filePath</code>',
+'s6.t4':'<strong>善用 enum</strong> — 对有限选项使用枚举，避免 AI 猜测值','s6.t5':'<strong>工具数量控制在 1-5 个</strong> — 太多工具会增加 AI 选择的困惑',
+'s6.testingTitle':'测试技能','s6.testingDesc':'导入技能后，通过以下方式测试：',
+'s6.test1':'在新对话中（确保技能已启用），用不同的表述触发技能','s6.test2':'检查 AI 是否正确识别了触发条件',
+'s6.test3':'验证工具调用是否正确传参','s6.test4':'查看 SKILL.md 内容（点击卡片上的 📄 按钮）确认注入正确',
+'s6.test5':'迭代优化 SKILL.md 中的措辞',
+'s7.title':'内置技能参考','s7.desc':'RemindAI 内置了三个元技能，它们是最好的学习参考。你可以在技能页面点击 📄 按钮查看完整的 SKILL.md。',
+'s7.c1':'技能','s7.c2':'工具数','s7.c3':'核心要点',
+'s7.r1':'文件操作 + Shell/Python 执行 + 记忆管理。展示了沙盒边界、操作确认、路径保护等安全模式的写法。',
+'s7.r2':'SCHEDULE.md 计划管理。展示了如何通过文件驱动的 CRUD 操作、优先级系统和归档策略来组织工作流。',
+'s7.r3':'环境探测。展示了如何用最少的工具做最多的事：探测 + 脱敏，简洁高效。',
+'s8.title':'打包与分发','s8.desc':'开发完成后，将技能打包为 ZIP 文件并分发给其他用户。',
+'s8.packTitle':'打包步骤','s8.p1':'确保目录中包含 <code>SKILL.md</code>（必须）和 <code>tools.json</code>（可选）',
+'s8.p2':'删除 <code>.skill_meta.json</code>（这是导入后自动生成的，不应包含在分发包中）','s8.p3':'将文件夹压缩为 <code>.zip</code> 文件',
+'s8.p4':'ZIP 可以是单层目录包裹，也可以直接包含文件。RemindAI 会自动处理两种情况。',
+'s8.tip':'推荐使用命令行打包以确保结构正确：','s8.shareTitle':'分享渠道',
+'s8.s1':'Skills MP — 技能市场平台','s8.s2':'Claud Skills — 社区技能库','s8.s3':'Skills.sh — 开放技能平台','s8.s4':'GitHub — 创建仓库发布 Release',
+'footer.license':'MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a>',
+'footer.home':'← 首页','footer.guide':'📖 配置指南','footer.changelog':'📋 版本历史',
+},
+'en':{
+'nav.home':'← Home','nav.guide':'📖 Configuration Guide','nav.changelog':'📋 Changelog',
+'side.title':'Skill Development','side.overview':'Overview','side.anatomy':'Skill Structure',
+'side.skillmd':'SKILL.md','side.toolsjson':'tools.json','side.tutorial':'Hands-on Tutorial',
+'side.best':'Best Practices','side.builtin':'Built-in Reference','side.distribute':'Package & Share',
+'hero.title':'🧩 Skill Development Guide','hero.desc':'Create custom skill packs from scratch and inject new capabilities into RemindAI\'s AI.',
+'s1.title':'What is a Skill','s1.desc':'A Skill is RemindAI\'s extension mechanism, giving AI additional system prompts and tool definitions during conversations. Skills are distributed as ZIP packages and auto-loaded after import.',
+'s1.p1':'A skill consists of two parts:','s1.l1':'<code>SKILL.md</code> — <strong>System prompt</strong>: Defines AI behavior, knowledge domain, and usage strategy. This is the core of a skill.',
+'s1.l2':'<code>tools.json</code> — <strong>Tool definitions</strong> (optional): OpenAI-format Function Calling tool definitions, enabling AI to call custom functions.',
+'s1.info':'<code>SKILL.md</code> is required; <code>tools.json</code> is optional. Some skills only need behavioral guidance (pure prompt skills) without new tools.',
+'s2.title':'Skill Pack Structure','s2.desc':'A standard skill pack extracts to:','s2.p1':'To package, put <code>SKILL.md</code> and <code>tools.json</code> (if any) in a folder, then compress the folder into a <code>.zip</code> file.',
+'s2.tip':'The ZIP filename becomes the skill name after import. Use a concise, meaningful English name like <code>code-reviewer.zip</code>.',
+'s2.metaTitle':'.skill_meta.json (Auto-managed)','s2.metaDesc':'After import, RemindAI auto-generates <code>.skill_meta.json</code> in the skill directory, recording the skill ID, install time, active status, and sort index. <strong>Do not create or modify this file manually.</strong>',
+'s3.title':'SKILL.md — System Prompt','s3.desc':'<code>SKILL.md</code> is the soul of a skill. It\'s injected into the AI\'s system prompt at conversation start, defining AI behavior rules. Writing good SKILL.md is the key to skill development.',
+'s3.formatTitle':'Format Requirements','s3.f1':'Written in <strong>Markdown</strong> format','s3.f2':'Use <code>#</code> headings to organize sections (overview, trigger conditions, usage strategy, boundaries, etc.)',
+'s3.f3':'Use <code>&gt;</code> blockquotes for a one-line description as the skill\'s "elevator pitch"','s3.f4':'Use <code>```</code> code blocks for examples','s3.f5':'Use lists to organize steps and rules',
+'s3.templateTitle':'Recommended Template','s3.principlesTitle':'Writing Principles','s3.pc1':'Principle','s3.pc2':'Description',
+'s3.p1.label':'Clear Trigger Conditions','s3.p1.desc':'Tell AI when to invoke this skill, avoiding unnecessary triggers',
+'s3.p2.label':'Define Boundaries','s3.p2.desc':'Clearly stating what AI cannot do is more important than what it can',
+'s3.p3.label':'Provide Examples','s3.p3.desc':'Use code blocks or concrete scenarios to show expected behavior',
+'s3.p4.label':'Consider Fallbacks','s3.p4.desc':'How should AI gracefully handle when conditions aren\'t met',
+'s3.p5.label':'Keep It Concise','s3.p5.desc':'System prompts consume context window, avoid redundant descriptions',
+'s4.title':'tools.json — Tool Definitions','s4.desc':'<code>tools.json</code> uses <strong>OpenAI Function Calling</strong> format. AI can call these tools during conversations, and RemindAI routes requests to the corresponding executor.',
+'s4.formatTitle':'File Format','s4.formatDesc':'The file is a JSON array where each element is a tool definition:',
+'s4.typesTitle':'Supported Parameter Types','s4.tc1':'Type','s4.tc2':'Description','s4.tc3':'Example',
+'s4.t1':'String','s4.t2':'Number','s4.t3':'Boolean','s4.t4':'Array','s4.t5':'Object','s4.t6':'Enum (on string type)',
+'s4.enumTitle':'Using enum to Constrain Values','s4.warn':'The <code>description</code> field is critical — AI uses it to decide when to call this tool. Be precise about what the tool does and when to use it.',
+'s5.title':'Hands-on Tutorial: Creating a "Code Review" Skill','s5.desc':'A complete example showing how to create a practical skill pack from scratch.',
+'s5.step1Title':'Step 1: Create Directory Structure','s5.step2Title':'Step 2: Write SKILL.md',
+'s5.step3Title':'Step 3: Write tools.json','s5.step3Desc':'Add a dedicated scanning tool for the code review skill:',
+'s5.step4Title':'Step 4: Package & Import','s5.s4l1':'Compress <code>code-reviewer/</code> folder into <code>code-reviewer.zip</code>',
+'s5.s4l2':'In RemindAI\'s "Skills" page, click <kbd>+</kbd> to import the ZIP','s5.s4l3':'Confirm import success — card shows 1 tool',
+'s5.s4l4':'Try in chat: <em>"Review the code in src/ directory"</em>',
+'s6.title':'Best Practices','s6.desc':'These lessons come from developing the built-in skills and will help you write better ones.',
+'s6.promptTitle':'SKILL.md Writing Tips','s6.p1':'<strong>Use blockquotes for one-line summaries</strong> — <code>&gt; description</code>, helping AI quickly understand the skill\'s purpose',
+'s6.p2':'<strong>List trigger conditions explicitly</strong> — Use "The following situations should trigger this skill"',
+'s6.p3':'<strong>Numbered usage strategies</strong> — 1-2-3 steps for AI to follow in order','s6.p4':'<strong>Define boundaries clearly</strong> — "Protected paths", "timeout protection", etc.',
+'s6.p5':'<strong>Dedicate a section to each tool</strong> — Describe function, parameter meanings, and behavior rules',
+'s6.toolsTitle':'tools.json Tips','s6.t1':'<strong>Precise descriptions</strong> — This is the only basis for AI decisions; vague descriptions cause incorrect calls',
+'s6.t2':'<strong>Minimize required params</strong> — Fewer required params are better; set sensible defaults for optional ones','s6.t3':'<strong>Use snake_case for param names</strong> — e.g., <code>file_path</code> not <code>filePath</code>',
+'s6.t4':'<strong>Use enum wisely</strong> — For limited options, use enums to prevent AI guessing','s6.t5':'<strong>Keep tool count at 1-5</strong> — Too many tools confuse AI selection',
+'s6.testingTitle':'Testing Skills','s6.testingDesc':'After importing a skill, test it like this:',
+'s6.test1':'In a new conversation (with skill enabled), trigger it with different phrasings','s6.test2':'Check if AI correctly identifies trigger conditions',
+'s6.test3':'Verify tool calls pass correct parameters','s6.test4':'View SKILL.md content (click 📄 button on card) to confirm correct injection',
+'s6.test5':'Iterate and refine SKILL.md wording',
+'s7.title':'Built-in Skill Reference','s7.desc':'RemindAI includes three meta-skills — the best learning references. Click the 📄 button on the Skills page to view complete SKILL.md.',
+'s7.c1':'Skill','s7.c2':'Tool Count','s7.c3':'Key Takeaways',
+'s7.r1':'File ops + Shell/Python execution + memory management. Shows patterns for sandbox boundaries, operation confirmation, and path protection.',
+'s7.r2':'SCHEDULE.md plan management. Shows file-driven CRUD, priority systems, and archiving strategies.',
+'s7.r3':'Environment probing. Shows how to do the most with the least: probe + sanitize, clean and efficient.',
+'s8.title':'Package & Share','s8.desc':'After development, package your skill as a ZIP file and distribute to other users.',
+'s8.packTitle':'Packaging Steps','s8.p1':'Ensure the directory contains <code>SKILL.md</code> (required) and <code>tools.json</code> (optional)',
+'s8.p2':'Delete <code>.skill_meta.json</code> (auto-generated after import, should not be in the distribution package)','s8.p3':'Compress the folder into a <code>.zip</code> file',
+'s8.p4':'ZIP can be wrapped in a single-layer directory or contain files directly. RemindAI handles both cases automatically.',
+'s8.tip':'Recommended command-line packaging for correct structure:','s8.shareTitle':'Sharing Channels',
+'s8.s1':'Skills MP — Skill marketplace platform','s8.s2':'Claud Skills — Community skill library','s8.s3':'Skills.sh — Open skill platform','s8.s4':'GitHub — Create a repo and publish Releases',
+'footer.license':'MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a>',
+'footer.home':'← Back to Home','footer.guide':'📖 Configuration Guide','footer.changelog':'📋 Changelog',
+}
+};
+
+const LANG_META={'zh-CN':{label:'中文',htmlLang:'zh-CN'},'en':{label:'English',htmlLang:'en'}};
+const STORAGE_KEY='remindai_lang';
+const SUPPORTED=Object.keys(T);
+function detectLanguage(){const s=localStorage.getItem(STORAGE_KEY);if(s&&SUPPORTED.includes(s))return s;const b=navigator.language||'';if(b.startsWith('en'))return 'en';return 'zh-CN';}
+let currentLang=detectLanguage();
+
+function applyLanguage(lang){
+    currentLang=lang;const dict=T[lang];if(!dict)return;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(dict[k]!==undefined){if(/<[a-z][\s\S]*>/i.test(dict[k]))el.innerHTML=dict[k];else el.textContent=dict[k];}});
+    const m=LANG_META[lang];document.documentElement.lang=m?m.htmlLang:lang;
+    const lb=document.getElementById('langLabel');if(lb&&m)lb.textContent=m.label;
+    document.querySelectorAll('.lang-option').forEach(o=>{o.classList.toggle('active',o.getAttribute('data-lang')===lang);});
+    document.title=lang==='en'?'RemindAI — Skill Development Guide':'RemindAI — 技能开发指南';
+    localStorage.setItem(STORAGE_KEY,lang);
+}
+
+const toggle=document.getElementById('langToggle'),dropdown=document.getElementById('langDropdown');
+toggle.addEventListener('click',e=>{e.stopPropagation();dropdown.classList.toggle('open');});
+document.addEventListener('click',()=>dropdown.classList.remove('open'));
+dropdown.querySelectorAll('.lang-option').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();const l=btn.getAttribute('data-lang');if(l&&SUPPORTED.includes(l)){applyLanguage(l);dropdown.classList.remove('open');}});});
+
+const secs=document.querySelectorAll('.section[id]');
+const sLinks=document.querySelectorAll('.sidebar a[href^="#"]');
+function updateActive(){let c='';secs.forEach(s=>{if(s.getBoundingClientRect().top<=100)c=s.id;});sLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c);});}
+window.addEventListener('scroll',updateActive,{passive:true});
+applyLanguage(currentLang);
+})();
+</script>
+
+</body>
+</html>

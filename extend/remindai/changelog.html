@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RemindAI — 版本历史</title>
+    <meta name="description" content="RemindAI 版本历史：查看每个版本的更新内容和新特性。" />
+    <link rel="icon" href="assets/logo_egg.png" type="image/png" />
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #13131a;
+            --card: #1a1a24;
+            --border: #2a2a3a;
+            --text: #e8e8ed;
+            --text-dim: #8888aa;
+            --accent: #7c5cfc;
+            --accent2: #00c8ff;
+            --green: #4caf50;
+            --orange: #ff9800;
+            --red: #f44336;
+            --yellow: #fdd835;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* === Nav === */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 14px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            backdrop-filter: blur(20px); background: rgba(10,10,15,0.85);
+            border-bottom: 1px solid var(--border); z-index: 100;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; }
+        .nav-brand img { width: 30px; height: 30px; border-radius: 8px; }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .nav-links { display: flex; gap: 18px; align-items: center; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color .2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--accent2); font-weight: 600; }
+        .back-link { color: var(--text-dim) !important; text-decoration: none; font-size: 13px; transition: color .2s; }
+        .back-link:hover { color: var(--accent2) !important; }
+
+        /* lang switcher */
+        .lang-switcher { position: relative; }
+        .lang-toggle {
+            display: flex; align-items: center; gap: 6px; padding: 5px 10px;
+            border-radius: 8px; border: 1px solid var(--border); background: var(--card);
+            color: var(--text); font-size: 12px; cursor: pointer; transition: all .2s; font-family: inherit;
+        }
+        .lang-toggle:hover { border-color: var(--accent); }
+        .lang-dropdown {
+            position: absolute; top: calc(100% + 6px); right: 0; background: var(--card);
+            border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+            opacity: 0; visibility: hidden; transform: translateY(-6px); transition: all .2s;
+            min-width: 130px; box-shadow: 0 12px 40px rgba(0,0,0,.5); z-index: 200;
+        }
+        .lang-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+        .lang-option {
+            display: block; width: 100%; padding: 9px 14px; border: none; background: transparent;
+            color: var(--text); font-size: 13px; text-align: left; cursor: pointer; transition: background .15s; font-family: inherit;
+        }
+        .lang-option:hover { background: rgba(124,92,252,.15); }
+        .lang-option.active { color: var(--accent2); font-weight: 600; background: rgba(0,200,255,.08); }
+
+        /* === Content === */
+        .main-content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 80px 32px 80px;
+        }
+
+        .changelog-hero {
+            text-align: center;
+            padding: 20px 0 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        .changelog-hero h1 {
+            font-size: 36px; font-weight: 800; margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .changelog-hero p { color: var(--text-dim); font-size: 16px; }
+
+        /* Timeline */
+        .timeline { position: relative; }
+
+        .version-entry {
+            position: relative;
+            margin-bottom: 48px;
+            padding-left: 40px;
+        }
+        .version-entry::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            bottom: -48px;
+            width: 2px;
+            background: var(--border);
+        }
+        .version-entry:last-child::before { display: none; }
+
+        .version-entry::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 8px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .version-entry.latest::after {
+            background: var(--green);
+            box-shadow: 0 0 0 2px var(--green), 0 0 12px rgba(76,175,80,.4);
+        }
+
+        .version-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .version-tag {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+        .badge-latest { background: rgba(76,175,80,.15); color: var(--green); }
+        .badge-stable { background: rgba(0,200,255,.1); color: var(--accent2); }
+
+        .version-date {
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+
+        .changes-list {
+            list-style: none;
+            padding: 0;
+        }
+        .changes-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14.5px;
+            color: var(--text);
+        }
+        .changes-list li .change-icon {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .change-new { background: rgba(76,175,80,.12); color: var(--green); }
+        .change-fix { background: rgba(244,67,54,.12); color: var(--red); }
+        .change-improve { background: rgba(0,200,255,.12); color: var(--accent2); }
+        .change-feat { background: rgba(124,92,252,.12); color: var(--accent); }
+
+        /* Footer */
+        footer {
+            text-align: center; padding: 40px; border-top: 1px solid var(--border);
+            color: var(--text-dim); font-size: 13px;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            nav { padding: 12px 20px; }
+            .nav-links { display: none; }
+            .main-content { padding: 80px 16px 60px; }
+            .version-entry { padding-left: 32px; }
+            .changelog-hero h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+    <div style="display:flex;align-items:center;gap:16px;">
+        <div class="nav-brand">
+            <img src="assets/logo_egg.png" alt="Logo" />
+            <span>RemindAI</span>
+        </div>
+        <a href="index.html" class="back-link" data-i18n="nav.back">← 首页</a>
+        <a href="configure.html" class="back-link" data-i18n="nav.guide">📖 配置指南</a>
+        <a href="skill-dev.html" class="back-link" data-i18n="nav.skilldev">🧩 技能开发</a>
+    </div>
+    <div class="nav-right">
+        <div class="nav-links">
+            <a href="index.html#features" data-i18n="nav.features">特性</a>
+            <a href="index.html#start" data-i18n="nav.quickstart">快速开始</a>
+            <a href="https://github.com/PythonnotJava/RemindAI/releases" target="_blank" data-i18n="nav.releases">📦 Releases</a>
+        </div>
+        <div class="lang-switcher">
+            <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+                <span>🌐</span>
+                <span id="langLabel">中文</span>
+                <span style="font-size:10px;">▾</span>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-option active" data-lang="zh-CN">🇨🇳 中文</button>
+                <button class="lang-option" data-lang="en">🇺🇸 English</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="main-content">
+
+<!-- Hero -->
+<div class="changelog-hero">
+    <h1 data-i18n="hero.title">📋 版本历史</h1>
+    <p data-i18n="hero.subtitle">跟踪 RemindAI 每个版本的新功能、改进和修复。</p>
+</div>
+
+<!-- Timeline -->
+<div class="timeline">
+
+    <!-- V1.0.2 -->
+    <div class="version-entry latest">
+        <div class="version-header">
+            <span class="version-tag">v1.0.2</span>
+            <span class="version-badge badge-latest" data-i18n="v102.badge">最新版</span>
+        </div>
+        <div class="version-date" data-i18n="v102.date">2026 年 6 月</div>
+        <ul class="changes-list">
+            <li>
+                <span class="change-icon change-improve">⚡</span>
+                <span data-i18n="v102.c1">优化了部分实现、增强了工具链稳定性</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v102.c2">模型输出 HTML5 时支持 WebView2 实时预览</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- V1.0.1 -->
+    <div class="version-entry">
+        <div class="version-header">
+            <span class="version-tag">v1.0.1</span>
+            <span class="version-badge badge-stable">stable</span>
+        </div>
+        <div class="version-date" data-i18n="v101.date">2026 年 5 月</div>
+        <ul class="changes-list">
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v101.c1">添加了字体设置 — 支持自定义界面字体和对话字体</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v101.c2">内置截图工具 — 支持区域截图和截图编辑</span>
+            </li>
+            <li>
+                <span class="change-icon change-improve">⚡</span>
+                <span data-i18n="v101.c3">模型检测到大量可用模型时支持输入快速匹配筛选</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v101.c4">添加宠物功能 — 像素猫作为全局观察者，支持右键唤醒交互、TTS 语音、商店经济、成就系统</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- V1.0.0 -->
+    <div class="version-entry">
+        <div class="version-header">
+            <span class="version-tag">v1.0.0</span>
+            <span class="version-badge" style="background:rgba(253,216,53,.12);color:var(--yellow);">🎉 首发</span>
+        </div>
+        <div class="version-date" data-i18n="v100.date">2026 年 4 月</div>
+        <ul class="changes-list">
+            <li>
+                <span class="change-icon change-new">🆕</span>
+                <span data-i18n="v100.c1"><strong>RemindAI 正式发布！</strong></span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c2">核心 ToolShell 工具外壳 — 文件沙盒 + Shell/Python 执行器</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c3">MCP 协议支持 — stdio / SSE / Streamable HTTP 三传输</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c4">向量记忆系统 — Qdrant + SQLite 双写架构</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c5">技能系统 — ZIP 一键导入，内置三个元技能</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c6">Web 搜索集成 — Tavily / Brave / 百度</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c7">多 Agent 协作 — 指挥部 / 工作者 / 审查员</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c8">领域专家系统 — 预设/自定义角色 + 技能绑定</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c9">三协议 LLM 适配 — OpenAI / Anthropic / Gemini</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c10">API 服务器 — 三种端点模式（OpenAI 聚合 / Claude Agent / Claude 代理）</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c11">Material 3 主题 — 亮/暗模式 + 涟漪切换动画 + 四种主题色</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v100.c12">完整中英双语国际化</span>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+    <p data-i18n="footer.license">MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a></p>
+    <p style="margin-top:8px;">
+        <a href="index.html" data-i18n="footer.home">← 返回首页</a> ·
+        <a href="configure.html" data-i18n="footer.guide">📖 配置指南</a> ·
+        <a href="https://github.com/PythonnotJava/RemindAI/releases" target="_blank" data-i18n="footer.releases">📦 下载</a>
+    </p>
+</footer>
+
+<!-- i18n -->
+<script>
+(function() {
+    const T = {
+        'zh-CN': {
+            'nav.back': '← 首页',
+            'nav.guide': '📖 配置指南',
+            'nav.skilldev': '🧩 技能开发',
+            'nav.features': '特性',
+            'nav.quickstart': '快速开始',
+            'nav.releases': '📦 Releases',
+            'hero.title': '📋 版本历史',
+            'hero.subtitle': '跟踪 RemindAI 每个版本的新功能、改进和修复。',
+            'v102.badge': '最新版',
+            'v102.date': '2026 年 6 月',
+            'v102.c1': '优化了部分实现、增强了工具链稳定性',
+            'v102.c2': '模型输出 HTML5 时支持 WebView2 实时预览',
+            'v101.date': '2026 年 5 月',
+            'v101.c1': '添加了字体设置 — 支持自定义界面字体和对话字体',
+            'v101.c2': '内置截图工具 — 支持区域截图和截图编辑',
+            'v101.c3': '模型检测到大量可用模型时支持输入快速匹配筛选',
+            'v101.c4': '添加宠物功能 — 像素猫作为全局观察者，支持右键唤醒交互、TTS 语音、商店经济、成就系统',
+            'v100.date': '2026 年 4 月',
+            'v100.c1': '<strong>RemindAI 正式发布！</strong>',
+            'v100.c2': '核心 ToolShell 工具外壳 — 文件沙盒 + Shell/Python 执行器',
+            'v100.c3': 'MCP 协议支持 — stdio / SSE / Streamable HTTP 三传输',
+            'v100.c4': '向量记忆系统 — Qdrant + SQLite 双写架构',
+            'v100.c5': '技能系统 — ZIP 一键导入，内置三个元技能',
+            'v100.c6': 'Web 搜索集成 — Tavily / Brave / 百度',
+            'v100.c7': '多 Agent 协作 — 指挥部 / 工作者 / 审查员',
+            'v100.c8': '领域专家系统 — 预设/自定义角色 + 技能绑定',
+            'v100.c9': '三协议 LLM 适配 — OpenAI / Anthropic / Gemini',
+            'v100.c10': 'API 服务器 — 三种端点模式（OpenAI 聚合 / Claude Agent / Claude 代理）',
+            'v100.c11': 'Material 3 主题 — 亮/暗模式 + 涟漪切换动画 + 四种主题色',
+            'v100.c12': '完整中英双语国际化',
+            'footer.license': 'MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a>',
+            'footer.home': '← 返回首页',
+            'footer.guide': '📖 配置指南',
+            'footer.releases': '📦 下载',
+        },
+        'en': {
+            'nav.back': '← Home',
+            'nav.guide': '📖 Configuration Guide',
+            'nav.skilldev': '🧩 Skill Dev',
+            'nav.features': 'Features',
+            'nav.quickstart': 'Quick Start',
+            'nav.releases': '📦 Releases',
+            'hero.title': '📋 Changelog',
+            'hero.subtitle': 'Track new features, improvements, and fixes in every RemindAI release.',
+            'v102.badge': 'Latest',
+            'v102.date': 'June 2026',
+            'v102.c1': 'Optimized internal implementations, enhanced toolchain stability',
+            'v102.c2': 'WebView2 live preview when model outputs HTML5 content',
+            'v101.date': 'May 2026',
+            'v101.c1': 'Added font settings — customize UI font and chat font independently',
+            'v101.c2': 'Built-in screenshot tool — region capture and screenshot editing',
+            'v101.c3': 'Quick match filtering when a large number of models are detected',
+            'v101.c4': 'Pet feature — pixel cat as global observer, right-click interaction, TTS voice, shop economy, achievements',
+            'v100.date': 'April 2026',
+            'v100.c1': '<strong>RemindAI Officially Released!</strong>',
+            'v100.c2': 'Core ToolShell — file sandbox + Shell/Python executor',
+            'v100.c3': 'MCP protocol support — stdio / SSE / Streamable HTTP',
+            'v100.c4': 'Vector memory system — Qdrant + SQLite dual-write architecture',
+            'v100.c5': 'Skill system — one-click ZIP import, three built-in meta-skills',
+            'v100.c6': 'Web search integration — Tavily / Brave / Baidu',
+            'v100.c7': 'Multi-Agent collaboration — Commander / Worker / Reviewer',
+            'v100.c8': 'Domain expert system — preset/custom roles + skill binding',
+            'v100.c9': 'Triple LLM protocol — OpenAI / Anthropic / Gemini',
+            'v100.c10': 'API server — three endpoint modes (OpenAI aggregation / Claude Agent / Claude proxy)',
+            'v100.c11': 'Material 3 theming — light/dark + ripple animation + four accent colors',
+            'v100.c12': 'Full Chinese-English bilingual internationalization',
+            'footer.license': 'MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a>',
+            'footer.home': '← Back to Home',
+            'footer.guide': '📖 Configuration Guide',
+            'footer.releases': '📦 Download',
+        }
+    };
+
+    const LANG_META = {
+        'zh-CN': { label: '中文', htmlLang: 'zh-CN' },
+        'en':    { label: 'English', htmlLang: 'en' }
+    };
+    const STORAGE_KEY = 'remindai_lang';
+    const SUPPORTED = Object.keys(T);
+
+    function detectLanguage() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored && SUPPORTED.includes(stored)) return stored;
+        const browser = navigator.language || '';
+        if (browser.startsWith('zh')) return 'zh-CN';
+        if (browser.startsWith('en')) return 'en';
+        return 'zh-CN';
+    }
+
+    let currentLang = detectLanguage();
+
+    function applyLanguage(lang) {
+        currentLang = lang;
+        const dict = T[lang];
+        if (!dict) return;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key] !== undefined) {
+                if (/<[a-z][\s\S]*>/i.test(dict[key])) el.innerHTML = dict[key];
+                else el.textContent = dict[key];
+            }
+        });
+        const meta = LANG_META[lang];
+        document.documentElement.lang = meta ? meta.htmlLang : lang;
+        const label = document.getElementById('langLabel');
+        if (label && meta) label.textContent = meta.label;
+        document.querySelectorAll('.lang-option').forEach(opt => {
+            opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+        });
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute('content', lang === 'en'
+                ? 'RemindAI Changelog: track new features, improvements, and fixes in every release.'
+                : 'RemindAI 版本历史：查看每个版本的更新内容和新特性。');
+        }
+        document.title = lang === 'en' ? 'RemindAI — Changelog' : 'RemindAI — 版本历史';
+        localStorage.setItem(STORAGE_KEY, lang);
+    }
+
+    const toggle = document.getElementById('langToggle');
+    const dropdown = document.getElementById('langDropdown');
+    toggle.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); });
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
+    dropdown.querySelectorAll('.lang-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const lang = btn.getAttribute('data-lang');
+            if (lang && SUPPORTED.includes(lang)) { applyLanguage(lang); dropdown.classList.remove('open'); }
+        });
+    });
+
+    applyLanguage(currentLang);
+})();
+</script>
+
+</body>
+</html>

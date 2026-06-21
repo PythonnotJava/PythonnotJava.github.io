@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RemindAI — 配置与使用指南</title>
+    <meta name="description" content="RemindAI 配置与使用教程：模型配置、ToolShell、MCP、记忆系统、技能、搜索、领域专家、设置详解。" />
+    <link rel="icon" href="assets/logo_egg.png" type="image/png" />
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #13131a;
+            --card: #1a1a24;
+            --border: #2a2a3a;
+            --text: #e8e8ed;
+            --text-dim: #8888aa;
+            --accent: #7c5cfc;
+            --accent2: #00c8ff;
+            --glow: rgba(124, 92, 252, 0.3);
+            --glow2: rgba(0, 200, 255, 0.2);
+            --green: #4caf50;
+            --orange: #ff9800;
+            --red: #f44336;
+            --yellow: #fdd835;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* === Header Nav === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.85);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--accent2); font-weight: 600; }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--accent2); }
+
+        /* === Language Switcher === */
+        .lang-switcher { position: relative; }
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .lang-toggle:hover { border-color: var(--accent); background: var(--surface); }
+        .lang-toggle .globe { font-size: 15px; }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s;
+            min-width: 140px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            z-index: 200;
+        }
+        .lang-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+        .lang-option {
+            display: block;
+            width: 100%;
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 14px;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-family: inherit;
+        }
+        .lang-option:hover { background: rgba(124,92,252,0.15); }
+        .lang-option.active { color: var(--accent2); font-weight: 600; background: rgba(0,200,255,0.08); }
+
+        /* === Layout === */
+        .doc-layout {
+            display: flex;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding-top: 70px;
+            min-height: 100vh;
+        }
+
+        /* === Sidebar === */
+        .sidebar {
+            position: sticky;
+            top: 70px;
+            width: 260px;
+            min-width: 260px;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
+            padding: 32px 20px 40px 24px;
+            border-right: 1px solid var(--border);
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            margin-bottom: 2px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .sidebar a:hover { background: rgba(124,92,252,0.08); color: var(--text); }
+        .sidebar a.active { background: rgba(124,92,252,0.15); color: var(--accent2); font-weight: 600; }
+        .sidebar .nav-icon { font-size: 16px; width: 22px; text-align: center; }
+
+        /* === Main Content === */
+        .doc-main {
+            flex: 1;
+            padding: 40px 56px 80px;
+            max-width: 960px;
+        }
+
+        .doc-hero {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+        .doc-hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .doc-hero p {
+            font-size: 16px;
+            color: var(--text-dim);
+            max-width: 600px;
+        }
+
+        /* === Section === */
+        .doc-section {
+            margin-bottom: 56px;
+            scroll-margin-top: 90px;
+        }
+
+        .doc-section h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .doc-section h2 .section-icon { font-size: 28px; }
+
+        .doc-section > .section-desc {
+            font-size: 15px;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .doc-section h3 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--accent2);
+        }
+
+        .doc-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        .doc-section p {
+            font-size: 15px;
+            margin-bottom: 14px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .doc-section ul, .doc-section ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        .doc-section li {
+            font-size: 15px;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .doc-section li code {
+            background: rgba(0,200,255,0.1);
+            color: var(--accent2);
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 13px;
+        }
+
+        /* === Code Block === */
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+        .code-block .comment { color: #555577; }
+        .code-block .key { color: var(--accent); }
+        .code-block .val { color: var(--accent2); }
+        .code-block .str { color: #e8b74a; }
+
+        /* === Info/Tip/Warning Boxes === */
+        .callout {
+            display: flex;
+            gap: 14px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .callout .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+        .callout-tip { background: rgba(76, 175, 80, 0.08); border: 1px solid rgba(76, 175, 80, 0.25); }
+        .callout-tip .callout-icon { color: var(--green); }
+        .callout-warn { background: rgba(255, 152, 0, 0.08); border: 1px solid rgba(255, 152, 0, 0.25); }
+        .callout-warn .callout-icon { color: var(--orange); }
+        .callout-info { background: rgba(0, 200, 255, 0.06); border: 1px solid rgba(0, 200, 255, 0.2); }
+        .callout-info .callout-icon { color: var(--accent2); }
+
+        /* === Screenshot === */
+        .screenshot-wrap {
+            margin: 20px 0 24px;
+            text-align: center;
+        }
+        .screenshot-wrap img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .screenshot-wrap .caption {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        /* === Table === */
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .doc-table th, .doc-table td {
+            padding: 11px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .doc-table th {
+            background: var(--card);
+            font-weight: 600;
+            color: var(--text-dim);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .doc-table tr:last-child td { border-bottom: none; }
+        .doc-table tr:hover td { background: rgba(124,92,252,0.04); }
+        .doc-table code {
+            background: rgba(0,200,255,0.1);
+            color: var(--accent2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        /* === Steps === */
+        .steps { counter-reset: step; margin-bottom: 24px; }
+        .step-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 18px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: border-color 0.3s;
+        }
+        .step-item:hover { border-color: rgba(124,92,252,0.4); }
+        .step-num {
+            counter-increment: step;
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #5a3fd4);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .step-num::before { content: counter(step); }
+        .step-content h4 { margin-top: 0; margin-bottom: 6px; color: var(--text); }
+        .step-content p { margin-bottom: 0; font-size: 14px; color: var(--text-dim); }
+
+        /* === Sub-steps Nav (Tab-like) === */
+        .sub-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .sub-nav-btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text-dim);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .sub-nav-btn:hover { border-color: var(--accent); color: var(--text); }
+        .sub-nav-btn.active { background: rgba(124,92,252,0.15); border-color: var(--accent); color: var(--accent2); font-weight: 600; }
+
+        /* === Footer === */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* === Responsive === */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .doc-main { padding: 32px 20px 60px; }
+            nav { padding: 12px 20px; }
+            .nav-links { display: none; }
+        }
+        @media (max-width: 600px) {
+            .doc-hero h1 { font-size: 26px; }
+            .doc-section h2 { font-size: 22px; }
+        }
+
+        /* === Inline Kbd === */
+        kbd {
+            display: inline-block;
+            padding: 2px 7px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+    <div style="display:flex;align-items:center;gap:20px;">
+        <div class="nav-brand">
+            <img src="assets/logo_egg.png" alt="Logo" />
+            <span>RemindAI</span>
+        </div>
+        <a href="index.html" class="back-link">← <span data-i18n="nav.backHome">首页</span></a>
+        <a href="changelog.html" class="back-link" style="font-size:12px;" data-i18n="nav.changelogLink">📋 <span data-i18n="nav.changelog">版本历史</span></a>
+        <a href="skill-dev.html" class="back-link" style="font-size:12px;" data-i18n="nav.skilldevLink">🧩 <span data-i18n="nav.skilldev">技能开发</span></a>
+    </div>
+    <div class="nav-right">
+        <div class="nav-links">
+            <a href="#models" data-i18n="nav.models">模型</a>
+            <a href="#toolshell" data-i18n="nav.toolshell">ToolShell</a>
+            <a href="#mcp" data-i18n="nav.mcp">MCP</a>
+            <a href="#memory" data-i18n="nav.memory">记忆</a>
+            <a href="#skills" data-i18n="nav.skills">技能</a>
+            <a href="#settings" data-i18n="nav.settings">设置</a>
+        </div>
+        <div class="lang-switcher">
+            <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+                <span class="globe">🌐</span>
+                <span id="langLabel">中文</span>
+                <span style="font-size:10px;">▾</span>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-option active" data-lang="zh-CN">🇨🇳 中文</button>
+                <button class="lang-option" data-lang="en">🇺🇸 English</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="doc-layout">
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-title" data-i18n="sidebar.title">配置指南</div>
+    <a href="#overview" class="active"><span class="nav-icon">📋</span><span data-i18n="sidebar.overview">概览</span></a>
+    <a href="#install"><span class="nav-icon">📥</span><span data-i18n="sidebar.install">安装与启动</span></a>
+    <a href="#models"><span class="nav-icon">🎨</span><span data-i18n="sidebar.models">模型配置</span></a>
+    <a href="#chat"><span class="nav-icon">💬</span><span data-i18n="sidebar.chat">对话与使用</span></a>
+    <a href="#toolshell"><span class="nav-icon">🐚</span><span data-i18n="sidebar.toolshell">ToolShell</span></a>
+    <a href="#mcp"><span class="nav-icon">🔌</span><span data-i18n="sidebar.mcp">MCP 协议</span></a>
+    <a href="#memory"><span class="nav-icon">🧠</span><span data-i18n="sidebar.memory">记忆系统</span></a>
+    <a href="#skills"><span class="nav-icon">📦</span><span data-i18n="sidebar.skills">技能系统</span></a>
+    <a href="#search"><span class="nav-icon">🔍</span><span data-i18n="sidebar.search">Web 搜索</span></a>
+    <a href="#experts"><span class="nav-icon">👤</span><span data-i18n="sidebar.experts">领域专家</span></a>
+    <a href="#server"><span class="nav-icon">🌐</span><span data-i18n="sidebar.server">API 服务</span></a>
+    <a href="#agents"><span class="nav-icon">🤝</span><span data-i18n="sidebar.agents">多 Agent</span></a>
+    <a href="#pet"><span class="nav-icon">🐱</span><span data-i18n="sidebar.pet">宠物 Agent</span></a>
+    <a href="#settings"><span class="nav-icon">⚙️</span><span data-i18n="sidebar.settings">设置</span></a>
+    <a href="#export"><span class="nav-icon">📤</span><span data-i18n="sidebar.export">导出对话</span></a>
+    <a href="#faq"><span class="nav-icon">❓</span><span data-i18n="sidebar.faq">常见问题</span></a>
+</aside>
+
+<!-- Main Content -->
+<main class="doc-main">
+
+<!-- Hero -->
+<div class="doc-hero">
+    <h1 data-i18n="hero.title">📖 配置与使用指南</h1>
+    <p data-i18n="hero.subtitle">从安装到高级功能的完整教程，帮助你充分发挥 RemindAI 的能力。</p>
+</div>
+
+<!-- ==================== 概览 ==================== -->
+<section class="doc-section" id="overview">
+    <h2><span class="section-icon">📋</span> <span data-i18n="overview.title">概览</span></h2>
+    <p class="section-desc" data-i18n="overview.desc">RemindAI 是一款开源桌面 AI 助手，为大模型提供完整的 ToolShell（工具外壳），让 AI 不仅能聊天，还能直接操作文件、执行代码、调用外部工具、管理记忆。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/main_page.png" alt="RemindAI 主界面" data-i18n-alt="overview.screenshot" />
+        <div class="caption" data-i18n="overview.caption">RemindAI 主界面 — 左侧导航栏包含所有功能入口</div>
+    <div class="screenshot-wrap">
+        <img src="assets/results_promotion.png" alt="RemindAI Showcase" data-i18n-alt="overview.showcase" />
+        <div class="caption" data-i18n="overview.showcaseCaption">RemindAI 功能效果全景展示</div>
+    </div>
+
+    <h3 data-i18n="overview.archTitle">界面架构</h3>
+    <p data-i18n="overview.archDesc">RemindAI 采用左侧导航栏 + 右侧内容区的经典布局：</p>
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th data-i18n="overview.archCol1">模块</th>
+                <th data-i18n="overview.archCol2">功能说明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td data-i18n="overview.archR1.label">💬 对话</td><td data-i18n="overview.archR1.desc">核心聊天界面，支持 ToolShell 工具调用、多模态图文、推理链展示</td></tr>
+            <tr><td data-i18n="overview.archR2.label">🎨 模型</td><td data-i18n="overview.archR2.desc">管理 AI 模型卡片，配置 API Key、Base URL、协议类型</td></tr>
+            <tr><td data-i18n="overview.archR3.label">🔌 MCP</td><td data-i18n="overview.archR3.desc">MCP 服务器管理，支持 stdio / SSE / HTTP 三种传输</td></tr>
+            <tr><td data-i18n="overview.archR4.label">🧠 记忆</td><td data-i18n="overview.archR4.desc">查看和管理向量记忆，Qdrant + SQLite 双写存储</td></tr>
+            <tr><td data-i18n="overview.archR5.label">📦 技能</td><td data-i18n="overview.archR5.desc">导入/管理技能包，ZIP 一键导入</td></tr>
+            <tr><td data-i18n="overview.archR6.label">🔍 搜索</td><td data-i18n="overview.archR6.desc">配置 Web 搜索引擎 API（Tavily / Brave / 百度）</td></tr>
+            <tr><td data-i18n="overview.archR7.label">👤 专家</td><td data-i18n="overview.archR7.desc">创建/管理领域专家角色，绑定技能和系统提示词</td></tr>
+            <tr><td data-i18n="overview.archR8.label">⚙️ 设置</td><td data-i18n="overview.archR8.desc">主题、语言、存储路径、嵌入模型、Qdrant 等全局配置</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ==================== 安装 ==================== -->
+<section class="doc-section" id="install">
+    <h2><span class="section-icon">📥</span> <span data-i18n="install.title">安装与启动</span></h2>
+    <p class="section-desc" data-i18n="install.desc">RemindAI 目前正式支持 Windows，Linux 和 macOS 可通过源码编译使用。</p>
+
+    <h3 data-i18n="install.downloadTitle">方式一：下载安装包</h3>
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="install.downloadS1.title">前往 GitHub Releases</h4>
+                <p data-i18n="install.downloadS1.desc">访问 <a href="https://github.com/PythonnotJava/RemindAI/releases" target="_blank" style="color:var(--accent2)">GitHub Releases</a> 页面，下载最新版本的 Windows 安装包。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="install.downloadS2.title">运行安装程序</h4>
+                <p data-i18n="install.downloadS2.desc">双击安装包，按向导完成安装。安装完成后在桌面或开始菜单找到 RemindAI 启动。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="install.downloadS3.title">配置模型</h4>
+                <p data-i18n="install.downloadS3.desc">首次启动后，进入「模型」页面添加你的第一个 AI 模型（见下方模型配置章节）。</p>
+            </div>
+        </div>
+    </div>
+
+    <h3 data-i18n="install.sourceTitle">方式二：从源码构建</h3>
+    <div class="code-block">
+<span class="comment"># 环境要求: Flutter SDK >= 3.12.1</span>
+<span class="key">git clone</span> https://github.com/PythonnotJava/RemindAI.git
+<span class="key">cd</span> RemindAI
+
+<span class="comment"># Windows</span>
+<span class="key">flutter build</span> windows --release --tree-shake-icons
+
+<span class="comment"># Linux</span>
+<span class="key">flutter build</span> linux --release --tree-shake-icons
+
+<span class="comment"># macOS</span>
+<span class="key">flutter build</span> macos --release --tree-shake-icons
+    </div>
+    <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <span data-i18n="install.sourceTip">构建产物在 <code>build/</code> 目录下。Linux 需额外安装 <code>libsqlite3-dev</code> 系统依赖。</span>
+    </div>
+</section>
+
+<!-- ==================== 模型配置 ==================== -->
+<section class="doc-section" id="models">
+    <h2><span class="section-icon">🎨</span> <span data-i18n="models.title">模型配置</span></h2>
+    <p class="section-desc" data-i18n="models.desc">RemindAI 原生支持 OpenAI、Anthropic、Gemini 三种协议，你可以添加多个模型并随时切换默认模型。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/protocol_conversion.png" alt="模型管理" data-i18n-alt="models.screenshot" />
+        <div class="caption" data-i18n="models.caption">模型卡片管理 — 支持拖拽排序，点击设为默认</div>
+    </div>
+
+    <h3 data-i18n="models.addTitle">添加模型</h3>
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="models.addS1.title">进入模型页面</h4>
+                <p data-i18n="models.addS1.desc">点击左侧导航栏的「🎨 模型」按钮，进入模型管理页面。点击右下角的 <kbd>+</kbd> 按钮打开添加对话框。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="models.addS2.title">选择协议类型</h4>
+                <p data-i18n="models.addS2.desc">在「协议类型」下拉框中选择 <code>OpenAI</code>、<code>Anthropic</code> 或 <code>Gemini</code>。协议决定了请求格式和模型检测方式。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="models.addS3.title">填写配置信息</h4>
+                <p data-i18n="models.addS3.desc">填写 <strong>名称</strong>、<strong>Base URL</strong>、<strong>API Key</strong>。不同协议的 URL 格式不同（见下表）。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="models.addS4.title">检测并选择模型</h4>
+                <p data-i18n="models.addS4.desc">填写 URL 和 Key 后，点击右侧的 <kbd>🔄</kbd> 按钮自动检测可用模型列表，然后从下拉框中选择目标模型。也可以手动输入模型 ID。</p>
+            </div>
+        </div>
+    </div>
+
+    <h3 data-i18n="models.urlTitle">各协议 Base URL 参考</h3>
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th data-i18n="models.urlCol1">协议</th>
+                <th data-i18n="models.urlCol2">默认 Base URL</th>
+                <th data-i18n="models.urlCol3">说明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>OpenAI</td>
+                <td><code>https://api.openai.com/v1</code></td>
+                <td data-i18n="models.urlR1">兼容所有 OpenAI 格式 API（含第三方中转）</td>
+            </tr>
+            <tr>
+                <td>Anthropic</td>
+                <td><code>https://api.anthropic.com</code></td>
+                <td data-i18n="models.urlR2">Claude 系列模型，支持 thinking 推理链</td>
+            </tr>
+            <tr>
+                <td>Gemini</td>
+                <td><code>https://generativelanguage.googleapis.com/v1beta</code></td>
+                <td data-i18n="models.urlR3">Google Gemini 系列，支持多模态图文</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <span data-i18n="models.tipLogo">你还可以为模型设置自定义 Logo（支持本地图片），未设置时将自动按品牌识别显示。</span>
+    </div>
+</section>
+
+<!-- ==================== 对话与使用 ==================== -->
+<section class="doc-section" id="chat">
+    <h2><span class="section-icon">💬</span> <span data-i18n="chat.title">对话与使用</span></h2>
+    <p class="section-desc" data-i18n="chat.desc">对话是 RemindAI 的核心功能。在这里你可以与 AI 自然语言交流，AI 会根据需要自动调用工具完成复杂任务。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/work_dir.png" alt="对话界面" data-i18n-alt="chat.screenshot" />
+        <div class="caption" data-i18n="chat.caption">对话界面 — 工作目录展示，AI 可以直接操作项目文件</div>
+    </div>
+
+    <h3 data-i18n="chat.basicTitle">基本使用</h3>
+    <ol>
+        <li data-i18n="chat.basicL1">在左侧导航栏选择「💬 对话」进入聊天界面</li>
+        <li data-i18n="chat.basicL2">确保已配置至少一个模型（见模型配置章节）</li>
+        <li data-i18n="chat.basicL3">在底部输入框输入问题或指令，按 <kbd>Enter</kbd> 发送</li>
+        <li data-i18n="chat.basicL4">AI 将流式返回回复，如果需要执行工具，会在回复中展示工具调用卡片</li>
+    </ol>
+
+    <h3 data-i18n="chat.workspaceTitle">工作目录</h3>
+    <p data-i18n="chat.workspaceDesc">你可以在对话中指定工作目录，AI 的文件操作将在该目录下进行。这让 AI 能够直接操作你的项目代码。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/work_dir2.png" alt="工作目录" data-i18n-alt="chat.workspaceScreenshot" />
+        <div class="caption" data-i18n="chat.workspaceCaption">指定工作目录后，AI 的所有文件操作都在此沙盒内进行</div>
+    </div>
+
+    <div class="screenshot-wrap">
+        <img src="assets/coder_view.png" alt="Code View" data-i18n-alt="chat.codeViewScreenshot" />
+        <div class="caption" data-i18n="chat.codeViewCaption">AI 使用 ToolShell 执行代码和操作文件的实际效果</div>
+    </div>
+
+    <h3 data-i18n="chat.workspaceTitle2">对话管理</h3>
+    <ul>
+        <li data-i18n="chat.workspaceL1">支持多会话管理，可在左侧切换不同的对话</li>
+        <li data-i18n="chat.workspaceL2">支持 Markdown 渲染，包括代码高亮、数学公式、表格等</li>
+        <li data-i18n="chat.workspaceL3">支持拖拽上传图片，进行多模态图文对话</li>
+        <li data-i18n="chat.workspaceL4">按 <kbd>Enter</kbd> 发送，<kbd>Shift+Enter</kbd> 换行（可在设置中切换）</li>
+    </ul>
+
+    <h3 data-i18n="chat.toolCallTitle">工具调用展示</h3>
+    <p data-i18n="chat.toolCallDesc">当 AI 调用工具时（如读写文件、执行代码），会在消息中展示可折叠的工具调用卡片，你可以展开查看具体参数和返回结果。</p>
+</section>
+
+<!-- ==================== ToolShell ==================== -->
+<section class="doc-section" id="toolshell">
+    <h2><span class="section-icon">🐚</span> <span data-i18n="toolshell.title">ToolShell — 工具外壳</span></h2>
+    <p class="section-desc" data-i18n="toolshell.desc">ToolShell 是 RemindAI 的核心能力，它赋予 AI 一套完整的操作系统级工具，包括文件读写、Shell 命令执行、Python 运行等。AI 通过内置的「元技能」系统调用这些工具。</p>
+
+    <h3 data-i18n="toolshell.metaTitle">内置元技能</h3>
+
+    <h4>🔧 ToolShell 元技能</h4>
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th data-i18n="toolshell.toolCol1">工具</th>
+                <th data-i18n="toolshell.toolCol2">功能</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>toolshell_read</code></td><td data-i18n="toolshell.read">读取文件内容，支持指定行范围</td></tr>
+            <tr><td><code>toolshell_write</code></td><td data-i18n="toolshell.write">写入文件（新建、覆盖、追加），自动创建父目录</td></tr>
+            <tr><td><code>toolshell_delete</code></td><td data-i18n="toolshell.delete">删除文件或目录</td></tr>
+            <tr><td><code>toolshell_search</code></td><td data-i18n="toolshell.search">按文件名 glob 匹配搜索文件，可按内容过滤</td></tr>
+            <tr><td><code>toolshell_exec</code></td><td data-i18n="toolshell.exec">执行 Shell 命令（支持任意 CLI 工具）</td></tr>
+            <tr><td><code>toolshell_run_python</code></td><td data-i18n="toolshell.python">执行 Python 代码，自动捕获 matplotlib 图表</td></tr>
+            <tr><td><code>toolshell_memory_store</code></td><td data-i18n="toolshell.memStore">存储记忆到向量数据库</td></tr>
+            <tr><td><code>toolshell_memory_recall</code></td><td data-i18n="toolshell.memRecall">从向量数据库召回相关记忆</td></tr>
+        </tbody>
+    </table>
+
+    <h4>📋 Schedule 元技能</h4>
+    <p data-i18n="toolshell.scheduleDesc">Schedule 元技能让 AI 可以管理工作计划（SCHEDULE.md），支持 P0/P1/P2 优先级的任务 CRUD、审查和归档。包含 7 个工具：load、add_task、complete、update、delete、review、archive。</p>
+
+    <h4>💻 System 元技能</h4>
+    <p data-i18n="toolshell.systemDesc">System 元技能让 AI 可以探测你的系统环境，了解安装了哪些开发工具、运行时、包管理器等，从而做出更精准的决策。包含 <code>system_probe</code> 和 <code>system_env</code> 两个工具。</p>
+
+    <h3 data-i18n="toolshell.cliTitle">内置 CLI 工具</h3>
+    <p data-i18n="toolshell.cliDesc">RemindAI 自带以下命令行工具，无需额外安装：</p>
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="toolshell.cliCol1">工具</th><th data-i18n="toolshell.cliCol2">用途</th><th data-i18n="toolshell.cliCol3">说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>rg</code></td><td data-i18n="toolshell.cliR1.use">极速正则搜索</td><td data-i18n="toolshell.cliR1.desc">ripgrep，比 grep 快数倍</td></tr>
+            <tr><td><code>fd</code></td><td data-i18n="toolshell.cliR2.use">现代化文件查找</td><td data-i18n="toolshell.cliR2.desc">比 find 命令更友好</td></tr>
+            <tr><td><code>rtk</code></td><td data-i18n="toolshell.cliR3.use">Token 压缩器</td><td data-i18n="toolshell.cliR3.desc">减少 60-90% 命令输出 token</td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <span data-i18n="toolshell.tip">你不需要手动调用这些工具，只需要用自然语言告诉 AI 你想做什么，它会自动选择合适的工具来完成任务。</span>
+    </div>
+</section>
+
+<!-- ==================== MCP ==================== -->
+<section class="doc-section" id="mcp">
+    <h2><span class="section-icon">🔌</span> <span data-i18n="mcp.title">MCP 协议</span></h2>
+    <p class="section-desc" data-i18n="mcp.desc">MCP（Model Context Protocol）是一种开放协议，允许 AI 调用外部工具服务。RemindAI 支持三种传输方式，可以连接任何兼容 MCP 的工具服务器。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/mcp_support.png" alt="MCP 管理" data-i18n-alt="mcp.screenshot" />
+        <div class="caption" data-i18n="mcp.caption">MCP 服务管理 — 卡片式布局，支持拖拽排序和状态指示</div>
+    </div>
+
+    <h3 data-i18n="mcp.transportTitle">三种传输方式</h3>
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="mcp.transportCol1">传输类型</th><th data-i18n="mcp.transportCol2">说明</th><th data-i18n="mcp.transportCol3">适用场景</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>stdio</code></td>
+                <td data-i18n="mcp.transportR1.desc">通过标准输入/输出通信，启动本地进程</td>
+                <td data-i18n="mcp.transportR1.scene">本地 CLI 工具、Python/Node.js 脚本</td>
+            </tr>
+            <tr>
+                <td><code>SSE</code></td>
+                <td data-i18n="mcp.transportR2.desc">Server-Sent Events，基于 HTTP 的长连接</td>
+                <td data-i18n="mcp.transportR2.scene">远程服务、已有的 MCP SSE 端点</td>
+            </tr>
+            <tr>
+                <td><code>Streamable HTTP</code></td>
+                <td data-i18n="mcp.transportR3.desc">可流式传输的 HTTP 请求</td>
+                <td data-i18n="mcp.transportR3.scene">新一代远程 MCP 服务</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 data-i18n="mcp.addTitle">添加 MCP 服务器</h3>
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="mcp.addS1.title">进入 MCP 页面</h4>
+                <p data-i18n="mcp.addS1.desc">点击左侧导航栏的「🔌 MCP」，然后点击右下角 <kbd>+</kbd> 按钮。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="mcp.addS2.title">选择传输类型并填写配置</h4>
+                <p data-i18n="mcp.addS2.desc">
+                    <strong>stdio</strong>：填写命令（如 <code>npx</code>）、参数（如 <code>-y @modelcontextprotocol/server-filesystem /path</code>）、工作目录、环境变量。<br/>
+                    <strong>SSE / HTTP</strong>：填写 URL（如 <code>http://localhost:3000/sse</code>）和 HTTP Headers。
+                </p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="mcp.addS3.title">测试连接</h4>
+                <p data-i18n="mcp.addS3.desc">保存后，点击卡片上的 <kbd>🔗</kbd> 按钮测试连接。连接成功后会显示发现的工具数量。状态指示灯变为绿色。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="mcp.addS4.title">启用并使用</h4>
+                <p data-i18n="mcp.addS4.desc">打开卡片上的启用开关，MCP 工具将在对话中自动可用。AI 会根据上下文自动决定何时调用这些工具。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <span data-i18n="mcp.warn">stdio 类型的 MCP 服务器会在后台启动子进程，请确保命令路径正确且进程能正常退出，避免僵尸进程。</span>
+        <div class="screenshot-wrap">
+        <img src="assets/call_skill_mcp_designed_by_myself.png" alt="Custom MCP Skill" data-i18n-alt="mcp.customSkillScreenshot" />
+        <div class="caption" data-i18n="mcp.customSkillCaption">通过自定义技能调用 MCP 服务器工具</div>
+    </div>
+</section>
+
+<!-- ==================== 记忆系统 ==================== -->
+<section class="doc-section" id="memory">
+    <h2><span class="section-icon">🧠</span> <span data-i18n="memory.title">记忆系统</span></h2>
+    <p class="section-desc" data-i18n="memory.desc">RemindAI 的记忆系统使用 Qdrant 向量数据库 + SQLite 持久备份的双写架构，让 AI 能够跨会话记住重要信息，并通过语义搜索精准召回。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/memory_use.png" alt="记忆系统" data-i18n-alt="memory.screenshot" />
+        <div class="caption" data-i18n="memory.caption">记忆管理页面 — 查看存储统计和所有记忆条目</div>
+    </div>
+
+    <h3 data-i18n="memory.setupTitle">配置步骤</h3>
+
+    <h4>1. <span data-i18n="memory.qdrantTitle">安装 Qdrant</span></h4>
+    <p data-i18n="memory.qdrantDesc">Qdrant 是记忆系统的向量搜索引擎。推荐使用 Docker 运行：</p>
+    <div class="code-block">
+<span class="comment"># 使用 Docker 启动 Qdrant</span>
+<span class="key">docker run</span> -d --name qdrant -p 6333:6333 -p 6334:6334 \
+    -v qdrant_storage:/qdrant/storage qdrant/qdrant
+    </div>
+    <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <span data-i18n="memory.qdrantTip">Qdrant 默认监听 6333（REST）和 6334（gRPC）端口。如果自定义端口，需要在 RemindAI 设置中配置 Qdrant 路径。</span>
+    </div>
+
+    <h4>2. <span data-i18n="memory.embTitle">配置嵌入模型</span></h4>
+    <p data-i18n="memory.embDesc">向量记忆需要嵌入模型将文本转换为向量。在「设置 → 嵌入模型」中添加嵌入模型配置：</p>
+    <ul>
+        <li data-i18n="memory.embL1"><strong>URL</strong>：嵌入模型 API 地址（如 OpenAI 兼容接口 <code>https://api.openai.com/v1/embeddings</code>）</li>
+        <li data-i18n="memory.embL2"><strong>API Key</strong>：对应的密钥</li>
+        <li data-i18n="memory.embL3"><strong>模型名</strong>：如 <code>text-embedding-3-small</code>、<code>text-embedding-ada-002</code> 等</li>
+    </ul>
+
+    <div class="screenshot-wrap">
+        <img src="assets/memory_load.png" alt="嵌入配置" data-i18n-alt="memory.embScreenshot" />
+        <div class="caption" data-i18n="memory.embCaption">配置嵌入模型 — 支持 OpenAI 兼容的嵌入接口</div>
+    </div>
+
+    <h4>3. <span data-i18n="memory.useTitle">使用记忆</span></h4>
+    <p data-i18n="memory.useDesc">配置完成后，记忆系统将自动工作：</p>
+    <ul>
+        <li data-i18n="memory.useL1">对话开始时，AI 会自动召回与当前话题相关的历史记忆注入上下文</li>
+        <li data-i18n="memory.useL2">对话过程中，AI 会识别重要信息并主动存储到记忆</li>
+        <li data-i18n="memory.useL3">你可以在「🧠 记忆」页面查看、搜索和删除记忆条目</li>
+    </ul>
+
+    <div class="screenshot-wrap">
+        <img src="assets/memory_write.png" alt="记忆存储" data-i18n-alt="memory.writeScreenshot" />
+        <div class="caption" data-i18n="memory.writeCaption">AI 自动识别并存储重要信息到记忆</div>
+    </div>
+</section>
+
+<!-- ==================== 技能系统 ==================== -->
+<section class="doc-section" id="skills">
+    <h2><span class="section-icon">📦</span> <span data-i18n="skills.title">技能系统</span></h2>
+    <p class="section-desc" data-i18n="skills.desc">技能系统允许你为 AI 添加额外的工具和能力。每个技能包含一个 SKILL.md（技能说明）和 tools.json（工具定义），打包为 ZIP 文件导入。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/skill_support.png" alt="技能系统" data-i18n-alt="skills.screenshot" />
+        <div class="caption" data-i18n="skills.caption">技能管理页面 — 卡片展示所有技能，支持拖拽排序</div>
+    </div>
+
+    <h3 data-i18n="skills.importTitle">导入技能</h3>
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="skills.importS1.title">获取技能 ZIP 包</h4>
+                <p data-i18n="skills.importS1.desc">从技能市场下载或自行制作技能 ZIP 包。推荐市场：<a href="https://skillsmp.com" target="_blank" style="color:var(--accent2)">Skills MP</a>、<a href="https://claudskills.com" target="_blank" style="color:var(--accent2)">Claud Skills</a>、<a href="https://www.skills.sh" target="_blank" style="color:var(--accent2)">Skills.sh</a></p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="skills.importS2.title">点击导入</h4>
+                <p data-i18n="skills.importS2.desc">在「📦 技能」页面点击右下角 <kbd>📤</kbd> 按钮，选择 ZIP 文件导入。导入成功后会显示技能名称和工具数量。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="skills.importS3.title">启用技能</h4>
+                <p data-i18n="skills.importS3.desc">在技能卡片上打开启用开关。启用后，技能中的工具将注入到 AI 的工具列表中。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <span data-i18n="skills.builtinTip">RemindAI 内置了 ToolShell、Schedule、System 三个元技能，它们始终激活且不可禁用。你还可以点击技能卡片上的「📄」按钮查看 SKILL.md 内容。</span>
+    </div>
+</section>
+
+<!-- ==================== Web 搜索 ==================== -->
+<section class="doc-section" id="search">
+    <h2><span class="section-icon">🔍</span> <span data-i18n="search.title">Web 搜索</span></h2>
+    <p class="section-desc" data-i18n="search.desc">RemindAI 支持三种搜索引擎作为信息获取能力（Capability），AI 可以在对话中自动搜索互联网获取最新信息。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/web_search.png" alt="Web 搜索" data-i18n-alt="search.screenshot" />
+        <div class="caption" data-i18n="search.caption">搜索引擎配置 — 支持测试连接验证 API Key 有效性</div>
+    </div>
+
+    <h3 data-i18n="search.providersTitle">支持的搜索引擎</h3>
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="search.col1">引擎</th><th data-i18n="search.col2">获取 API Key</th><th data-i18n="search.col3">说明</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Tavily</strong></td>
+                <td><a href="https://tavily.com" target="_blank" style="color:var(--accent2)">tavily.com</a></td>
+                <td data-i18n="search.tavily">AI 优化的搜索引擎，结果质量高</td>
+            </tr>
+            <tr>
+                <td><strong>Brave Search</strong></td>
+                <td><a href="https://brave.com/search/api" target="_blank" style="color:var(--accent2)">brave.com/search/api</a></td>
+                <td data-i18n="search.brave">隐私友好的搜索引擎，免费额度充足</td>
+            </tr>
+            <tr>
+                <td><strong>百度智能搜索</strong></td>
+                <td data-i18n="search.baiduKey">百度开放平台</td>
+                <td data-i18n="search.baidu">中文搜索效果最佳</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 data-i18n="search.setupTitle">配置步骤</h3>
+    <ol>
+        <li data-i18n="search.setupL1">前往对应搜索引擎注册并获取 API Key</li>
+        <li data-i18n="search.setupL2">在「🔍 搜索」页面找到对应引擎，输入 API Key</li>
+        <li data-i18n="search.setupL3">点击「保存」按钮</li>
+        <li data-i18n="search.setupL4">点击「测试连接」验证 Key 是否有效（测试成功会自动保存）</li>
+    </ol>
+    <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <span data-i18n="search.tip">在对话中，你或 AI 可以通过会话级开关控制搜索功能的启用/禁用状态。搜索仅在该会话生效。</span>
+    </div>
+</section>
+
+<!-- ==================== 领域专家 ==================== -->
+<section class="doc-section" id="experts">
+    <h2><span class="section-icon">👤</span> <span data-i18n="experts.title">领域专家</span></h2>
+    <p class="section-desc" data-i18n="experts.desc">领域专家是预设或自定义的 AI 角色，每个专家拥有独立的系统提示词（System Prompt）和可绑定的技能集。选择专家后开始对话，AI 将以该专家的身份回答问题。</p>
+
+    <h3 data-i18n="experts.presetTitle">内置专家</h3>
+    <p data-i18n="experts.presetDesc">RemindAI 内置了多个预设专家角色，按类别分组：</p>
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="experts.col1">类别</th><th data-i18n="experts.col2">示例</th><th data-i18n="experts.col3">说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td data-i18n="experts.cat1">技术</td><td>代码审查、架构设计</td><td data-i18n="experts.cat1Desc">专注于软件开发的技术角色</td></tr>
+            <tr><td data-i18n="experts.cat2">分析</td><td>数据分析、商业分析</td><td data-i18n="experts.cat2Desc">专注于数据和业务分析</td></tr>
+            <tr><td data-i18n="experts.cat3">办公</td><td>写作助手、翻译</td><td data-i18n="experts.cat3Desc">日常办公效率提升</td></tr>
+            <tr><td data-i18n="experts.cat4">创意</td><td>头脑风暴、文案创作</td><td data-i18n="experts.cat4Desc">创意和内容生成</td></tr>
+        </tbody>
+    </table>
+
+    <h3 data-i18n="experts.createTitle">创建自定义专家</h3>
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="experts.createS1.title">进入专家页面</h4>
+                <p data-i18n="experts.createS1.desc">点击左侧「👤 专家」，然后点击右上角 <kbd>+</kbd> 按钮。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="experts.createS2.title">填写专家信息</h4>
+                <p data-i18n="experts.createS2.desc">设置专家名称、描述、图标、分类和系统提示词。系统提示词将作为 AI 的人格设定注入对话上下文。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="experts.createS3.title">绑定技能（可选）</h4>
+                <p data-i18n="experts.createS3.desc">选择该专家应激活的技能，这样使用该专家时，只有绑定的技能可用。</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num"></div>
+            <div class="step-content">
+                <h4 data-i18n="experts.createS4.title">开始对话</h4>
+                <p data-i18n="experts.createS4.desc">点击专家卡片，即可直接跳转到对话页面，以该专家身份开始交流。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== API 服务 ==================== -->
+<section class="doc-section" id="server">
+    <h2><span class="section-icon">🌐</span> <span data-i18n="server.title">API 服务</span></h2>
+    <p class="section-desc" data-i18n="server.desc">RemindAI 内置 HTTP 服务器，可以将自身暴露为 API 端点，供其他应用调用。支持三种端点模式。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/as_server1.png" alt="API 服务" data-i18n-alt="server.screenshot" />
+        <div class="caption" data-i18n="server.caption">API 服务器配置 — 三种端点模式</div>
+    </div>
+
+    <h3 data-i18n="server.endpointsTitle">三种端点</h3>
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="server.col1">端点</th><th data-i18n="server.col2">说明</th><th data-i18n="server.col3">适用场景</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong data-i18n="server.ep1">OpenAI 聚合</strong></td>
+                <td data-i18n="server.ep1Desc">以 OpenAI 兼容格式暴露，可聚合多个模型</td>
+                <td data-i18n="server.ep1Scene">其他 OpenAI 兼容客户端调用</td>
+            </tr>
+            <tr>
+                <td><strong data-i18n="server.ep2">Claude Agent</strong></td>
+                <td data-i18n="server.ep2Desc">运行 RemindAI 自身的 AgentLoop</td>
+                <td data-i18n="server.ep2Scene">需要完整 ToolShell 能力的场景</td>
+            </tr>
+            <tr>
+                <td><strong data-i18n="server.ep3">Claude 代理</strong></td>
+                <td data-i18n="server.ep3Desc">纯透传模式，直接转发到 Anthropic API</td>
+                <td data-i18n="server.ep3Scene">作为 API 代理/网关</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 data-i18n="server.setupTitle">配置方法</h3>
+    <ol>
+        <li data-i18n="server.setupL1">在「🌐 服务」页面找到 API 服务区域</li>
+        <li data-i18n="server.setupL2">开启需要的端点，设置端口号和认证令牌（Token）</li>
+        <li data-i18n="server.setupL3">配置局域网安全设置（是否允许局域网访问）</li>
+        <li data-i18n="server.setupL4">对于 Claude Agent 端点，还可以绑定模型、技能、MCP 和记忆系统</li>
+    </ol>
+
+    <div class="screenshot-wrap">
+        <img src="assets/as_server2.jpg" alt="服务配置" data-i18n-alt="server.screenshot2" />
+        <div class="caption" data-i18n="server.caption2">Claude Agent 端点可绑定模型、技能、MCP 和记忆</div>
+    </div>
+
+    <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <span data-i18n="server.warn">如果启用局域网访问，请确保设置了强认证令牌，避免未授权访问。API 服务会消耗你的模型 API 额度。</span>
+    <div class="screenshot-wrap">
+        <img src="assets/as_server3.png" alt="API Server Detail" data-i18n-alt="server.screenshot3" />
+        <div class="caption" data-i18n="server.caption3">API 服务器详细配置 — 端口、模型绑定和工具注入</div>
+    </div>
+</section>
+
+<!-- ==================== 多 Agent ==================== -->
+<section class="doc-section" id="agents">
+    <h2><span class="section-icon">🤝</span> <span data-i18n="agents.title">多 Agent 协作</span></h2>
+    <p class="section-desc" data-i18n="agents.desc">多 Agent 协作系统允许你创建多个 AI 角色，它们各司其职、相互协作。支持指挥部（Commander）、工作者（Worker）、审查员（Reviewer）三种角色。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/muti_agents.jpg" alt="多 Agent" data-i18n-alt="agents.screenshot" />
+        <div class="caption" data-i18n="agents.caption">多 Agent 协作界面 — 多个 AI 角色同时工作</div>
+    </div>
+
+    <h3 data-i18n="agents.rolesTitle">角色体系</h3>
+    <ul>
+        <li data-i18n="agents.role1"><strong>指挥部（Commander）</strong>：负责任务分配、进度协调、最终决策</li>
+        <li data-i18n="agents.role2"><strong>工作者（Worker）</strong>：执行具体任务，如代码编写、文件处理、研究分析</li>
+        <li data-i18n="agents.role3"><strong>审查员（Reviewer）</strong>：审核产出质量，提出改进建议</li>
+    </ul>
+
+    <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <span data-i18n="agents.tip">多 Agent 系统仍在持续完善中（⚡），当前已搭建核心框架和执行链路。你可以先体验单 Agent + 技能的模式。</span>
+    </div>
+</section>
+
+<!-- ==================== 宠物 Agent ==================== -->
+<section class="doc-section" id="pet">
+    <h2><span class="section-icon">🐱</span> <span data-i18n="pet.title">宠物 Agent</span></h2>
+    <p class="section-desc" data-i18n="pet.desc">宠物 Agent 是 RemindAI 的特色功能——一只陪伴你的像素猫！它不仅可爱，还拥有完整的经济系统和成就系统。</p>
+
+    <div class="screenshot-wrap">
+        <img src="assets/pet_agent.jpg" alt="宠物 Agent" data-i18n-alt="pet.screenshot" />
+        <div class="caption" data-i18n="pet.caption">全球宠物 Agent — 像素猫陪伴你的每一次对话</div>
+    </div>
+
+    <h3 data-i18n="pet.featuresTitle">功能特性</h3>
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="pet.col1">特性</th><th data-i18n="pet.col2">说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>🖱️ <span data-i18n="pet.f1.label">右键问答</span></td><td data-i18n="pet.f1.desc">右键点击宠物，可以向它提问，它会用 TTS 语音回答你</td></tr>
+            <tr><td>🎙️ <span data-i18n="pet.f2.label">火山 TTS</span></td><td data-i18n="pet.f2.desc">集成了火山引擎 TTS，宠物可以用语音和你交流</td></tr>
+            <tr><td>🏪 <span data-i18n="pet.f3.label">商店系统</span></td><td data-i18n="pet.f3.desc">在宠物商店购买食物和道具</td></tr>
+            <tr><td>🍖 <span data-i18n="pet.f4.label">投喂系统</span></td><td data-i18n="pet.f4.desc">用食物喂养宠物，提升亲密度</td></tr>
+            <tr><td>🏆 <span data-i18n="pet.f5.label">成就系统</span></td><td data-i18n="pet.f5.desc">完成特定任务解锁成就徽章</td></tr>
+            <tr><td>🎁 <span data-i18n="pet.f6.label">奖励机制</span></td><td data-i18n="pet.f6.desc">完成任务获得金币奖励，用于商店消费</td></tr>
+        </tbody>
+    </table>
+
+    <div class="screenshot-wrap">
+        <img src="assets/pet_shop.png" alt="宠物商店" data-i18n-alt="pet.shopScreenshot" />
+        <div class="caption" data-i18n="pet.shopCaption">宠物商店 — 用金币购买食物和道具</div>
+    </div>
+
+    <div class="screenshot-wrap">
+        <img src="assets/pet_achievement.png" alt="成就系统" data-i18n-alt="pet.achieveScreenshot" />
+        <div class="caption" data-i18n="pet.achieveCaption">成就系统 — 解锁徽章展示你的使用历程</div>
+    </div>
+
+    <div class="screenshot-wrap">
+        <img src="assets/pet_reward.png" alt="Pet Reward" data-i18n-alt="pet.rewardScreenshot" />
+        <div class="caption" data-i18n="pet.rewardCaption">���物奖励 — 日常互动获得金币</div>
+    </div>
+</section>
+
+<!-- ==================== 设置 ==================== -->
+<section class="doc-section" id="settings">
+    <h2><span class="section-icon">⚙️</span> <span data-i18n="settings.title">设置</span></h2>
+    <p class="section-desc" data-i18n="settings.desc">设置页面包含所有全局配置选项，包括外观、语言、存储路径、工具路径、Qdrant、嵌入模型等。</p>
+
+    <h3 data-i18n="settings.appearanceTitle">外观</h3>
+    <ul>
+        <li data-i18n="settings.theme"><strong>主题</strong>：支持亮色 / 跟随系统 / 暗色三种模式，切换时有涟漪扩散动画</li>
+        <li data-i18n="settings.accent"><strong>主题色</strong>：紫色 / 绿色 / 蓝色 / 青色四种强调色可选</li>
+        <li data-i18n="settings.blur"><strong>失焦通知</strong>：窗口不在前台时，AI 回复完成可弹出系统通知</li>
+        <li data-i18n="settings.enter"><strong>回车键行为</strong>：发送消息 / 换行 — 按习惯选择</li>
+    </ul>
+
+    <h3 data-i18n="settings.localeTitle">语言</h3>
+    <p data-i18n="settings.localeDesc">支持中文 / 英文 / 跟随系统三种模式。RemindAI 完整实现了中英双语国际化。</p>
+
+    <h3 data-i18n="settings.storageTitle">存储路径</h3>
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="settings.storageCol1">路径</th><th data-i18n="settings.storageCol2">说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td data-i18n="settings.storageR1.label">数据库路径</td><td data-i18n="settings.storageR1.desc">SQLite 数据库文件位置（remind_ai.db）</td></tr>
+            <tr><td data-i18n="settings.storageR2.label">历史记录路径</td><td data-i18n="settings.storageR2.desc">对话历史记录的保存目录</td></tr>
+            <tr><td data-i18n="settings.storageR3.label">技能路径</td><td data-i18n="settings.storageR3.desc">技能包的存放目录</td></tr>
+            <tr><td data-i18n="settings.storageR4.label">日志路径</td><td data-i18n="settings.storageR4.desc">应用日志文件的保存目录</td></tr>
+        </tbody>
+    </table>
+
+    <h3 data-i18n="settings.qdrantTitle">Qdrant 配置</h3>
+    <p data-i18n="settings.qdrantDesc">如果 Qdrant 运行在非默认地址，可以在设置中手动配置连接路径。</p>
+
+    <h3 data-i18n="settings.pandocTitle">Pandoc 路径</h3>
+    <p data-i18n="settings.pandocDesc">对话导出为 PDF/Word 时需要 Pandoc。RemindAI 会尝试自动检测，如果检测失败可以手动指定 Pandoc 可执行文件路径。</p>
+</section>
+
+<!-- ==================== 导出对话 ==================== -->
+<section class="doc-section" id="export">
+    <h2><span class="section-icon">📤</span> <span data-i18n="export.title">导出对话</span></h2>
+    <p class="section-desc" data-i18n="export.desc">你可以将对话记录导出为多种格式，方便分享和归档。</p>
+
+    <table class="doc-table">
+        <thead>
+            <tr><th data-i18n="export.col1">格式</th><th data-i18n="export.col2">说明</th><th data-i18n="export.col3">依赖</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>Markdown</code></td><td data-i18n="export.md">纯文本格式，可直接预览</td><td data-i18n="export.none">无</td></tr>
+            <tr><td><code>HTML</code></td><td data-i18n="export.html">网页格式，保留样式</td><td data-i18n="export.none">无</td></tr>
+            <tr><td><code>PDF</code></td><td data-i18n="export.pdf">适合打印和分享</td><td data-i18n="export.pandoc">需要 Pandoc</td></tr>
+            <tr><td><code>Word</code></td><td data-i18n="export.word">可编辑的文档格式</td><td data-i18n="export.pandoc">需要 Pandoc</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ==================== 常见问题 ==================== -->
+<section class="doc-section" id="faq">
+    <h2><span class="section-icon">❓</span> <span data-i18n="faq.title">常见问题</span></h2>
+
+    <h4 data-i18n="faq.q1">Q: AI 不响应或报错怎么办？</h4>
+    <p data-i18n="faq.a1">请检查：1) 是否已添加并设为默认模型；2) API Key 是否正确；3) Base URL 是否可访问（特别是使用第三方中转时）；4) 网络连接是否正常。</p>
+
+    <h4 data-i18n="faq.q2">Q: 记忆系统显示「Qdrant 未运行」？</h4>
+    <p data-i18n="faq.a2">需要先启动 Qdrant 服务。推荐使用 Docker：<code>docker run -d -p 6333:6333 qdrant/qdrant</code>。如果使用自定义端口，请在设置中配置 Qdrant 路径。</p>
+
+    <h4 data-i18n="faq.q3">Q: 对话导出 PDF/Word 失败？</h4>
+    <p data-i18n="faq.a3">需要安装 Pandoc。前往 <a href="https://pandoc.org/installing.html" target="_blank" style="color:var(--accent2)">pandoc.org</a> 下载安装，然后在设置中配置 Pandoc 路径。</p>
+
+    <h4 data-i18n="faq.q4">Q: MCP 连接失败？</h4>
+    <p data-i18n="faq.a4">请检查：1) stdio 类型的命令是否在系统 PATH 中；2) SSE/HTTP 类型的 URL 是否可访问；3) 是否需要特殊环境变量。可以在卡片上查看连接状态和错误信息。</p>
+
+    <h4 data-i18n="faq.q5">Q: 如何使用第三方模型中转？</h4>
+    <p data-i18n="faq.a5">只需在添加模型时，将 Base URL 填写为中转地址即可。RemindAI 兼容所有 OpenAI 格式的 API，包括各种第三方中转服务。</p>
+
+    <h4 data-i18n="faq.q6">Q: Linux / macOS 如何使用？</h4>
+    <p data-i18n="faq.a6">目前仅提供 Windows 安装包，其他平台需要从源码编构建。确保安装 Flutter SDK >= 3.12.1，然后按照「从源码构建」步骤操作。</p>
+    <div class="screenshot-wrap" style="margin-top:32px;">
+        <img src="assets/img_tool_demo.png" alt="Image Tool" data-i18n-alt="faq.imgToolScreenshot" />
+        <div class="caption" data-i18n="faq.imgToolCaption">内置工具示例 — AI 生成图片</div>
+    </div>
+
+    <div class="screenshot-wrap">
+        <img src="assets/ocr_tool_demo.jpg" alt="OCR Tool" data-i18n-alt="faq.ocrToolScreenshot" />
+        <div class="caption" data-i18n="faq.ocrToolCaption">内置工具示例 — OCR 文字识别</div>
+    </div>
+
+    <div class="screenshot-wrap">
+        <img src="assets/run_html_in_ui.png" alt="HTML Preview" data-i18n-alt="faq.htmlPreviewScreenshot" />
+        <div class="caption" data-i18n="faq.htmlPreviewCaption">WebView2 预览 — AI 生成的 HTML5 内容在应用内实时渲染</div>
+    </div>
+</section>
+
+</main>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p data-i18n="footer.license">MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a></p>
+    <p style="margin-top: 8px;"><a href="index.html" data-i18n="footer.back">← 返回首页</a></p>
+</footer>
+
+<!-- ============ i18n Engine ============ -->
+<script>
+(function() {
+    const T = {
+        'zh-CN': {
+            'nav.backHome': '首页',
+            'nav.changelog': '版本历史',
+            'nav.skilldev': '技能开发',
+            'nav.changelogLink': '📋 版本历史',
+            'nav.skilldevLink': '🧩 技能开发',
+            'nav.changelog': '📋 版本历史',
+            'nav.models': '模型',
+            'nav.toolshell': 'ToolShell',
+            'nav.mcp': 'MCP',
+            'nav.memory': '记忆',
+            'nav.skills': '技能',
+            'nav.settings': '设置',
+            'sidebar.title': '配置指南',
+            'sidebar.overview': '概览',
+            'sidebar.install': '安装与启动',
+            'sidebar.models': '模型配置',
+            'sidebar.chat': '对话与使用',
+            'sidebar.toolshell': 'ToolShell',
+            'sidebar.mcp': 'MCP 协议',
+            'sidebar.memory': '记忆系统',
+            'sidebar.skills': '技能系统',
+            'sidebar.search': 'Web 搜索',
+            'sidebar.experts': '领域专家',
+            'sidebar.server': 'API 服务',
+            'sidebar.agents': '多 Agent',
+            'sidebar.pet': '宠物 Agent',
+            'sidebar.settings': '设置',
+            'sidebar.export': '导出对话',
+            'sidebar.faq': '常见问题',
+            'hero.title': '📖 配置与使用指南',
+            'hero.subtitle': '从安装到高级功能的完整教程，帮助你充分发挥 RemindAI 的能力。',
+            'overview.title': '概览',
+            'overview.desc': 'RemindAI 是一款开源桌面 AI 助手，为大模型提供完整的 ToolShell（工具外壳），让 AI 不仅能聊天，还能直接操作文件、执行代码、调用外部工具、管理记忆。',
+            'overview.screenshot': 'RemindAI 主界面',
+            'overview.caption': 'RemindAI 主界面 — 左侧导航栏包含所有功能入口',
+            'overview.archTitle': '界面架构',
+            'overview.archDesc': 'RemindAI 采用左侧导航栏 + 右侧内容区的经典布局：',
+            'overview.archCol1': '模块',
+            'overview.archCol2': '功能说明',
+            'overview.archR1.label': '💬 对话',
+            'overview.archR1.desc': '核心聊天界面，支持 ToolShell 工具调用、多模态图文、推理链展示',
+            'overview.archR2.label': '🎨 模型',
+            'overview.archR2.desc': '管理 AI 模型卡片，配置 API Key、Base URL、协议类型',
+            'overview.archR3.label': '🔌 MCP',
+            'overview.archR3.desc': 'MCP 服务器管理，支持 stdio / SSE / HTTP 三种传输',
+            'overview.archR4.label': '🧠 记忆',
+            'overview.archR4.desc': '查看和管理向量记忆，Qdrant + SQLite 双写存储',
+            'overview.archR5.label': '📦 技能',
+            'overview.archR5.desc': '导入/管理技能包，ZIP 一键导入',
+            'overview.archR6.label': '🔍 搜索',
+            'overview.archR6.desc': '配置 Web 搜索引擎 API（Tavily / Brave / 百度）',
+            'overview.archR7.label': '👤 专家',
+            'overview.archR7.desc': '创建/管理领域专家角色，绑定技能和系统提示词',
+            'overview.archR8.label': '⚙️ 设置',
+            'overview.archR8.desc': '主题、语言、存储路径、嵌入模型、Qdrant 等全局配置',
+            'install.title': '安装与启动',
+            'install.desc': 'RemindAI 目前正式支持 Windows，Linux 和 macOS 可通过源码编译使用。',
+            'install.downloadTitle': '方式一：下载安装包',
+            'install.downloadS1.title': '前往 GitHub Releases',
+            'install.downloadS1.desc': '访问 <a href="https://github.com/PythonnotJava/RemindAI/releases" target="_blank" style="color:var(--accent2)">GitHub Releases</a> 页面，下载最新版本的 Windows 安装包。',
+            'install.downloadS2.title': '运行安装程序',
+            'install.downloadS2.desc': '双击安装包，按向导完成安装。安装完成后在桌面或开始菜单找到 RemindAI 启动。',
+            'install.downloadS3.title': '配置模型',
+            'install.downloadS3.desc': '首次启动后，进入「模型」页面添加你的第一个 AI 模型（见下方模型配置章节）。',
+            'install.sourceTitle': '方式二：从源码构建',
+            'install.sourceTip': '构建产物在 <code>build/</code> 目录下。Linux 需额外安装 <code>libsqlite3-dev</code> 系统依赖。',
+            'models.title': '模型配置',
+            'models.desc': 'RemindAI 原生支持 OpenAI、Anthropic、Gemini 三种协议，你可以添加多个模型并随时切换默认模型。',
+            'models.screenshot': '模型管理',
+            'models.caption': '模型卡片管理 — 支持拖拽排序，点击设为默认',
+            'models.addTitle': '添加模型',
+            'models.addS1.title': '进入模型页面',
+            'models.addS1.desc': '点击左侧导航栏的「🎨 模型」按钮，进入模型管理页面。点击右下角的 <kbd>+</kbd> 按钮打开添加对话框。',
+            'models.addS2.title': '选择协议类型',
+            'models.addS2.desc': '在「协议类型」下拉框中选择 <code>OpenAI</code>、<code>Anthropic</code> 或 <code>Gemini</code>。协议决定了请求格式和模型检测方式。',
+            'models.addS3.title': '填写配置信息',
+            'models.addS3.desc': '填写 <strong>名称</strong>、<strong>Base URL</strong>、<strong>API Key</strong>。不同协议的 URL 格式不同（见下表）。',
+            'models.addS4.title': '检测并选择模型',
+            'models.addS4.desc': '填写 URL 和 Key 后，点击右侧的 <kbd>🔄</kbd> 按钮自动检测可用模型列表，然后从下拉框中选择目标模型。也可以手动输入模型 ID。',
+            'models.urlTitle': '各协议 Base URL 参考',
+            'models.urlCol1': '协议',
+            'models.urlCol2': '默认 Base URL',
+            'models.urlCol3': '说明',
+            'models.urlR1': '兼容所有 OpenAI 格式 API（含第三方中转）',
+            'models.urlR2': 'Claude 系列模型，支持 thinking 推理链',
+            'models.urlR3': 'Google Gemini 系列，支持多模态图文',
+            'models.tipLogo': '你还可以为模型设置自定义 Logo（支持本地图片），未设置时将自动按品牌识别显示。',
+            'chat.title': '对话与使用',
+            'chat.desc': '对话是 RemindAI 的核心功能。在这里你可以与 AI 自然语言交流，AI 会根据需要自动调用工具完成复杂任务。',
+            'chat.screenshot': '对话界面',
+            'chat.caption': '对话界面 — 工作目录展示，AI 可以直接操作项目文件',
+            'chat.basicTitle': '基本使用',
+            'chat.basicL1': '在左侧导航栏选择「💬 对话」进入聊天界面',
+            'chat.basicL2': '确保已配置至少一个模型（见模型配置章节）',
+            'chat.basicL3': '在底部输入框输入问题或指令，按 <kbd>Enter</kbd> 发送',
+            'chat.basicL4': 'AI 将流式返回回复，如果需要执行工具，会在回复中展示工具调用卡片',
+            'chat.workspaceTitle': '工作目录',
+            'chat.workspaceDesc': '你可以在对话中指定工作目录，AI 的文件操作将在该目录下进行。这让 AI 能够直接操作你的项目代码。',
+            'chat.workspaceScreenshot': '工作目录',
+            'chat.workspaceCaption': '指定工作目录后，AI 的所有文件操作都在此沙盒内进行',
+            'chat.workspaceTitle2': '对话管理',
+            'chat.workspaceL1': '支持多会话管理，可在左侧切换不同的对话',
+            'chat.workspaceL2': '支持 Markdown 渲染，包括代码高亮、数学公式、表格等',
+            'chat.workspaceL3': '支持拖拽上传图片，进行多模态图文对话',
+            'chat.workspaceL4': '按 <kbd>Enter</kbd> 发送，<kbd>Shift+Enter</kbd> 换行（可在设置中切换）',
+            'chat.toolCallTitle': '工具调用展示',
+            'chat.toolCallDesc': '当 AI 调用工具时（如读写文件、执行代码），会在消息中展示可折叠的工具调用卡片，你可以展开查看具体参数和返回结果。',
+            'toolshell.title': 'ToolShell — 工具外壳',
+            'toolshell.desc': 'ToolShell 是 RemindAI 的核心能力，它赋予 AI 一套完整的操作系统级工具，包括文件读写、Shell 命令执行、Python 运行等。AI 通过内置的「元技能」系统调用这些工具。',
+            'toolshell.metaTitle': '内置元技能',
+            'toolshell.toolCol1': '工具',
+            'toolshell.toolCol2': '功能',
+            'toolshell.read': '读取文件内容，支持指定行范围',
+            'toolshell.write': '写入文件（新建、覆盖、追加），自动创建父目录',
+            'toolshell.delete': '删除文件或目录',
+            'toolshell.search': '按文件名 glob 匹配搜索文件，可按内容过滤',
+            'toolshell.exec': '执行 Shell 命令（支持任意 CLI 工具）',
+            'toolshell.python': '执行 Python 代码，自动捕获 matplotlib 图表',
+            'toolshell.memStore': '存储记忆到向量数据库',
+            'toolshell.memRecall': '从向量数据库召回相关记忆',
+            'toolshell.scheduleDesc': 'Schedule 元技能让 AI 可以管理工作计划（SCHEDULE.md），支持 P0/P1/P2 优先级的任务 CRUD、审查和归档。包含 7 个工具：load、add_task、complete、update、delete、review、archive。',
+            'toolshell.systemDesc': 'System 元技能让 AI 可以探测你的系统环境，了解安装了哪些开发工具、运行时、包管理器等，从而做出更精准的决策。包含 <code>system_probe</code> 和 <code>system_env</code> 两个工具。',
+            'toolshell.cliTitle': '内置 CLI 工具',
+            'toolshell.cliDesc': 'RemindAI 自带以下命令行工具，无需额外安装：',
+            'toolshell.cliCol1': '工具',
+            'toolshell.cliCol2': '用途',
+            'toolshell.cliCol3': '说明',
+            'toolshell.cliR1.use': '极速正则搜索',
+            'toolshell.cliR1.desc': 'ripgrep，比 grep 快数倍',
+            'toolshell.cliR2.use': '现代化文件查找',
+            'toolshell.cliR2.desc': '比 find 命令更友好',
+            'toolshell.cliR3.use': 'Token 压缩器',
+            'toolshell.cliR3.desc': '减少 60-90% 命令输出 token',
+            'toolshell.tip': '你不需要手动调用这些工具，只需要用自然语言告诉 AI 你想做什么，它会自动选择合适的工具来完成任务。',
+            'mcp.title': 'MCP 协议',
+            'mcp.desc': 'MCP（Model Context Protocol）是一种开放协议，允许 AI 调用外部工具服务。RemindAI 支持三种传输方式，可以连接任何兼容 MCP 的工具服务器。',
+            'mcp.screenshot': 'MCP 管理',
+            'mcp.caption': 'MCP 服务管理 — 卡片式布局，支持拖拽排序和状态指示',
+            'mcp.transportTitle': '三种传输方式',
+            'mcp.transportCol1': '传输类型',
+            'mcp.transportCol2': '说明',
+            'mcp.transportCol3': '适用场景',
+            'mcp.transportR1.desc': '通过标准输入/输出通信，启动本地进程',
+            'mcp.transportR1.scene': '本地 CLI 工具、Python/Node.js 脚本',
+            'mcp.transportR2.desc': 'Server-Sent Events，基于 HTTP 的长连接',
+            'mcp.transportR2.scene': '远程服务、已有的 MCP SSE 端点',
+            'mcp.transportR3.desc': '可流式传输的 HTTP 请求',
+            'mcp.transportR3.scene': '新一代远程 MCP 服务',
+            'mcp.addTitle': '添加 MCP 服务器',
+            'mcp.addS1.title': '进入 MCP 页面',
+            'mcp.addS1.desc': '点击左侧导航栏的「🔌 MCP」，然后点击右下角 <kbd>+</kbd> 按钮。',
+            'mcp.addS2.title': '选择传输类型并填写配置',
+            'mcp.addS2.desc': '<strong>stdio</strong>：填写命令（如 <code>npx</code>）、参数（如 <code>-y @modelcontextprotocol/server-filesystem /path</code>）、工作目录、环境变量。<br/><strong>SSE / HTTP</strong>：填写 URL（如 <code>http://localhost:3000/sse</code>）和 HTTP Headers。',
+            'mcp.addS3.title': '测试连接',
+            'mcp.addS3.desc': '保存后，点击卡片上的 <kbd>🔗</kbd> 按钮测试连接。连接成功后会显示发现的工具数量。状态指示灯变为绿色。',
+            'mcp.addS4.title': '启用并使用',
+            'mcp.addS4.desc': '打开卡片上的启用开关，MCP 工具将在对话中自动可用。AI 会根据上下文自动决定何时调用这些工具。',
+            'mcp.warn': 'stdio 类型的 MCP 服务器会在后台启动子进程，请确保命令路径正确且进程能正常退出，避免僵尸进程。',
+            'memory.title': '记忆系统',
+            'memory.desc': 'RemindAI 的记忆系统使用 Qdrant 向量数据库 + SQLite 持久备份的双写架构，让 AI 能够跨会话记住重要信息，并通过语义搜索精准召回。',
+            'memory.screenshot': '记忆系统',
+            'memory.caption': '记忆管理页面 — 查看存储统计和所有记忆条目',
+            'memory.setupTitle': '配置步骤',
+            'memory.qdrantTitle': '安装 Qdrant',
+            'memory.qdrantDesc': 'Qdrant 是记忆系统的向量搜索引擎。推荐使用 Docker 运行：',
+            'memory.qdrantTip': 'Qdrant 默认监听 6333（REST）和 6334（gRPC）端口。如果自定义端口，需要在 RemindAI 设置中配置 Qdrant 路径。',
+            'memory.embTitle': '配置嵌入模型',
+            'memory.embDesc': '向量记忆需要嵌入模型将文本转换为向量。在「设置 → 嵌入模型」中添加嵌入模型配置：',
+            'memory.embL1': '<strong>URL</strong>：嵌入模型 API 地址（如 OpenAI 兼容接口 <code>https://api.openai.com/v1/embeddings</code>）',
+            'memory.embL2': '<strong>API Key</strong>：对应的密钥',
+            'memory.embL3': '<strong>模型名</strong>：如 <code>text-embedding-3-small</code>、<code>text-embedding-ada-002</code> 等',
+            'memory.embScreenshot': '嵌入配置',
+            'memory.embCaption': '配置嵌入模型 — 支持 OpenAI 兼容的嵌入接口',
+            'memory.useTitle': '使用记忆',
+            'memory.useDesc': '配置完成后，记忆系统将自动工作：',
+            'memory.useL1': '对话开始时，AI 会自动召回与当前话题相关的历史记忆注入上下文',
+            'memory.useL2': '对话过程中，AI 会识别重要信息并主动存储到记忆',
+            'memory.useL3': '你可以在「🧠 记忆」页面查看、搜索和删除记忆条目',
+            'memory.writeScreenshot': '记忆存储',
+            'memory.writeCaption': 'AI 自动识别并存储重要信息到记忆',
+            'skills.title': '技能系统',
+            'skills.desc': '技能系统允许你为 AI 添加额外的工具和能力。每个技能包含一个 SKILL.md（技能说明）和 tools.json（工具定义），打包为 ZIP 文件导入。',
+            'skills.screenshot': '技能系统',
+            'skills.caption': '技能管理页面 — 卡片展示所有技能，支持拖拽排序',
+            'skills.importTitle': '导入技能',
+            'skills.importS1.title': '获取技能 ZIP 包',
+            'skills.importS1.desc': '从技能市场下载或自行制作技能 ZIP 包。推荐市场：<a href="https://skillsmp.com" target="_blank" style="color:var(--accent2)">Skills MP</a>、<a href="https://claudskills.com" target="_blank" style="color:var(--accent2)">Claud Skills</a>、<a href="https://www.skills.sh" target="_blank" style="color:var(--accent2)">Skills.sh</a>',
+            'skills.importS2.title': '点击导入',
+            'skills.importS2.desc': '在「📦 技能」页面点击右下角 <kbd>📤</kbd> 按钮，选择 ZIP 文件导入。导入成功后会显示技能名称和工具数量。',
+            'skills.importS3.title': '启用技能',
+            'skills.importS3.desc': '在技能卡片上打开启用开关。启用后，技能中的工具将注入到 AI 的工具列表中。',
+            'skills.builtinTip': 'RemindAI 内置了 ToolShell、Schedule、System 三个元技能，它们始终激活且不可禁用。你还可以点击技能卡片上的「📄」按钮查看 SKILL.md 内容。',
+            'search.title': 'Web 搜索',
+            'search.desc': 'RemindAI 支持三种搜索引擎作为信息获取能力（Capability），AI 可以在对话中自动搜索互联网获取最新信息。',
+            'search.screenshot': 'Web 搜索',
+            'search.caption': '搜索引擎配置 — 支持测试连接验证 API Key 有效性',
+            'search.providersTitle': '支持的搜索引擎',
+            'search.col1': '引擎',
+            'search.col2': '获取 API Key',
+            'search.col3': '说明',
+            'search.tavily': 'AI 优化的搜索引擎，结果质量高',
+            'search.brave': '隐私友好的搜索引擎，免费额度充足',
+            'search.baiduKey': '百度开放平台',
+            'search.baidu': '中文搜索效果最佳',
+            'search.setupTitle': '配置步骤',
+            'search.setupL1': '前往对应搜索引擎注册并获取 API Key',
+            'search.setupL2': '在「🔍 搜索」页面找到对应引擎，输入 API Key',
+            'search.setupL3': '点击「保存」按钮',
+            'search.setupL4': '点击「测试连接」验证 Key 是否有效（测试成功会自动保存）',
+            'search.tip': '在对话中，你或 AI 可以通过会话级开关控制搜索功能的启用/禁用状态。搜索仅在该会话生效。',
+            'experts.title': '领域专家',
+            'experts.desc': '领域专家是预设或自定义的 AI 角色，每个专家拥有独立的系统提示词（System Prompt）和可绑定的技能集。选择专家后开始对话，AI 将以该专家的身份回答问题。',
+            'experts.presetTitle': '内置专家',
+            'experts.presetDesc': 'RemindAI 内置了多个预设专家角色，按类别分组：',
+            'experts.col1': '类别',
+            'experts.col2': '示例',
+            'experts.col3': '说明',
+            'experts.cat1': '技术',
+            'experts.cat1Desc': '专注于软件开发的技术角色',
+            'experts.cat2': '分析',
+            'experts.cat2Desc': '专注于数据和业务分析',
+            'experts.cat3': '办公',
+            'experts.cat3Desc': '日常办公效率提升',
+            'experts.cat4': '创意',
+            'experts.cat4Desc': '创意和内容生成',
+            'experts.createTitle': '创建自定义专家',
+            'experts.createS1.title': '进入专家页面',
+            'experts.createS1.desc': '点击左侧「👤 专家」，然后点击右上角 <kbd>+</kbd> 按钮。',
+            'experts.createS2.title': '填写专家信息',
+            'experts.createS2.desc': '设置专家名称、描述、图标、分类和系统提示词。系统提示词将作为 AI 的人格设定注入对话上下文。',
+            'experts.createS3.title': '绑定技能（可选）',
+            'experts.createS3.desc': '选择该专家应激活的技能，这样使用该专家时，只有绑定的技能可用。',
+            'experts.createS4.title': '开始对话',
+            'experts.createS4.desc': '点击专家卡片，即可直接跳转到对话页面，以该专家身份开始交流。',
+            'server.title': 'API 服务',
+            'server.desc': 'RemindAI 内置 HTTP 服务器，可以将自身暴露为 API 端点，供其他应用调用。支持三种端点模式。',
+            'server.screenshot': 'API 服务',
+            'server.caption': 'API 服务器配置 — 三种端点模式',
+            'server.endpointsTitle': '三种端点',
+            'server.col1': '端点',
+            'server.col2': '说明',
+            'server.col3': '适用场景',
+            'server.ep1': 'OpenAI 聚合',
+            'server.ep1Desc': '以 OpenAI 兼容格式暴露，可聚合多个模型',
+            'server.ep1Scene': '其他 OpenAI 兼容客户端调用',
+            'server.ep2': 'Claude Agent',
+            'server.ep2Desc': '运行 RemindAI 自身的 AgentLoop',
+            'server.ep2Scene': '需要完整 ToolShell 能力的场景',
+            'server.ep3': 'Claude 代理',
+            'server.ep3Desc': '纯透传模式，直接转发到 Anthropic API',
+            'server.ep3Scene': '作为 API 代理/网关',
+            'server.setupTitle': '配置方法',
+            'server.setupL1': '在「🌐 服务」页面找到 API 服务区域',
+            'server.setupL2': '开启需要的端点，设置端口号和认证令牌（Token）',
+            'server.setupL3': '配置局域网安全设置（是否允许局域网访问）',
+            'server.setupL4': '对于 Claude Agent 端点，还可以绑定模型、技能、MCP 和记忆系统',
+            'server.screenshot2': '服务配置',
+            'server.caption2': 'Claude Agent 端点可绑定模型、技能、MCP 和记忆',
+            'server.warn': '如果启用局域网访问，请确保设置了强认证令牌，避免未授权访问。API 服务会消耗你的模型 API 额度。',
+            'agents.title': '多 Agent 协作',
+            'agents.desc': '多 Agent 协作系统允许你创建多个 AI 角色，它们各司其职、相互协作。支持指挥部（Commander）、工作者（Worker）、审查员（Reviewer）三种角色。',
+            'agents.screenshot': '多 Agent',
+            'agents.caption': '多 Agent 协作界面 — 多个 AI 角色同时工作',
+            'agents.rolesTitle': '角色体系',
+            'agents.role1': '<strong>指挥部（Commander）</strong>：负责任务分配、进度协调、最终决策',
+            'agents.role2': '<strong>工作者（Worker）</strong>：执行具体任务，如代码编写、文件处理、研究分析',
+            'agents.role3': '<strong>审查员（Reviewer）</strong>：审核产出质量，提出改进建议',
+            'agents.tip': '多 Agent 系统仍在持续完善中（⚡），当前已搭建核心框架和执行链路。你可以先体验单 Agent + 技能的模式。',
+            'pet.title': '宠物 Agent',
+            'pet.desc': '宠物 Agent 是 RemindAI 的特色功能——一只陪伴你的像素猫！它不仅可爱，还拥有完整的经济系统和成就系统。',
+            'pet.screenshot': '宠物 Agent',
+            'pet.caption': '全球宠物 Agent — 像素猫陪伴你的每一次对话',
+            'pet.featuresTitle': '功能特性',
+            'pet.col1': '特性',
+            'pet.col2': '说明',
+            'pet.f1.label': '右键问答',
+            'pet.f1.desc': '右键点击宠物，可以向它提问，它会用 TTS 语音回答你',
+            'pet.f2.label': '火山 TTS',
+            'pet.f2.desc': '集成了火山引擎 TTS，宠物可以用语音和你交流',
+            'pet.f3.label': '商店系统',
+            'pet.f3.desc': '在宠物商店购买食物和道具',
+            'pet.f4.label': '投喂系统',
+            'pet.f4.desc': '用食物喂养宠物，提升亲密度',
+            'pet.f5.label': '成就系统',
+            'pet.f5.desc': '完成特定任务解锁成就徽章',
+            'pet.f6.label': '奖励机制',
+            'pet.f6.desc': '完成任务获得金币奖励，用于商店消费',
+            'pet.shopScreenshot': '宠物商店',
+            'pet.shopCaption': '宠物商店 — 用金币购买食物和道具',
+            'pet.achieveScreenshot': '成就系统',
+            'pet.achieveCaption': '成就系统 — 解锁徽章展示你的使用历程',
+            'settings.title': '设置',
+            'settings.desc': '设置页面包含所有全局配置选项，包括外观、语言、存储路径、工具路径、Qdrant、嵌入模型等。',
+            'settings.appearanceTitle': '外观',
+            'settings.theme': '<strong>主题</strong>：支持亮色 / 跟随系统 / 暗色三种模式，切换时有涟漪扩散动画',
+            'settings.accent': '<strong>主题色</strong>：紫色 / 绿色 / 蓝色 / 青色四种强调色可选',
+            'settings.blur': '<strong>失焦通知</strong>：窗口不在前台时，AI 回复完成可弹出系统通知',
+            'settings.enter': '<strong>回车键行为</strong>：发送消息 / 换行 — 按习惯选择',
+            'settings.localeTitle': '语言',
+            'settings.localeDesc': '支持中文 / 英文 / 跟随系统三种模式。RemindAI 完整实现了中英双语国际化。',
+            'settings.storageTitle': '存储路径',
+            'settings.storageCol1': '路径',
+            'settings.storageCol2': '说明',
+            'settings.storageR1.label': '数据库路径',
+            'settings.storageR1.desc': 'SQLite 数据库文件位置（remind_ai.db）',
+            'settings.storageR2.label': '历史记录路径',
+            'settings.storageR2.desc': '对话历史记录的保存目录',
+            'settings.storageR3.label': '技能路径',
+            'settings.storageR3.desc': '技能包的存放目录',
+            'settings.storageR4.label': '日志路径',
+            'settings.storageR4.desc': '应用日志文件的保存目录',
+            'settings.qdrantTitle': 'Qdrant 配置',
+            'settings.qdrantDesc': '如果 Qdrant 运行在非默认地址，可以在设置中手动配置连接路径。',
+            'settings.pandocTitle': 'Pandoc 路径',
+            'settings.pandocDesc': '对话导出为 PDF/Word 时需要 Pandoc。RemindAI 会尝试自动检测，如果检测失败可以手动指定 Pandoc 可执行文件路径。',
+            'export.title': '导出对话',
+            'export.desc': '你可以将对话记录导出为多种格式，方便分享和归档。',
+            'export.col1': '格式',
+            'export.col2': '说明',
+            'export.col3': '依赖',
+            'export.md': '纯文本格式，可直接预览',
+            'export.html': '网页格式，保留样式',
+            'export.pdf': '适合打印和分享',
+            'export.word': '可编辑的文档格式',
+            'export.none': '无',
+            'export.pandoc': '需要 Pandoc',
+            'faq.title': '常见问题',
+            'faq.q1': 'Q: AI 不响应或报错怎么办？',
+            'faq.a1': '请检查：1) 是否已添加并设为默认模型；2) API Key 是否正确；3) Base URL 是否可访问（特别是使用第三方中转时）；4) 网络连接是否正常。',
+            'faq.q2': 'Q: 记忆系统显示「Qdrant 未运行」？',
+            'faq.a2': '需要先启动 Qdrant 服务。推荐使用 Docker：<code>docker run -d -p 6333:6333 qdrant/qdrant</code>。如果使用自定义端口，请在设置中配置 Qdrant 路径。',
+            'faq.q3': 'Q: 对话导出 PDF/Word 失败？',
+            'faq.a3': '需要安装 Pandoc。前往 <a href="https://pandoc.org/installing.html" target="_blank" style="color:var(--accent2)">pandoc.org</a> 下载安装，然后在设置中配置 Pandoc 路径。',
+            'faq.q4': 'Q: MCP 连接失败？',
+            'faq.a4': '请检查：1) stdio 类型的命令是否在系统 PATH 中；2) SSE/HTTP 类型的 URL 是否可访问；3) 是否需要特殊环境变量。可以在卡片上查看连接状态和错误信息。',
+            'faq.q5': 'Q: 如何使用第三方模型中转？',
+            'faq.a5': '只需在添加模型时，将 Base URL 填写为中转地址即可。RemindAI 兼容所有 OpenAI 格式的 API，包括各种第三方中转服务。',
+            'faq.q6': 'Q: Linux / macOS 如何使用？',
+            'faq.a6': '目前仅提供 Windows 安装包，其他平台需要从源码编构建。确保安装 Flutter SDK >= 3.12.1，然后按照「从源码构建」步骤操作。',
+                        'overview.showcase': 'RemindAI 功能全景展示',
+            'overview.showcaseCaption': 'RemindAI 功能效果全景展示',
+            'chat.codeViewScreenshot': '代码视图',
+            'chat.codeViewCaption': 'AI 使用 ToolShell 执行代码和操作文件的实际效果',
+            'mcp.customSkillScreenshot': '自定义 MCP 技能',
+            'mcp.customSkillCaption': '通过自定义技能调用 MCP 服务器工具',
+            'pet.rewardScreenshot': '宠物奖励',
+            'pet.rewardCaption': '宠物奖励 — 日常互动获得金币',
+            'server.screenshot3': 'API 服务详情',
+            'server.caption3': 'API 服务器详细配置 — 端口、模型绑定和工具注入',
+            'faq.imgToolScreenshot': '图片工具',
+            'faq.imgToolCaption': '内置工具示例 — AI 生成图片',
+            'faq.ocrToolScreenshot': 'OCR 工具',
+            'faq.ocrToolCaption': '内置工具示例 — OCR 文字识别',
+            'faq.htmlPreviewScreenshot': 'HTML 预览',
+            'faq.htmlPreviewCaption': 'WebView2 预览 — AI 生成的 HTML5 内容在应用内实时渲染',
+            'footer.license': 'MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a>',
+            'footer.back': '← 返回首页'
+        },
+        'en': {
+            'nav.backHome': 'Home',
+            'nav.changelog': 'Changelog',
+            'nav.skilldev': 'Skill Dev',
+            'nav.changelogLink': '📋 Changelog',
+            'nav.skilldevLink': '🧩 Skill Dev',
+            'nav.changelog': '📋 Changelog',
+            'nav.models': 'Models',
+            'nav.toolshell': 'ToolShell',
+            'nav.mcp': 'MCP',
+            'nav.memory': 'Memory',
+            'nav.skills': 'Skills',
+            'nav.settings': 'Settings',
+            'sidebar.title': 'Configuration Guide',
+            'sidebar.overview': 'Overview',
+            'sidebar.install': 'Installation',
+            'sidebar.models': 'Model Setup',
+            'sidebar.chat': 'Chat & Usage',
+            'sidebar.toolshell': 'ToolShell',
+            'sidebar.mcp': 'MCP Protocol',
+            'sidebar.memory': 'Memory System',
+            'sidebar.skills': 'Skill System',
+            'sidebar.search': 'Web Search',
+            'sidebar.experts': 'Domain Experts',
+            'sidebar.server': 'API Server',
+            'sidebar.agents': 'Multi-Agent',
+            'sidebar.pet': 'Pet Agent',
+            'sidebar.settings': 'Settings',
+            'sidebar.export': 'Export Chat',
+            'sidebar.faq': 'FAQ',
+            'hero.title': '📖 Configuration & Usage Guide',
+            'hero.subtitle': 'A complete tutorial from installation to advanced features, helping you get the most out of RemindAI.',
+            'overview.title': 'Overview',
+            'overview.desc': 'RemindAI is an open-source desktop AI assistant that provides LLMs with a complete ToolShell — enabling AI to not just chat, but also directly manipulate files, execute code, call external tools, and manage memory.',
+            'overview.screenshot': 'RemindAI Main Interface',
+            'overview.caption': 'RemindAI main interface — left sidebar contains all feature entries',
+            'overview.archTitle': 'Interface Architecture',
+            'overview.archDesc': 'RemindAI uses a classic left sidebar + right content area layout:',
+            'overview.archCol1': 'Module',
+            'overview.archCol2': 'Description',
+            'overview.archR1.label': '💬 Chat',
+            'overview.archR1.desc': 'Core chat interface with ToolShell tool calls, multimodal, reasoning chain display',
+            'overview.archR2.label': '🎨 Models',
+            'overview.archR2.desc': 'Manage AI model cards, configure API Key, Base URL, protocol type',
+            'overview.archR3.label': '🔌 MCP',
+            'overview.archR3.desc': 'MCP server management with stdio / SSE / HTTP transports',
+            'overview.archR4.label': '🧠 Memory',
+            'overview.archR4.desc': 'View and manage vector memory, Qdrant + SQLite dual-write storage',
+            'overview.archR5.label': '📦 Skills',
+            'overview.archR5.desc': 'Import/manage skill packs, one-click ZIP import',
+            'overview.archR6.label': '🔍 Search',
+            'overview.archR6.desc': 'Configure web search APIs (Tavily / Brave / Baidu)',
+            'overview.archR7.label': '👤 Experts',
+            'overview.archR7.desc': 'Create/manage domain expert roles with bound skills and system prompts',
+            'overview.archR8.label': '⚙️ Settings',
+            'overview.archR8.desc': 'Theme, language, storage paths, embedding models, Qdrant, and more',
+            'install.title': 'Installation & Launch',
+            'install.desc': 'RemindAI officially supports Windows. Linux and macOS can be used via source code compilation.',
+            'install.downloadTitle': 'Option 1: Download Installer',
+            'install.downloadS1.title': 'Go to GitHub Releases',
+            'install.downloadS1.desc': 'Visit <a href="https://github.com/PythonnotJava/RemindAI/releases" target="_blank" style="color:var(--accent2)">GitHub Releases</a> to download the latest Windows installer.',
+            'install.downloadS2.title': 'Run Installer',
+            'install.downloadS2.desc': 'Double-click the installer and follow the wizard. After installation, find RemindAI in the desktop or Start menu.',
+            'install.downloadS3.title': 'Configure Model',
+            'install.downloadS3.desc': 'After first launch, go to the Models page to add your first AI model (see model configuration section below).',
+            'install.sourceTitle': 'Option 2: Build from Source',
+            'install.sourceTip': 'Build output is in the <code>build/</code> directory. Linux requires <code>libsqlite3-dev</code> system dependency.',
+            'models.title': 'Model Configuration',
+            'models.desc': 'RemindAI natively supports OpenAI, Anthropic, and Gemini protocols. You can add multiple models and switch the default at any time.',
+            'models.screenshot': 'Model Management',
+            'models.caption': 'Model card management — drag-and-drop sorting, click to set as default',
+            'models.addTitle': 'Adding a Model',
+            'models.addS1.title': 'Enter Models Page',
+            'models.addS1.desc': 'Click the "🎨 Models" button in the left sidebar. Then click the <kbd>+</kbd> button in the bottom-right to open the add dialog.',
+            'models.addS2.title': 'Select Protocol Type',
+            'models.addS2.desc': 'Choose <code>OpenAI</code>, <code>Anthropic</code>, or <code>Gemini</code> from the "Protocol Type" dropdown. The protocol determines request format and model detection.',
+            'models.addS3.title': 'Fill Configuration',
+            'models.addS3.desc': 'Enter the <strong>Name</strong>, <strong>Base URL</strong>, and <strong>API Key</strong>. URL format differs by protocol (see table below).',
+            'models.addS4.title': 'Detect & Select Model',
+            'models.addS4.desc': 'After entering URL and Key, click the <kbd>🔄</kbd> button to auto-detect available models. Select from the dropdown or manually enter a model ID.',
+            'models.urlTitle': 'Base URL Reference by Protocol',
+            'models.urlCol1': 'Protocol',
+            'models.urlCol2': 'Default Base URL',
+            'models.urlCol3': 'Notes',
+            'models.urlR1': 'Compatible with all OpenAI-format APIs (incl. third-party proxies)',
+            'models.urlR2': 'Claude series models, supports thinking/reasoning chain',
+            'models.urlR3': 'Google Gemini series, supports multimodal text-image',
+            'models.tipLogo': 'You can also set a custom logo (local image supported) for each model. If not set, it auto-detects by brand.',
+            'chat.title': 'Chat & Usage',
+            'chat.desc': 'Chat is the core feature of RemindAI. Here you can have natural language conversations with AI, which automatically calls tools as needed to complete complex tasks.',
+            'chat.screenshot': 'Chat Interface',
+            'chat.caption': 'Chat interface — working directory display, AI can directly operate project files',
+            'chat.basicTitle': 'Basic Usage',
+            'chat.basicL1': 'Select "💬 Chat" in the left sidebar to enter the chat interface',
+            'chat.basicL2': 'Ensure at least one model is configured (see model configuration section)',
+            'chat.basicL3': 'Type your question or instruction in the bottom input box, press <kbd>Enter</kbd> to send',
+            'chat.basicL4': 'AI will stream responses. If tools need to be called, tool call cards will be shown in the reply',
+            'chat.workspaceTitle': 'Working Directory',
+            'chat.workspaceDesc': 'You can specify a working directory in the chat. AI file operations will be scoped to this directory, allowing it to directly operate on your project code.',
+            'chat.workspaceScreenshot': 'Working Directory',
+            'chat.workspaceCaption': 'After setting a working directory, all AI file operations are sandboxed within it',
+            'chat.workspaceTitle2': 'Chat Management',
+            'chat.workspaceL1': 'Supports multiple sessions, switch between conversations on the left',
+            'chat.workspaceL2': 'Markdown rendering including code highlighting, math formulas, tables',
+            'chat.workspaceL3': 'Drag-and-drop image upload for multimodal text-image conversations',
+            'chat.workspaceL4': 'Press <kbd>Enter</kbd> to send, <kbd>Shift+Enter</kbd> for newline (configurable in settings)',
+            'chat.toolCallTitle': 'Tool Call Display',
+            'chat.toolCallDesc': 'When AI calls tools (e.g., file read/write, code execution), collapsible tool call cards appear in the message. Expand them to see parameters and return results.',
+            'toolshell.title': 'ToolShell — The Tool Layer',
+            'toolshell.desc': 'ToolShell is RemindAI\'s core capability. It gives AI a complete set of OS-level tools including file I/O, Shell command execution, Python running, and more. AI calls these tools through the built-in "meta-skill" system.',
+            'toolshell.metaTitle': 'Built-in Meta-Skills',
+            'toolshell.toolCol1': 'Tool',
+            'toolshell.toolCol2': 'Function',
+            'toolshell.read': 'Read file contents, supports line range specification',
+            'toolshell.write': 'Write files (create, overwrite, append), auto-creates parent directories',
+            'toolshell.delete': 'Delete files or directories',
+            'toolshell.search': 'Search files by glob pattern, optionally filter by content',
+            'toolshell.exec': 'Execute Shell commands (supports any CLI tool)',
+            'toolshell.python': 'Execute Python code, auto-captures matplotlib charts',
+            'toolshell.memStore': 'Store memories to vector database',
+            'toolshell.memRecall': 'Recall relevant memories from vector database',
+            'toolshell.scheduleDesc': 'Schedule meta-skill lets AI manage work plans (SCHEDULE.md), supporting P0/P1/P2 priority task CRUD, review, and archive. Includes 7 tools: load, add_task, complete, update, delete, review, archive.',
+            'toolshell.systemDesc': 'System meta-skill lets AI probe your system environment to discover installed dev tools, runtimes, package managers, etc., for more precise decisions. Includes <code>system_probe</code> and <code>system_env</code> tools.',
+            'toolshell.cliTitle': 'Bundled CLI Tools',
+            'toolshell.cliDesc': 'RemindAI ships with these command-line tools — no extra installation needed:',
+            'toolshell.cliCol1': 'Tool',
+            'toolshell.cliCol2': 'Purpose',
+            'toolshell.cliCol3': 'Description',
+            'toolshell.cliR1.use': 'Blazing-fast regex search',
+            'toolshell.cliR1.desc': 'ripgrep, multiple times faster than grep',
+            'toolshell.cliR2.use': 'Modern file finder',
+            'toolshell.cliR2.desc': 'More friendly than the find command',
+            'toolshell.cliR3.use': 'Token compressor',
+            'toolshell.cliR3.desc': 'Reduces command output tokens by 60-90%',
+            'toolshell.tip': 'You don\'t need to call these tools manually — just tell AI what you want in natural language, and it will automatically choose the right tools for the job.',
+            'mcp.title': 'MCP Protocol',
+            'mcp.desc': 'MCP (Model Context Protocol) is an open protocol that allows AI to call external tool services. RemindAI supports three transport modes and can connect to any MCP-compatible tool server.',
+            'mcp.screenshot': 'MCP Management',
+            'mcp.caption': 'MCP service management — card layout with drag-and-drop sorting and status indicators',
+            'mcp.transportTitle': 'Three Transport Modes',
+            'mcp.transportCol1': 'Transport Type',
+            'mcp.transportCol2': 'Description',
+            'mcp.transportCol3': 'Use Cases',
+            'mcp.transportR1.desc': 'Communicates via stdin/stdout, launches local processes',
+            'mcp.transportR1.scene': 'Local CLI tools, Python/Node.js scripts',
+            'mcp.transportR2.desc': 'Server-Sent Events, HTTP-based long connection',
+            'mcp.transportR2.scene': 'Remote services, existing MCP SSE endpoints',
+            'mcp.transportR3.desc': 'Streamable HTTP requests',
+            'mcp.transportR3.scene': 'Next-gen remote MCP services',
+            'mcp.addTitle': 'Adding an MCP Server',
+            'mcp.addS1.title': 'Enter MCP Page',
+            'mcp.addS1.desc': 'Click "🔌 MCP" in the left sidebar, then click the <kbd>+</kbd> button in the bottom-right.',
+            'mcp.addS2.title': 'Select Transport & Fill Config',
+            'mcp.addS2.desc': '<strong>stdio</strong>: Enter command (e.g., <code>npx</code>), arguments (e.g., <code>-y @modelcontextprotocol/server-filesystem /path</code>), working directory, environment variables.<br/><strong>SSE / HTTP</strong>: Enter URL (e.g., <code>http://localhost:3000/sse</code>) and HTTP Headers.',
+            'mcp.addS3.title': 'Test Connection',
+            'mcp.addS3.desc': 'After saving, click the <kbd>🔗</kbd> button on the card to test the connection. On success, it shows the number of discovered tools. Status light turns green.',
+            'mcp.addS4.title': 'Enable & Use',
+            'mcp.addS4.desc': 'Toggle the enable switch on the card. MCP tools become automatically available in chat. AI will decide when to call them based on context.',
+            'mcp.warn': 'stdio-type MCP servers spawn child processes in the background. Ensure the command path is correct and processes exit properly to avoid zombie processes.',
+            'memory.title': 'Memory System',
+            'memory.desc': 'RemindAI\'s memory system uses a dual-write architecture of Qdrant vector database + SQLite persistent backup, allowing AI to remember important information across sessions and recall it via semantic search.',
+            'memory.screenshot': 'Memory System',
+            'memory.caption': 'Memory management page — view storage stats and all memory entries',
+            'memory.setupTitle': 'Setup Steps',
+            'memory.qdrantTitle': 'Install Qdrant',
+            'memory.qdrantDesc': 'Qdrant is the vector search engine for the memory system. Recommended to run via Docker:',
+            'memory.qdrantTip': 'Qdrant listens on ports 6333 (REST) and 6334 (gRPC) by default. If using custom ports, configure the Qdrant path in RemindAI settings.',
+            'memory.embTitle': 'Configure Embedding Model',
+            'memory.embDesc': 'Vector memory needs an embedding model to convert text to vectors. Add embedding config in "Settings → Embedding Model":',
+            'memory.embL1': '<strong>URL</strong>: Embedding model API address (e.g., OpenAI-compatible <code>https://api.openai.com/v1/embeddings</code>)',
+            'memory.embL2': '<strong>API Key</strong>: Corresponding secret key',
+            'memory.embL3': '<strong>Model Name</strong>: e.g., <code>text-embedding-3-small</code>, <code>text-embedding-ada-002</code>',
+            'memory.embScreenshot': 'Embedding Config',
+            'memory.embCaption': 'Configure embedding model — supports OpenAI-compatible embedding APIs',
+            'memory.useTitle': 'Using Memory',
+            'memory.useDesc': 'After configuration, the memory system works automatically:',
+            'memory.useL1': 'At conversation start, AI automatically recalls historical memories related to the current topic and injects them into context',
+            'memory.useL2': 'During conversation, AI identifies important information and proactively stores it to memory',
+            'memory.useL3': 'You can view, search, and delete memory entries on the "🧠 Memory" page',
+            'memory.writeScreenshot': 'Memory Storage',
+            'memory.writeCaption': 'AI automatically identifies and stores important information to memory',
+            'skills.title': 'Skill System',
+            'skills.desc': 'The skill system lets you add additional tools and capabilities to AI. Each skill includes a SKILL.md (skill description) and tools.json (tool definitions), packaged as a ZIP file for import.',
+            'skills.screenshot': 'Skill System',
+            'skills.caption': 'Skill management page — card display of all skills with drag-and-drop sorting',
+            'skills.importTitle': 'Importing Skills',
+            'skills.importS1.title': 'Get Skill ZIP',
+            'skills.importS1.desc': 'Download from skill markets or create your own skill ZIP. Recommended markets: <a href="https://skillsmp.com" target="_blank" style="color:var(--accent2)">Skills MP</a>, <a href="https://claudskills.com" target="_blank" style="color:var(--accent2)">Claud Skills</a>, <a href="https://www.skills.sh" target="_blank" style="color:var(--accent2)">Skills.sh</a>',
+            'skills.importS2.title': 'Click Import',
+            'skills.importS2.desc': 'On the "📦 Skills" page, click the <kbd>📤</kbd> button in the bottom-right and select the ZIP file. On success, it shows the skill name and tool count.',
+            'skills.importS3.title': 'Enable Skill',
+            'skills.importS3.desc': 'Toggle the enable switch on the skill card. Once enabled, the skill\'s tools are injected into AI\'s tool list.',
+            'skills.builtinTip': 'RemindAI includes three built-in meta-skills (ToolShell, Schedule, System) that are always active and cannot be disabled. You can also click the "📄" button on skill cards to view the SKILL.md content.',
+            'search.title': 'Web Search',
+            'search.desc': 'RemindAI supports three search engines as information capabilities. AI can automatically search the internet for up-to-date information during conversations.',
+            'search.screenshot': 'Web Search',
+            'search.caption': 'Search engine configuration — supports testing connection to verify API Key validity',
+            'search.providersTitle': 'Supported Search Engines',
+            'search.col1': 'Engine',
+            'search.col2': 'Get API Key',
+            'search.col3': 'Description',
+            'search.tavily': 'AI-optimized search engine with high-quality results',
+            'search.brave': 'Privacy-friendly search engine with generous free tier',
+            'search.baiduKey': 'Baidu Open Platform',
+            'search.baidu': 'Best for Chinese-language search',
+            'search.setupTitle': 'Configuration Steps',
+            'search.setupL1': 'Register at the respective search engine and obtain an API Key',
+            'search.setupL2': 'On the "🔍 Search" page, find the engine and enter the API Key',
+            'search.setupL3': 'Click the "Save" button',
+            'search.setupL4': 'Click "Test Connection" to verify the key is valid (auto-saves on success)',
+            'search.tip': 'In chat, you or the AI can toggle search on/off via a session-level switch. Search only applies to the current session.',
+            'experts.title': 'Domain Experts',
+            'experts.desc': 'Domain experts are preset or custom AI roles, each with its own System Prompt and bindable skill set. Select an expert to start a conversation, and AI will answer in that expert\'s persona.',
+            'experts.presetTitle': 'Built-in Experts',
+            'experts.presetDesc': 'RemindAI includes multiple preset expert roles, grouped by category:',
+            'experts.col1': 'Category',
+            'experts.col2': 'Examples',
+            'experts.col3': 'Description',
+            'experts.cat1': 'Tech',
+            'experts.cat1Desc': 'Roles focused on software development',
+            'experts.cat2': 'Analysis',
+            'experts.cat2Desc': 'Focused on data and business analysis',
+            'experts.cat3': 'Office',
+            'experts.cat3Desc': 'Daily office productivity',
+            'experts.cat4': 'Creative',
+            'experts.cat4Desc': 'Creative and content generation',
+            'experts.createTitle': 'Creating Custom Experts',
+            'experts.createS1.title': 'Enter Experts Page',
+            'experts.createS1.desc': 'Click "👤 Experts" on the left, then click the <kbd>+</kbd> button in the top-right.',
+            'experts.createS2.title': 'Fill Expert Info',
+            'experts.createS2.desc': 'Set the expert name, description, icon, category, and system prompt. The system prompt will be injected into the conversation context as the AI\'s persona.',
+            'experts.createS3.title': 'Bind Skills (Optional)',
+            'experts.createS3.desc': 'Select which skills should be active for this expert. When using this expert, only bound skills will be available.',
+            'experts.createS4.title': 'Start Chatting',
+            'experts.createS4.desc': 'Click the expert card to jump directly to the chat page and start a conversation in that expert\'s persona.',
+            'server.title': 'API Server',
+            'server.desc': 'RemindAI has a built-in HTTP server that can expose itself as API endpoints for other applications to call. Three endpoint modes are supported.',
+            'server.screenshot': 'API Server',
+            'server.caption': 'API server configuration — three endpoint modes',
+            'server.endpointsTitle': 'Three Endpoints',
+            'server.col1': 'Endpoint',
+            'server.col2': 'Description',
+            'server.col3': 'Use Cases',
+            'server.ep1': 'OpenAI Aggregation',
+            'server.ep1Desc': 'Exposed in OpenAI-compatible format, can aggregate multiple models',
+            'server.ep1Scene': 'Called by other OpenAI-compatible clients',
+            'server.ep2': 'Claude Agent',
+            'server.ep2Desc': 'Runs RemindAI\'s own AgentLoop',
+            'server.ep2Scene': 'Scenarios needing full ToolShell capabilities',
+            'server.ep3': 'Claude Proxy',
+            'server.ep3Desc': 'Pure pass-through mode, forwards directly to Anthropic API',
+            'server.ep3Scene': 'As an API proxy/gateway',
+            'server.setupTitle': 'Configuration',
+            'server.setupL1': 'Find the API service area on the "🌐 Services" page',
+            'server.setupL2': 'Enable desired endpoints, set port number and authentication token',
+            'server.setupL3': 'Configure LAN security settings (whether to allow LAN access)',
+            'server.setupL4': 'For Claude Agent endpoint, you can also bind models, skills, MCP, and memory',
+            'server.screenshot2': 'Service Config',
+            'server.caption2': 'Claude Agent endpoint can bind models, skills, MCP, and memory',
+            'server.warn': 'If enabling LAN access, ensure a strong authentication token is set to avoid unauthorized access. API service consumes your model API quota.',
+            'agents.title': 'Multi-Agent Collaboration',
+            'agents.desc': 'The multi-agent system lets you create multiple AI roles that work together. Supports Commander, Worker, and Reviewer roles.',
+            'agents.screenshot': 'Multi-Agent',
+            'agents.caption': 'Multi-Agent collaboration interface — multiple AI roles working simultaneously',
+            'agents.rolesTitle': 'Role System',
+            'agents.role1': '<strong>Commander</strong>: Task assignment, progress coordination, final decisions',
+            'agents.role2': '<strong>Worker</strong>: Execute specific tasks like code writing, file processing, research analysis',
+            'agents.role3': '<strong>Reviewer</strong>: Review output quality and suggest improvements',
+            'agents.tip': 'Multi-Agent system is still being improved (⚡). The core framework and execution pipeline are built. You can start with the single Agent + Skills mode.',
+            'pet.title': 'Pet Agent',
+            'pet.desc': 'Pet Agent is RemindAI\'s signature feature — a pixel cat companion! Not only cute, it also has a complete economy system and achievement system.',
+            'pet.screenshot': 'Pet Agent',
+            'pet.caption': 'Global Pet Agent — pixel cat accompanies your every conversation',
+            'pet.featuresTitle': 'Features',
+            'pet.col1': 'Feature',
+            'pet.col2': 'Description',
+            'pet.f1.label': 'Right-Click Q&A',
+            'pet.f1.desc': 'Right-click the pet to ask questions; it answers with TTS voice',
+            'pet.f2.label': 'Volcano TTS',
+            'pet.f2.desc': 'Integrated Volcano Engine TTS for voice communication',
+            'pet.f3.label': 'Shop System',
+            'pet.f3.desc': 'Buy food and items from the pet shop',
+            'pet.f4.label': 'Feeding System',
+            'pet.f4.desc': 'Feed the pet with food to increase affinity',
+            'pet.f5.label': 'Achievement System',
+            'pet.f5.desc': 'Complete specific tasks to unlock achievement badges',
+            'pet.f6.label': 'Reward System',
+            'pet.f6.desc': 'Earn gold coins for tasks, spend them in the shop',
+            'pet.shopScreenshot': 'Pet Shop',
+            'pet.shopCaption': 'Pet shop — buy food and items with gold coins',
+            'pet.achieveScreenshot': 'Achievements',
+            'pet.achieveCaption': 'Achievement system — unlock badges to showcase your journey',
+            'settings.title': 'Settings',
+            'settings.desc': 'The settings page contains all global configuration options including appearance, language, storage paths, tool paths, Qdrant, embedding models, and more.',
+            'settings.appearanceTitle': 'Appearance',
+            'settings.theme': '<strong>Theme</strong>: Light / Follow System / Dark modes with ripple transition animation',
+            'settings.accent': '<strong>Accent Color</strong>: Purple / Green / Blue / Cyan',
+            'settings.blur': '<strong>Background Notification</strong>: When the window is not in the foreground, system notification pops up when AI finishes replying',
+            'settings.enter': '<strong>Enter Key Behavior</strong>: Send message / Newline — choose your preference',
+            'settings.localeTitle': 'Language',
+            'settings.localeDesc': 'Supports Chinese / English / Follow System. RemindAI has full Chinese-English bilingual internationalization.',
+            'settings.storageTitle': 'Storage Paths',
+            'settings.storageCol1': 'Path',
+            'settings.storageCol2': 'Description',
+            'settings.storageR1.label': 'Database Path',
+            'settings.storageR1.desc': 'SQLite database file location (remind_ai.db)',
+            'settings.storageR2.label': 'History Path',
+            'settings.storageR2.desc': 'Chat history save directory',
+            'settings.storageR3.label': 'Skills Path',
+            'settings.storageR3.desc': 'Skill packs storage directory',
+            'settings.storageR4.label': 'Logs Path',
+            'settings.storageR4.desc': 'Application log files save directory',
+            'settings.qdrantTitle': 'Qdrant Configuration',
+            'settings.qdrantDesc': 'If Qdrant runs on a non-default address, you can manually configure the connection path in settings.',
+            'settings.pandocTitle': 'Pandoc Path',
+            'settings.pandocDesc': 'Exporting chat to PDF/Word requires Pandoc. RemindAI tries to auto-detect it. If detection fails, you can manually specify the Pandoc executable path.',
+            'export.title': 'Export Chat',
+            'export.desc': 'You can export chat records in multiple formats for easy sharing and archiving.',
+            'export.col1': 'Format',
+            'export.col2': 'Description',
+            'export.col3': 'Dependency',
+            'export.md': 'Plain text format, directly previewable',
+            'export.html': 'Web format, preserves styling',
+            'export.pdf': 'Great for printing and sharing',
+            'export.word': 'Editable document format',
+            'export.none': 'None',
+            'export.pandoc': 'Requires Pandoc',
+            'faq.title': 'FAQ',
+            'faq.q1': 'Q: AI not responding or showing errors?',
+            'faq.a1': 'Check: 1) At least one model is added and set as default; 2) API Key is correct; 3) Base URL is accessible (especially with third-party proxies); 4) Network connection is stable.',
+            'faq.q2': 'Q: Memory system shows "Qdrant not running"?',
+            'faq.a2': 'You need to start the Qdrant service first. Recommended: <code>docker run -d -p 6333:6333 qdrant/qdrant</code>. If using custom ports, configure the Qdrant path in settings.',
+            'faq.q3': 'Q: Chat export to PDF/Word fails?',
+            'faq.a3': 'Pandoc is required. Download from <a href="https://pandoc.org/installing.html" target="_blank" style="color:var(--accent2)">pandoc.org</a>, install it, then configure the Pandoc path in settings.',
+            'faq.q4': 'Q: MCP connection fails?',
+            'faq.a4': 'Check: 1) stdio-type command is in system PATH; 2) SSE/HTTP URL is accessible; 3) Required environment variables are set. View connection status and error details on the card.',
+            'faq.q5': 'Q: How to use third-party model proxies?',
+            'faq.a5': 'Simply enter the proxy address as the Base URL when adding a model. RemindAI is compatible with all OpenAI-format APIs, including various third-party proxy services.',
+            'faq.q6': 'Q: How to use on Linux / macOS?',
+            'faq.a6': 'Currently only Windows installers are provided. Other platforms require building from source. Ensure Flutter SDK >= 3.12.1 is installed, then follow the "Build from Source" steps.',
+                        'overview.showcase': 'RemindAI Feature Showcase',
+            'overview.showcaseCaption': 'RemindAI feature showcase panorama',
+            'chat.codeViewScreenshot': 'Code View',
+            'chat.codeViewCaption': 'AI using ToolShell to execute code and operate files',
+            'mcp.customSkillScreenshot': 'Custom MCP Skill',
+            'mcp.customSkillCaption': 'Calling MCP server tools through custom skills',
+            'pet.rewardScreenshot': 'Pet Rewards',
+            'pet.rewardCaption': 'Pet rewards — earn gold coins through daily interactions',
+            'server.screenshot3': 'API Server Detail',
+            'server.caption3': 'API server detailed config — port, model binding and tool injection',
+            'faq.imgToolScreenshot': 'Image Tool',
+            'faq.imgToolCaption': 'Built-in tool example — AI image generation',
+            'faq.ocrToolScreenshot': 'OCR Tool',
+            'faq.ocrToolCaption': 'Built-in tool example — OCR text recognition',
+            'faq.htmlPreviewScreenshot': 'HTML Preview',
+            'faq.htmlPreviewCaption': 'WebView2 preview — AI-generated HTML5 content rendered live in-app',
+            'footer.license': 'MIT License · Copyright © 2026 <a href="https://github.com/PythonnotJava" target="_blank">PythonnotJava</a>',
+            'footer.back': '← Back to Home'
+        }
+    };
+
+    const LANG_META = {
+        'zh-CN': { label: '中文', flag: '🇨🇳', htmlLang: 'zh-CN' },
+        'en':    { label: 'English', flag: '🇺🇸', htmlLang: 'en' }
+    };
+
+    const STORAGE_KEY = 'remindai_lang';
+    const SUPPORTED = Object.keys(T);
+
+    function detectLanguage() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored && SUPPORTED.includes(stored)) return stored;
+        const browser = navigator.language || navigator.userLanguage || '';
+        if (browser.startsWith('zh')) return 'zh-CN';
+        if (browser.startsWith('en')) return 'en';
+        return 'zh-CN';
+    }
+
+    let currentLang = detectLanguage();
+
+    function applyLanguage(lang) {
+        currentLang = lang;
+        const dict = T[lang];
+        if (!dict) return;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key] !== undefined) {
+                if (/<[a-z][\s\S]*>/i.test(dict[key])) {
+                    el.innerHTML = dict[key];
+                } else {
+                    el.textContent = dict[key];
+                }
+            }
+        });
+
+        document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+            const key = el.getAttribute('data-i18n-alt');
+            if (dict[key] !== undefined) el.setAttribute('alt', dict[key]);
+        });
+
+        const meta = LANG_META[lang];
+        document.documentElement.lang = meta ? meta.htmlLang : lang;
+
+        const label = document.getElementById('langLabel');
+        if (label && meta) label.textContent = meta.label;
+
+        document.querySelectorAll('.lang-option').forEach(opt => {
+            opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+        });
+
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute('content', lang === 'en'
+                ? 'RemindAI configuration and usage guide: model setup, ToolShell, MCP, memory, skills, search, experts, settings.'
+                : 'RemindAI 配置与使用教程：模型配置、ToolShell、MCP、记忆系统、技能、搜索、领域专家、设置详解。');
+        }
+
+        document.title = lang === 'en'
+            ? 'RemindAI — Configuration & Usage Guide'
+            : 'RemindAI — 配置与使用指南';
+
+        localStorage.setItem(STORAGE_KEY, lang);
+    }
+
+    // Language switcher
+    const toggle = document.getElementById('langToggle');
+    const dropdown = document.getElementById('langDropdown');
+    toggle.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('open'); });
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
+    dropdown.querySelectorAll('.lang-option').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const lang = btn.getAttribute('data-lang');
+            if (lang && SUPPORTED.includes(lang)) { applyLanguage(lang); dropdown.classList.remove('open'); }
+        });
+    });
+
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('.doc-section');
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+    function updateSidebarActive() {
+        let current = '';
+        sections.forEach(sec => {
+            const top = sec.getBoundingClientRect().top;
+            if (top <= 120) current = sec.id;
+        });
+        sidebarLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+    }
+    window.addEventListener('scroll', updateSidebarActive, { passive: true });
+
+    applyLanguage(currentLang);
+})();
+</script>
+
+</body>
+</html>
