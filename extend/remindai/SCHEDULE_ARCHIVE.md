@@ -1,0 +1,6 @@
+# 计划归档
+
+- [x] 创建 skill-dev.html 技能开发指南页面 `#docs` `#i18n` `#docs` `#i18n` — 已完成：从源码分析技能模型和注册逻辑，创建实战教程，覆盖 SKILL.md/tools.json 完整参考 — 2026-06-21 完成 (skill-dev.html 完成：779行，涵盖技能结构、SKILL.md模板、tools.json格式、实战教程、最佳实践、内置参考、打包分发，完整中英双语)
+- [x] 创建 changelog.html 版本历史页面 `#docs` `#i18n` `#docs` `#i18n` — 已完成：基于 CHANGELOG.md 创建时间线风格的版本历史页，完整中英双语 — 2026-06-21 完成 (changelog.html 完成：时间线版本历史，涵盖 v1.0.0/v1.0.1/v1.0.2 三个版本，完整中英双语)
+- [x] Create RemindAI configure & usage documentation page with i18n `#docs` `#i18n` `#docs` `#i18n` — Create configure.html with full Chinese/English bilingual docs covering: model setup, chat/ToolShell, MCP, memory, skills, search, experts, settings. Reference screenshots from assets/. Match existing index.html dark theme style. — 2026-06-21 完成 (configure.html 完成：1874行，涵盖17个章节（概览、安装、模型、对话、ToolShell、MCP、记忆、技能、搜索、专家、服务器、多Agent、宠物、设置、导出、FAQ），完整中英双语i18n)
+- [x] Create RemindAI configure & usage documentation page with i18n `#docs` `#i18n` — Create configure.html with full Chinese/English bilingual docs covering: model setup, chat/ToolShell, MCP, memory, skills, search, experts, settings. Reference screenshots from snapshots/. — 2026-06-21 完成 (Starting to build the configure.html documentation page based on thorough source code analysis)
