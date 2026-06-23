@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>RemindAI Architecture</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.7;font-size:14px;color:#1f2328;max-width:1040px;margin:0 auto;padding:32px 40px;background:#fff}
+h1{font-size:30px;border-bottom:2px solid #8250df;padding-bottom:10px;margin-top:48px}
+h2{font-size:22px;margin-top:40px;border-bottom:1px solid #d8dee4;padding-bottom:8px}
+h3{font-size:17px;margin-top:28px}
+hr{border:none;border-top:1px solid #d8dee4;margin:24px 0}
+blockquote{border-left:4px solid #8250df;margin:16px 0;padding:4px 20px;color:#57606a;background:#f6f8fa;border-radius:0 6px 6px 0}
+.mw{position:relative;margin:28px 0;background:#f6f8fa;border:1px solid #d0d7de;border-radius:8px;overflow:hidden}
+.mw-tb{display:flex;align-items:center;gap:6px;padding:6px 12px;background:#f0f1f2;border-bottom:1px solid #d0d7de;user-select:none}
+.mw-tb>span:first-child{font-size:11px;color:#57606a;margin-right:auto;font-weight:500}
+.mw-tb button{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid #d0d7de;border-radius:5px;background:#fff;cursor:pointer;font-size:14px;color:#24292f;transition:all .12s;line-height:1;padding:0}
+.mw-tb button:hover{background:#e8eaed;border-color:#b0b8c1}
+.mw-tb button:active{background:#d5d8dc}
+.mw-tb .btn-reset{width:auto;padding:0 8px;font-size:11px;font-weight:500}
+.zb{font-size:10px;color:#57606a;min-width:36px;text-align:center}
+.mw-svg{padding:16px;overflow:hidden;cursor:grab;position:relative;min-height:200px;max-height:70vh}
+.mw-svg:active{cursor:grabbing}
+.mw-svg.dragging{cursor:grabbing}
+.mw-svg svg{display:block;max-width:none;transition:transform .04s linear}
+pre{background:#f6f8fa;padding:14px 18px;border-radius:6px;overflow-x:auto;font-size:12.5px;border:1px solid #d0d7de}
+p{margin:8px 0}
+@media print{body{font-size:11px;padding:24px}.mw{break-inside:avoid;border:none;background:none}.mw-tb{display:none}.mw-svg{padding:8px;cursor:default;max-height:none;overflow:visible}.mw-svg svg{max-width:100%!important;transform:none!important}}
+</style>
+</head>
+<body>
+<h1>🧠 RemindAI 架构全景图</h1>
+<br>
+<blockquote>开源桌面 AI 助手 — 不只是对话，而是真正的工具外壳 (ToolShell)</blockquote>
+<br>
+<hr>
+<br>
+<h2> 一、系统全景脑图</h2>
+<br>
+<div class="mermaid">
+mindmap
+  root((RemindAI))
+    🚀 启动引导
+      AppSettings 配置加载
+      AppLogger 日志系统
+      WindowManager 窗口管理
+      DatabaseHelper SQLite配置
+      QdrantService 向量库配置
+      NotificationService 通知
+      CustomFontLoader 字体
+      ShortcutConfig 快捷键
+      PetEconomy 宠物经济
+      ToolRegistry 工具注册表
+    🎨 应用层
+      MaterialApp 主题国际化
+      WindowWrapper 窗口包装
+      TrayManager 系统托盘
+      SplashScreen 闪屏
+      FloatingPet 全局宠物
+    🧩 UI功能层
+      对话 Chat
+      多Agent MultiAgent
+        指挥部 CommandCenter
+        工作区 AgentWorkspace
+        浏览器 AgentExplorer
+      技能管理 SkillsPage
+      工具链 ToolchainPage
+      设置 Settings
+        API服务器配置
+        Embedding配置
+        字体设置
+        Qdrant路径
+      在线服务 OnlineService
+      宠物系统 Pet
+        宠物页面
+        商店 Shop
+        背包 Inventory
+        成就 Achievement
+      搜索 Search
+      服务管理 Server
+      内置工具 BuiltinTools
+        流程图 Flowchart
+        公式OCR FormulaOCR
+        PaddleOCR
+        文生图 ImageGen
+        VPL可视化编程
+        思语编辑器 Siyu
+        快捷方式 Shortcuts
+    📦 状态管理
+      apiServerProvider
+      settingsProvider
+      databaseProvider
+      mcpProvider
+      memoryProvider
+      skillsProvider
+      searchProvider
+      sessionProvider
+      expertsProvider
+      customFontsProvider
+    ⚙️ 核心引擎
+      AgentLoop 智能循环
+        DSML解析 兼容层
+        流式Token推送
+        工具调用编排
+        消息管线处理
+      Executor 工具执行器
+        文件读写 Read/Write/Delete
+        Shell命令 Bash
+        Python执行 RunPython
+        JS执行 RunJS
+        搜索工具 Search
+        记忆工具 Memory
+        计划工具 Schedule
+        系统探测 System
+        组合执行 Combined
+      Agent中间件
+        MessagePipeline 消息变换
+        MemoryRecallHook 记忆召回
+        MemoryStoreHook 记忆存储
+        LoggingMiddleware 日志
+        PermissionMiddleware 权限
+      LLM适配层
+        OpenAIClient
+        AnthropicClient
+        GeminiClient
+        LlmProvider 统一接口
+      MCP协议栈
+        MCPRegistry 注册中心
+        MCPClient 客户端
+        StdioTransport
+        SSETransport
+        StreamableHTTPTransport
+      记忆系统
+        MemoryManager 记忆管理
+        QdrantService 向量语义
+        SQLite 持久备份
+        ProjectConfig 项目配置
+      技能系统
+        SkillRegistry 注册中心
+        SkillModel 技能模型
+        ZIP导入导出
+      工具插件
+        ToolPlugin 抽象
+        ToolRegistry 注册
+        Capability 可插拔
+      搜索能力
+        SearchCapability
+        TavilySearch
+        BraveSearch
+        BaiduSearch
+      对外API服务
+        APIServer HTTP服务
+        OpenAI聚合端点
+        ClaudeAgent端点
+        AnthropicProxy 代理
+        ServerSession 会话
+      在线服务
+        OnlineServer
+        OnlineSession
+        WebAssets 前端
+      宠物引擎
+        PetEngine 动画引擎
+        PetEconomy 经济系统
+        PetObserver 行为观察
+        PetChatService 智能问答
+        PetSprite 精灵渲染
+        PetState 状态机
+      专家系统
+        Expert 专家定义
+        ExpertStore 预设角色
+      语音合成
+        VolcanoTTS 火山引擎
+      导出系统
+        ConversationExporter
+        Markdown/PDF/Word/HTML
+    🗄️ 数据层
+      SQLite 数据库
+        conversations 对话
+        memory 记忆
+        model_cards 模型卡片
+        mcp_servers MCP服务
+      Qdrant 向量库
+        语义嵌入
+        相似度搜索
+    🌐 外部集成
+      LLM APIs
+        OpenAI GPT-4o,Gemini...
+        Anthropic Claude
+        Google Gemini
+      MCP Servers 外部工具
+      Web Search APIs
+        Tavily
+        Brave
+        Baidu 智能搜索
+      内置CLI工具
+        rg ripgrep
+        fd 文件查找
+        rtk Token压缩
+</div>
+<br>
+<hr>
+<br>
+<h2> 二、核心数据流架构</h2>
+<br>
+<div class="mermaid">
+flowchart TB
+    subgraph UI["🖥️ UI 层 (Flutter)"]
+        ChatView["对话界面"]
+        SettingsView["设置面板"]
+        ToolsView["工具面板"]
+        PetView["宠物面板"]
+    end
+
+    subgraph Providers["📦 状态管理 (Riverpod)"]
+        SettingsProvider["SettingsProvider"]
+        SessionProvider["SessionProvider"]
+        McpProvider["MCPProvider"]
+        MemoryProvider["MemoryProvider"]
+    end
+
+    subgraph AgentCore["🧠 Agent 核心循环"]
+        AgentLoop["AgentLoop(流式循环)"]
+        MessagePipeline["MessagePipeline(消息变换)"]
+        Hooks["AgentHooks(记忆/日志/权限)"]
+    end
+
+    subgraph LLM["🤖 LLM 适配层"]
+        LlmProvider["LlmProvider"]
+        OpenAI["OpenAI Client"]
+        Anthropic["Anthropic Client"]
+        Gemini["Gemini Client"]
+    end
+
+    subgraph Executor["🔧 工具执行器"]
+        FileExec["文件操作(Read/Write/Delete)"]
+        ShellExec["Shell命令(Bash)"]
+        PythonExec["Python执行"]
+        MemoryExec["记忆工具(Store/Recall)"]
+        ScheduleExec["计划工具(Schedule)"]
+        SystemExec["系统探测(System)"]
+    end
+
+    subgraph MCP["🔌 MCP 协议"]
+        MCPRegistry["MCP Registry"]
+        Stdio["stdio"]
+        SSE["SSE"]
+        HTTP["Streamable HTTP"]
+    end
+
+    subgraph Storage["💾 存储"]
+        SQLite[("SQLite(对话/记忆/配置)")]
+        Qdrant[("Qdrant(向量语义搜索)")]
+        FileSystem["本地文件系统"]
+    end
+
+    subgraph External["🌐 外部服务"]
+        LLM_APIs["LLM APIs(OpenAI/Anthropic/Gemini)"]
+        SearchAPIs["搜索 APIs(Tavily/Brave/Baidu)"]
+        TTS_Service["TTS 服务(火山引擎)"]
+        MCPServers["MCP Servers(外部工具)"]
+    end
+
+    ChatView --&gt; SessionProvider
+    SessionProvider --&gt; AgentLoop
+    AgentLoop --&gt; MessagePipeline
+    MessagePipeline --&gt; Hooks
+    AgentLoop --&gt; LlmProvider
+    LlmProvider --&gt; OpenAI &amp; Anthropic &amp; Gemini
+    OpenAI &amp; Anthropic &amp; Gemini --&gt; LLM_APIs
+
+    AgentLoop --&gt;|工具调用| Executor
+    Executor --&gt; FileExec &amp; ShellExec &amp; PythonExec &amp; MemoryExec &amp; ScheduleExec &amp; SystemExec
+    FileExec &amp; ShellExec --&gt; FileSystem
+    MemoryExec --&gt; SQLite &amp; Qdrant
+
+    AgentLoop --&gt; MCPRegistry
+    MCPRegistry --&gt; Stdio &amp; SSE &amp; HTTP
+    Stdio &amp; SSE &amp; HTTP --&gt; MCPServers
+
+    Hooks --&gt;|记忆召回/存储| SQLite &amp; Qdrant
+    SearchAPIs --&gt; Executor
+    TTS_Service --&gt; PetView
+
+    style AgentLoop fill:#7b1fa2,color:#fff
+    style Executor fill:#e65100,color:#fff
+    style LLM fill:#1565c0,color:#fff
+    style MCP fill:#2e7d32,color:#fff
+    style Storage fill:#c62828,color:#fff
+</div>
+<br>
+<hr>
+<br>
+<h2> 三、AgentLoop 流式循环详解</h2>
+<br>
+<div class="mermaid">
+sequenceDiagram
+    participant User as 👤 用户
+    participant UI as 🖥️ UI
+    participant Agent as 🔄 AgentLoop
+    participant Pipeline as 📨 MessagePipeline
+    participant LLM as 🤖 LLM API
+    participant Executor as 🔧 Executor
+    participant Memory as 🧠 Memory
+
+    User-&gt;&gt;UI: 输入消息
+    UI-&gt;&gt;Agent: chat(userInput)
+    Agent-&gt;&gt;Agent: messages.add(user)
+
+    loop 多轮工具调用
+        Agent-&gt;&gt;Pipeline: process(messages)
+        Pipeline-&gt;&gt;Memory: MemoryRecallHook 召回
+        Memory--&gt;&gt;Pipeline: 相关记忆注入
+        Pipeline--&gt;&gt;Agent: effectiveMessages
+
+        Agent-&gt;&gt;LLM: chatStreamFull(messages, tools)
+        LLM--&gt;&gt;Agent: Stream(ContentToken 流式)
+        Agent--&gt;&gt;UI: yield AgentToken 实时展示
+
+        alt 有 tool_calls
+            LLM--&gt;&gt;Agent: StreamComplete with toolCalls
+            Agent-&gt;&gt;Agent: DSML兼容解析
+            loop 每个工具调用
+                Agent--&gt;&gt;UI: AgentToolStart
+                Agent-&gt;&gt;Executor: run(toolName, args)
+                Executor--&gt;&gt;Agent: result
+                Agent--&gt;&gt;UI: AgentToolResult
+                Agent-&gt;&gt;Agent: messages.add(tool result)
+                Agent-&gt;&gt;Memory: MemoryStoreHook 存储
+            end
+        else 无 tool_calls
+            LLM--&gt;&gt;Agent: StreamComplete 最终回复
+            Agent--&gt;&gt;UI: AgentDone
+            Agent-&gt;&gt;Memory: MemoryStoreHook 存储
+        end
+    end
+</div>
+<br>
+<hr>
+<br>
+<h2> 四、模块分层架构</h2>
+<br>
+<div class="mermaid">
+graph TB
+    subgraph Layer1["🎨 表现层 Presentation"]
+        direction LR
+        F1["features/各功能页面"]
+        F2["widgets/通用组件"]
+        F3["shared/共享布局/组件"]
+    end
+
+    subgraph Layer2["🧩 业务逻辑层 Business Logic"]
+        direction LR
+        B1["providers/Riverpod状态管理"]
+        B2["core/agent/Agent中间件"]
+        B3["core/toolshell/Agent循环+执行器"]
+    end
+
+    subgraph Layer3["⚙️ 核心服务层 Core Services"]
+        direction LR
+        C1["core/llm/多模型适配"]
+        C2["core/mcp/MCP协议"]
+        C3["core/memory/记忆系统"]
+        C4["core/skill/技能系统"]
+        C5["core/tools/工具插件"]
+        C6["core/search/搜索能力"]
+    end
+
+    subgraph Layer4["🗄️ 基础设施层 Infrastructure"]
+        direction LR
+        I1["core/db/SQLite + DAOs"]
+        I2["core/server/API服务器"]
+        I3["core/pet/宠物引擎"]
+        I4["core/tts/TTS语音"]
+        I5["core/expert/专家系统"]
+        I6["core/export/导出系统"]
+    end
+
+    subgraph Layer5["🔧 基础工具层 Utilities"]
+        direction LR
+        U1["core/settings/"]
+        U2["core/logger/"]
+        U3["core/font/"]
+        U4["core/l10n/"]
+        U5["core/notification/"]
+        U6["core/utils/"]
+    end
+
+    Layer1 --&gt; Layer2
+    Layer2 --&gt; Layer3
+    Layer3 --&gt; Layer4
+    Layer4 --&gt; Layer5
+
+    style Layer1 fill:#e3f2fd,stroke:#1565c0
+    style Layer2 fill:#f3e5f5,stroke:#7b1fa2
+    style Layer3 fill:#e8f5e9,stroke:#2e7d32
+    style Layer4 fill:#fff3e0,stroke:#e65100
+    style Layer5 fill:#fce4ec,stroke:#c62828
+</div>
+<br>
+<hr>
+<br>
+<h2> 五、ToolShell 工具体系</h2>
+<br>
+<div class="mermaid">
+mindmap
+  root((ToolShell 工具外壳))
+    元技能 MetaSkills
+      toolshell
+        toolshell_read 文件读取
+        toolshell_write 文件写入
+        toolshell_delete 文件删除
+        toolshell_search 文件搜索
+        toolshell_exec Shell命令
+        toolshell_run_python Python执行
+        toolshell_run_js JS执行
+        toolshell_memory_store 记忆存储
+        toolshell_memory_recall 记忆召回
+      schedule
+        schedule_load 加载计划
+        schedule_add_task 添加任务
+        schedule_complete 完成任务
+        schedule_update 更新任务
+        schedule_delete 删除任务
+        schedule_review 进度审查
+        schedule_archive 归档
+      system
+        system_probe 环境探测
+        system_env 环境变量
+    MCP工具 MCPTools
+      stdio 进程通信
+      SSE 服务器推送
+      StreamableHTTP HTTP流
+      自动发现 工具发现
+      动态注册 运行时注册
+    Capability 可插拔
+      SearchCapability 搜索
+      三级路由
+        Custom 自定义
+        MCP 协议工具
+        ToolShell 内置
+    内置应用工具
+      流程图 Flowchart
+      公式OCR FormulaOCR
+      PaddleOCR 通用OCR
+      文生图 ImageGen
+      VPL 可视化编程
+      思语编辑器 Siyu
+      截图 Screenshot
+</div>
+<br>
+<hr>
+<br>
+<h2> 六、记忆系统架构</h2>
+<br>
+<div class="mermaid">
+flowchart LR
+    subgraph WRITE["✍️ 记忆写入"]
+        Hook["MemoryStoreHook"] --&gt;|agent对话后| Manager["MemoryManager"]
+        Manager --&gt;|type:fact/decision/error| SQLite
+        Manager --&gt;|生成向量嵌入| Qdrant
+    end
+
+    subgraph READ["📖 记忆召回"]
+        Hook2["MemoryRecallHook"] --&gt;|任务开始前| Manager
+        Manager --&gt; Qdrant
+        Manager --&gt; SQLite
+        Qdrant --&gt;|语义相似度排序| Manager2["结果融合"]
+        SQLite --&gt;|关键词匹配| Manager2
+        Manager2 --&gt;|注入上下文| AgentLoop
+    end
+
+    subgraph CONFIG["⚙️ 记忆配置"]
+        Config["memory.json"]
+        Config --&gt;|MODE:normal/auto| Hook
+        Config --&gt;|REMIND:true/false| Hook2
+        Config --&gt;|MIND:true/false| Manager
+    end
+
+    style WRITE fill:#e8f5e9,stroke:#2e7d32
+    style READ fill:#e3f2fd,stroke:#1565c0
+    style CONFIG fill:#fff3e0,stroke:#e65100
+</div>
+<br>
+<hr>
+<br>
+<h2> 七、多Agent协作架构</h2>
+<br>
+<div class="mermaid">
+flowchart TB
+    subgraph CommandCenter["🎯 指挥部 CommandCenter"]
+        Broadcast["消息广播"]
+        Router["自动路由"]
+    end
+
+    subgraph Agents["🤖 Agent 群"]
+        direction LR
+        Worker1["工作者 Agent 1 独立工作区"]
+        Worker2["工作者 Agent 2 独立工作区"]
+        WorkerN["工作者 Agent N 独立工作区"]
+        Reviewer["审查员 Agent 质量审核"]
+    end
+
+    subgraph Isolation["🔒 权限隔离"]
+        ToolPerm["工具权限"]
+        FilePerm["文件访问边界"]
+        ModelPerm["模型配额"]
+    end
+
+    Broadcast --&gt;|任务分发| Worker1 &amp; Worker2 &amp; WorkerN
+    Worker1 &amp; Worker2 &amp; WorkerN --&gt;|产出| Reviewer
+    Reviewer --&gt;|审核反馈| Worker1 &amp; Worker2 &amp; WorkerN
+    Router --&gt;|智能路由| Worker1 &amp; Worker2 &amp; WorkerN
+    Isolation --&gt; Worker1 &amp; Worker2 &amp; WorkerN &amp; Reviewer
+
+    style CommandCenter fill:#7b1fa2,color:#fff
+    style Agents fill:#1565c0,color:#fff
+    style Isolation fill:#c62828,color:#fff
+</div>
+<br>
+<hr>
+<br>
+<h2> 八、对外API服务架构</h2>
+<br>
+<div class="mermaid">
+flowchart TB
+    subgraph APIServer["🌐 API Server (内置HTTP)"]
+        direction TB
+        Endpoint1["/v1 → OpenAI聚合端点 统一OpenAI格式"]
+        Endpoint2["/v1/claude-agent → Claude Agent端点 运行完整AgentLoop"]
+        Endpoint3["/claude → Claude代理端点 纯透传"]
+    end
+
+    subgraph Auth["🔐 认证"]
+        TokenAuth["Token 认证"]
+        RateLimiter["速率限制"]
+    end
+
+    subgraph Clients["📱 外部客户端"]
+        C1["其他AI应用"]
+        C2["Web前端"]
+        C3["移动端"]
+    end
+
+    Clients --&gt;|HTTP请求| Auth
+    Auth --&gt; APIServer
+    Endpoint1 --&gt;|工具调用| AgentLoop
+    Endpoint2 --&gt;|完整Agent| AgentLoop
+    Endpoint3 --&gt;|透传| AnthropicAPI["Anthropic API"]
+
+    style APIServer fill:#2e7d32,color:#fff
+    style Auth fill:#e65100,color:#fff
+</div>
+<br>
+<hr>
+<br>
+<h2> 九、技术栈总览</h2>
+<br>
+<div class="mermaid">
+mindmap
+  root((技术栈))
+    前端框架
+      Flutter 3.44+
+      Dart 3.12+
+      Material 3
+    状态管理
+      Riverpod 2.6+
+    数据库
+      SQLite3
+      sqlite3_flutter_libs
+    向量数据库
+      Qdrant 嵌入
+    LLM协议
+      OpenAI API
+      Anthropic API
+      Gemini API
+    MCP协议
+      stdio
+      SSE
+      Streamable HTTP
+    网络
+      Dio 5.7+
+    UI组件
+      gpt_markdown
+      flutter_highlight
+      dock_panel
+      vyuh_node_flow
+      flutter_quill
+    桌面集成
+      window_manager
+      tray_manager
+      local_notifier
+    TTS
+      火山引擎 TTS
+    CLI工具(内置)
+      ripgrep
+      fd
+      rtk
+    搜索
+      Tavily API
+      Brave API
+      Baidu API
+    国际化
+      intl
+      ARB
+</div>
+<br>
+<hr>
+<br>
+<blockquote>📅 生成日期: 2026年  </blockquote>
+<blockquote>📝 使用Remind AI基于 RemindAI v1.0.3 源码分析并且进行了校核  </blockquote>
+<blockquote>🏗️ 架构持续演进中</blockquote>
+<br>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+<script>
+(function(){var sm=new Map();function ipz(svg,tb){var ct=svg.parentElement;var st={s:1,x:0,y:0,p:0,sx:0,sy:0,spx:0,spy:0};sm.set(svg,st);function sf(ss,xx,yy){st.s=ss;st.x=xx;st.y=yy;svg.style.transform="translate("+xx+"px,"+yy+"px) scale("+ss+")";svg.style.transformOrigin="0 0";var b=tb.querySelector(".zb");if(b)b.textContent=Math.round(ss*100)+"%";}ct.addEventListener("wheel",function(e){e.preventDefault();var r=ct.getBoundingClientRect();var mx=e.clientX-r.left,my=e.clientY-r.top;var f=e.deltaY<0?1.12:0.89;var ns=Math.min(5,Math.max(0.15,st.s*f));var nx=mx-(mx-st.x)*(ns/st.s);var ny=my-(my-st.y)*(ns/st.s);sf(ns,nx,ny);},{passive:false});ct.addEventListener("mousedown",function(e){if(e.button!==0)return;st.p=1;st.sx=e.clientX;st.sy=e.clientY;st.spx=st.x;st.spy=st.y;ct.classList.add("dragging");e.preventDefault();});window.addEventListener("mousemove",function(e){if(!st.p)return;sf(st.s,st.spx+e.clientX-st.sx,st.spy+e.clientY-st.sy);});window.addEventListener("mouseup",function(){st.p=0;ct.classList.remove("dragging");});tb.querySelector(".btn-zi").onclick=function(){sf(Math.min(5,st.s*1.25),st.x,st.y);};tb.querySelector(".btn-zo").onclick=function(){sf(Math.max(0.15,st.s*0.8),st.x,st.y);};tb.querySelector(".btn-reset").onclick=function(){sf(1,0,0);};}function ea(){var cs=document.querySelectorAll(".mermaid");var idx=0;cs.forEach(function(el){var svg=el.querySelector("svg");if(!svg)return;idx++;var w=document.createElement("div");w.className="mw";var tb=document.createElement("div");tb.className="mw-tb";tb.innerHTML='<span>Diagram '+idx+'</span><button class="btn-zo" title="Zoom out">&minus;</button><span class="zb">100%</span><button class="btn-zi" title="Zoom in">+</button><button class="btn-reset" title="Reset">Reset</button>';var sc=document.createElement("div");sc.className="mw-svg";sc.appendChild(svg.cloneNode(true));w.appendChild(tb);w.appendChild(sc);el.parentNode.replaceChild(w,el);ipz(sc.querySelector("svg"),tb);});}setTimeout(ea,200);})();
+</script>
+
+</body>
+</html>
