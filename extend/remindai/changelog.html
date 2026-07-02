@@ -249,11 +249,77 @@
 <!-- Timeline -->
 <div class="timeline">
 
-    <!-- V1.0.2 -->
+    <!-- V1.0.4 -->
     <div class="version-entry latest">
         <div class="version-header">
+            <span class="version-tag">v1.0.4</span>
+            <span class="version-badge badge-latest" data-i18n="v104.badge">最新版</span>
+        </div>
+        <div class="version-date" data-i18n="v104.date">2026 年 7 月</div>
+        <ul class="changes-list">
+            <li>
+                <span class="change-icon change-improve">⚡</span>
+                <span data-i18n="v104.c1">优化了长对话思考时途中可能产生卡顿的问题</span>
+            </li>
+            <li>
+                <span class="change-icon change-improve">⚡</span>
+                <span data-i18n="v104.c2">优化了「软失效过滤」，避免过时记忆和新记忆同权重混在检索结果里</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v104.c3">编排多 Agent 对大量文档进行并行理解的命令</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v104.c4">可控的 agentloop 模式 — 思考 → 编写 → 测试 → 验证循环流水线</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v104.c5">技能支持批量导入</span>
+            </li>
+            <li>
+                <span class="change-icon change-improve">⚡</span>
+                <span data-i18n="v104.c6">优化了代码高亮的文本显示</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v104.c7">使用 <a href="https://github.com/tt-a1i/archify" target="_blank" style="color:var(--accent2);text-decoration:none;">archify</a> 对对话进行流程图总结输出</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- V1.0.3 -->
+    <div class="version-entry">
+        <div class="version-header">
+            <span class="version-tag">v1.0.3</span>
+            <span class="version-badge badge-stable">stable</span>
+        </div>
+        <div class="version-date" data-i18n="v103.date">2026 年 6 月</div>
+        <ul class="changes-list">
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v103.c1">提供了在线访问 Agent 的功能</span>
+            </li>
+            <li>
+                <span class="change-icon change-improve">⚡</span>
+                <span data-i18n="v103.c2">优化了上下文压缩</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v103.c3">在工作目录下创建、使用临时技能进行临时性自我进化</span>
+            </li>
+            <li>
+                <span class="change-icon change-feat">✨</span>
+                <span data-i18n="v103.c4">命令功能，例如创建全局技能并且自己导入</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- V1.0.2 -->
+    <div class="version-entry">
+        <div class="version-header">
             <span class="version-tag">v1.0.2</span>
-            <span class="version-badge badge-latest" data-i18n="v102.badge">最新版</span>
+            <span class="version-badge badge-stable">stable</span>
         </div>
         <div class="version-date" data-i18n="v102.date">2026 年 6 月</div>
         <ul class="changes-list">
@@ -274,7 +340,7 @@
             <span class="version-tag">v1.0.1</span>
             <span class="version-badge badge-stable">stable</span>
         </div>
-        <div class="version-date" data-i18n="v101.date">2026 年 5 月</div>
+        <div class="version-date" data-i18n="v101.date">2026 年 6 月</div>
         <ul class="changes-list">
             <li>
                 <span class="change-icon change-feat">✨</span>
@@ -301,7 +367,7 @@
             <span class="version-tag">v1.0.0</span>
             <span class="version-badge" style="background:rgba(253,216,53,.12);color:var(--yellow);">🎉 首发</span>
         </div>
-        <div class="version-date" data-i18n="v100.date">2026 年 4 月</div>
+        <div class="version-date" data-i18n="v100.date">2026 年 5 月</div>
         <ul class="changes-list">
             <li>
                 <span class="change-icon change-new">🆕</span>
@@ -380,17 +446,31 @@
             'nav.quickstart': '快速开始',
             'nav.releases': '📦 Releases',
             'hero.title': '📋 版本历史',
+            'v104.badge': '最新版',
+            'v104.date': '2026 年 7 月',
+            'v104.c1': '优化了长对话思考时途中可能产生卡顿的问题',
+            'v104.c2': '优化了「软失效过滤」，避免过时记忆和新记忆同权重混在检索结果里',
+            'v104.c3': '编排多 Agent 对大量文档进行并行理解的命令',
+            'v104.c4': '可控的 agentloop 模式 — 思考 → 编写 → 测试 → 验证循环流水线',
+            'v104.c5': '技能支持批量导入',
+            'v104.c6': '优化了代码高亮的文本显示',
+            'v104.c7': '使用 <a href="https://github.com/tt-a1i/archify" target="_blank" style="color:var(--accent2);text-decoration:none;">archify</a> 对对话进行流程图总结输出',
+            'v103.date': '2026 年 6 月',
+            'v103.c1': '提供了在线访问 Agent 的功能',
+            'v103.c2': '优化了上下文压缩',
+            'v103.c3': '在工作目录下创建、使用临时技能进行临时性自我进化',
+            'v103.c4': '命令功能，例如创建全局技能并且自己导入',
             'hero.subtitle': '跟踪 RemindAI 每个版本的新功能、改进和修复。',
             'v102.badge': '最新版',
             'v102.date': '2026 年 6 月',
             'v102.c1': '优化了部分实现、增强了工具链稳定性',
             'v102.c2': '模型输出 HTML5 时支持 WebView2 实时预览',
-            'v101.date': '2026 年 5 月',
+            'v101.date': '2026 年 6 月',
             'v101.c1': '添加了字体设置 — 支持自定义界面字体和对话字体',
             'v101.c2': '内置截图工具 — 支持区域截图和截图编辑',
             'v101.c3': '模型检测到大量可用模型时支持输入快速匹配筛选',
             'v101.c4': '添加宠物功能 — 像素猫作为全局观察者，支持右键唤醒交互、TTS 语音、商店经济、成就系统',
-            'v100.date': '2026 年 4 月',
+            'v100.date': '2026 年 5 月',
             'v100.c1': '<strong>RemindAI 正式发布！</strong>',
             'v100.c2': '核心 ToolShell 工具外壳 — 文件沙盒 + Shell/Python 执行器',
             'v100.c3': 'MCP 协议支持 — stdio / SSE / Streamable HTTP 三传输',
@@ -416,9 +496,23 @@
             'nav.quickstart': 'Quick Start',
             'nav.releases': '📦 Releases',
             'hero.title': '📋 Changelog',
+            'v104.badge': 'Latest',
+            'v104.date': 'July 2026',
+            'v104.c1': 'Optimized the issue of potential stuttering during long conversations',
+            'v104.c2': 'Optimized "soft-failure filtering" to prevent outdated and new memories from being mixed with the same weight in search results',
+            'v104.c3': 'Orchestrated commands for multi-agent parallel understanding of large amounts of documents',
+            'v104.c4': 'Controllable agentloop mode — pipeline of thought, writing, testing, and verification',
+            'v104.c5': 'Skills now support batch import',
+            'v104.c6': 'Optimized code highlighting rendering',
+            'v104.c7': 'Use <a href="https://github.com/tt-a1i/archify" target="_blank" style="color:var(--accent2);text-decoration:none;">archify</a> to summarize conversations as flowcharts',
+            'v103.date': 'June 2026',
+            'v103.c1': 'Provided online access to Agent functionality',
+            'v103.c2': 'Optimized context compression',
+            'v103.c3': 'Create and use temporary skills for temporary self-evolution within the working directory',
+            'v103.c4': 'Command functionality, such as creating global skills and importing them automatically',
             'hero.subtitle': 'Track new features, improvements, and fixes in every RemindAI release.',
             'v102.badge': 'Latest',
-            'v102.date': 'June 2026',
+            'v102.date': 'May 2026',
             'v102.c1': 'Optimized internal implementations, enhanced toolchain stability',
             'v102.c2': 'WebView2 live preview when model outputs HTML5 content',
             'v101.date': 'May 2026',

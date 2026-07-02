@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
@@ -97,6 +97,7 @@
             transition: all 0.2s;
             font-family: inherit;
         }
+
 
         .lang-toggle:hover {
             border-color: var(--accent);
@@ -217,6 +218,18 @@
             transform: translateY(-2px);
         }
 
+        /* === Badge === */
+        .version-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
         /* === Showcase Image === */
         .showcase {
             max-width: 1000px;
@@ -229,6 +242,72 @@
             border-radius: 16px;
             border: 1px solid var(--border);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 80px var(--glow2);
+        }
+
+        /* === New Changelog Highlights === */
+        .changelog-section {
+            max-width: 1100px;
+            margin: 0 auto 80px;
+            padding: 0 40px;
+        }
+
+        .changelog-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .changelog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .changelog-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .changelog-list {
+            list-style: none;
+        }
+
+        .changelog-list li {
+            padding: 10px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(42,42,58,0.5);
+        }
+
+        .changelog-list li:last-child { border-bottom: none; }
+
+        .changelog-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .changelog-old {
+            opacity: 0.6;
+            font-size: 13px;
+        }
+
+        .changelog-old li::after {
+            content: '（旧版已合并）';
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-left: 8px;
+            opacity: 0.6;
         }
 
         /* === Features Grid === */
@@ -361,6 +440,7 @@
             .showcase { padding: 0 20px; }
             .nav-links { display: none; }
             .nav-right { gap: 10px; }
+            .changelog-section { padding: 0 20px; }
         }
     </style>
 </head>
@@ -376,10 +456,11 @@
         <div class="nav-links">
             <a href="#features" data-i18n="nav.features">特性</a>
             <a href="#completion" data-i18n="nav.completion">完成度</a>
-            <a href="configure.html" data-i18n="nav.guide">配置指南</a>
             <a href="changelog.html" data-i18n="nav.changelog">版本历史</a>
+            <a href="configure.html" data-i18n="nav.guide">配置指南</a>
             <a href="skill-dev.html" data-i18n="nav.skilldev">技能开发</a>
             <a href="ARCHITECTURE.html" data-i18n="nav.architecture">工作原理</a>
+            <a href="agent-workflow.html" data-i18n="nav.agentworkflow">Agent 工作流</a>
             <a href="https://github.com/PythonnotJava/RemindAI" target="_blank" class="github-icon" aria-label="GitHub">
                 <svg width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.362 19.412-6.518 33.405-24.934 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor"/>
@@ -397,14 +478,15 @@
             <div class="lang-dropdown" id="langDropdown">
                 <button class="lang-option active" data-lang="zh-CN">🇨🇳 中文</button>
                 <button class="lang-option" data-lang="en">🇺🇸 English</button>
-                <!-- Add more languages here -->
-            </div>
+
+</div>
         </div>
     </div>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
+    <div class="version-badge">v1.0.4</div>
     <h1 data-i18n="hero.title">把 AI 从聊天框里释放出来</h1>
     <p class="subtitle" data-i18n="hero.subtitle">RemindAI — 开源桌面 AI 助手，为大模型提供完整的工具外壳，让 AI 直接操作文件、执行代码、管理记忆。</p>
     <div class="hero-buttons">
@@ -419,6 +501,24 @@
     <img src="assets/results_promotion.png" data-i18n-alt="showcase.alt" alt="RemindAI 效果展示" />
 </div>
 
+<!-- V1.0.4 Changelog Highlights -->
+<section class="changelog-section" id="changelog">
+    <div class="changelog-card">
+        <div class="changelog-header">
+            <h2 data-i18n="changelog.title">🆕 v1.0.4 更新</h2>
+        </div>
+        <ul class="changelog-list">
+            <li data-i18n="changelog.f1">长对话思考防卡顿优化</li>
+            <li data-i18n="changelog.f2">软失效过滤优化，避免过时记忆与新记忆同权重混合</li>
+            <li data-i18n="changelog.f3">多 Agent 并行理解大量文档编排</li>
+            <li data-i18n="changelog.f4">可控 AgentLoop 模式：思考 → 编写 → 测试 → 验证 循环流水线</li>
+            <li data-i18n="changelog.f5">技能支持批量导入</li>
+            <li data-i18n="changelog.f6">代码高亮文本优化</li>
+            <li data-i18n="changelog.f7">使用 [archify](https://github.com/tt-a1i/archify) 对对话进行流程图总结</li>
+        </ul>
+    </div>
+</section>
+
 <!-- Features -->
 <section class="section" id="features">
     <h2 class="section-title" data-i18n="features.title">✨ 核心特性</h2>
@@ -426,7 +526,7 @@
         <div class="feature-card">
             <div class="feature-icon">🐚</div>
             <h3 data-i18n="features.toolshell.title">ToolShell</h3>
-            <p data-i18n="features.toolshell.desc">文件沙盒 + Python/Shell 执行器 + RTK 压缩 60-90% token 消耗，AI 直接操作你的项目。</p>
+            <p data-i18n="features.toolshell.desc">文件沙盒 + Python/Shell/JS 执行器 + RTK 压缩 60-90% token 消耗，AI 直接操作你的项目。</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🔌</div>
@@ -436,12 +536,12 @@
         <div class="feature-card">
             <div class="feature-icon">🧠</div>
             <h3 data-i18n="features.memory.title">向量记忆</h3>
-            <p data-i18n="features.memory.desc">Qdrant 语义搜索 + SQLite 持久备份，双写架构自动容灾，跨会话记住重要信息。</p>
+            <p data-i18n="features.memory.desc">Qdrant 语义搜索 + SQLite 持久备份，双写架构自动容灾 + 软失效过滤，跨会话记住重要信息。</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🤝</div>
             <h3 data-i18n="features.agents.title">多 Agent 协作</h3>
-            <p data-i18n="features.agents.desc">指挥部 / 工作者 / 审查员角色体系，权限隔离，产出自动路由注入上下文。</p>
+            <p data-i18n="features.agents.desc">指挥部 / 工作者 / 审查员角色体系 + 权限隔离，产出自动路由注入上下文，支持大量文档并行理解。</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🎨</div>
@@ -455,13 +555,38 @@
         </div>
         <div class="feature-card">
             <div class="feature-icon">📦</div>
-            <h3 data-i18n="features.skills.title">技能系统</h3>
-            <p data-i18n="features.skills.desc">SKILL.md + tools.json 格式，ZIP 一键导入，拖拽排序管理。</p>
+            <h3 data-i18n="features.skills.title">四层技能系统</h3>
+            <p data-i18n="features.skills.desc">L1 元技能 + L2 全局 + L3 项目临时 + L4 自生成规划中，SKILL.md + tools.json 格式，ZIP 一键导入，支持批量导入。</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🔍</div>
             <h3 data-i18n="features.search.title">Web 搜索</h3>
             <p data-i18n="features.search.desc">Tavily / Brave / 百度智能搜索，会话级一键开关。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3 data-i18n="features.api.title">对外 API 服务</h3>
+            <p data-i18n="features.api.desc">内置 HTTP 服务器，三种端点：OpenAI 聚合、Claude Agent、Claude 代理透传。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌍</div>
+            <h3 data-i18n="features.online.title">在线访问 Agent</h3>
+            <p data-i18n="features.online.desc">通过浏览器远程访问 RemindAI Agent，支持在线会话管理。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🗜️</div>
+            <h3 data-i18n="features.compress.title">上下文压缩</h3>
+            <p data-i18n="features.compress.desc">RTK 命令输出压缩 + 上下文智能裁剪，减少 60-90% token 消耗。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3 data-i18n="features.agentloop.title">可控 AgentLoop</h3>
+            <p data-i18n="features.agentloop.desc">思考 → 编写 → 测试 → 验证 的循环流水线模式，长对话防卡顿优化。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🐱</div>
+            <h3 data-i18n="features.pet.title">全局宠物 Agent</h3>
+            <p data-i18n="features.pet.desc">像素猫桌面陪伴 + 右键 AI 问答 + TTS 语音 + 商店背包投喂 + 成就系统。</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">📤</div>
@@ -492,12 +617,12 @@
                 <tr>
                     <td data-i18n="compare.row2.label">💻 代码执行</td>
                     <td data-i18n="compare.row2.regular">❌ 不支持</td>
-                    <td data-i18n="compare.row2.remindai">✅ Python/Shell 执行器</td>
+                    <td data-i18n="compare.row2.remindai">✅ Python/Shell/JS 执行器</td>
                 </tr>
                 <tr>
                     <td data-i18n="compare.row3.label">🧠 记忆</td>
                     <td data-i18n="compare.row3.regular">❌ 无或仅上下文</td>
-                    <td data-i18n="compare.row3.remindai">✅ 向量语义记忆 + SQLite</td>
+                    <td data-i18n="compare.row3.remindai">✅ 向量语义记忆 + SQLite + 软失效过滤</td>
                 </tr>
                 <tr>
                     <td data-i18n="compare.row4.label">🔌 工具扩展</td>
@@ -507,7 +632,7 @@
                 <tr>
                     <td data-i18n="compare.row5.label">🤝 多 Agent</td>
                     <td data-i18n="compare.row5.regular">⚠️ 多窗口并排</td>
-                    <td data-i18n="compare.row5.remindai">✅ 真协作 + 自动路由</td>
+                    <td data-i18n="compare.row5.remindai">✅ 真协作 + 自动路由 + 并行文档理解</td>
                 </tr>
             </tbody>
         </table>
@@ -540,7 +665,7 @@
                 <tr>
                     <td data-i18n="completion.r3.label">ToolShell 元技能</td>
                     <td class="status-done">✅</td>
-                    <td data-i18n="completion.r3.desc">读/写/删/搜索/exec/python + rg/fd/rtk</td>
+                    <td data-i18n="completion.r3.desc">读/写/删/搜索/exec/python/js + rg/fd/rtk</td>
                 </tr>
                 <tr>
                     <td data-i18n="completion.r4.label">Schedule 元技能</td>
@@ -560,7 +685,7 @@
                 <tr>
                     <td data-i18n="completion.r7.label">向量记忆系统</td>
                     <td class="status-done">✅</td>
-                    <td data-i18n="completion.r7.desc">Qdrant + SQLite 双写 + 自动容灾</td>
+                    <td data-i18n="completion.r7.desc">Qdrant + SQLite 双写 + 自动容灾 + 软失效过滤</td>
                 </tr>
                 <tr>
                     <td data-i18n="completion.r8.label">可插拔 Capability</td>
@@ -568,9 +693,9 @@
                     <td data-i18n="completion.r8.desc">搜索能力已落地，框架可扩展</td>
                 </tr>
                 <tr>
-                    <td data-i18n="completion.r9.label">技能系统</td>
+                    <td data-i18n="completion.r9.label">四层技能系统</td>
                     <td class="status-done">✅</td>
-                    <td data-i18n="completion.r9.desc">ZIP 导入 / 排序 / 激活</td>
+                    <td data-i18n="completion.r9.desc">L1 默认元技能 + L2 用户全局 + L3 工作目录临时 + L4 规划中，支持批量导入</td>
                 </tr>
                 <tr>
                     <td data-i18n="completion.r10.label">模型 Card 管理</td>
@@ -579,8 +704,8 @@
                 </tr>
                 <tr>
                     <td data-i18n="completion.r11.label">多 Agent 协作</td>
-                    <td class="status-wip">⚡</td>
-                    <td data-i18n="completion.r11.desc">框架已搭建，执行链路持续完善</td>
+                    <td class="status-done">✅</td>
+                    <td data-i18n="completion.r11.desc">框架搭建完成 + 并行文档理解编排 + 可控 AgentLoop 流水线</td>
                 </tr>
                 <tr>
                     <td data-i18n="completion.r12.label">领域专家系统</td>
@@ -596,6 +721,26 @@
                     <td data-i18n="completion.r14.label">桌面体验</td>
                     <td class="status-done">✅</td>
                     <td data-i18n="completion.r14.desc">托盘 / 通知 / 闪屏 / 主题动画</td>
+                </tr>
+                <tr>
+                    <td data-i18n="completion.r15.label">全局宠物 Agent</td>
+                    <td class="status-done">✅</td>
+                    <td data-i18n="completion.r15.desc">像素猫 + TTS 语音 + 商店经济 + 成就系统</td>
+                </tr>
+                <tr>
+                    <td data-i18n="completion.r16.label">对外 API 服务</td>
+                    <td class="status-done">✅</td>
+                    <td data-i18n="completion.r16.desc">内置 HTTP 服务器，三种端点：OpenAI 聚合 / Claude Agent / Claude 代理</td>
+                </tr>
+                <tr>
+                    <td data-i18n="completion.r17.label">在线访问 Agent</td>
+                    <td class="status-done">✅</td>
+                    <td data-i18n="completion.r17.desc">通过浏览器远程访问 RemindAI Agent</td>
+                </tr>
+                <tr>
+                    <td data-i18n="completion.r18.label">上下文压缩</td>
+                    <td class="status-done">✅</td>
+                    <td data-i18n="completion.r18.desc">RTK Token 压缩 60-90% + 上下文管理优化</td>
                 </tr>
             </tbody>
         </table>
@@ -646,6 +791,7 @@
         <a href="configure.html" data-i18n="footer.guide">📖 配置指南</a> ·
         <a href="skill-dev.html" data-i18n="footer.skilldev">🧩 技能开发</a> ·
         <a href="ARCHITECTURE.html" data-i18n="footer.architecture">🏗️ 软件架构</a> ·
+        <a href="agent-workflow.html" data-i18n="footer.agentworkflow">🧠 Agent 工作流</a> ·
         <a href="changelog.html" data-i18n="footer.changelog">📋 版本历史</a> ·
         <a href="https://github.com/PythonnotJava/RemindAI/releases" target="_blank" data-i18n="footer.download">📦 下载</a>
     </p>
@@ -666,29 +812,48 @@
             'nav.skilldev': '技能开发',
             'nav.architecture': '工作原理',
             'nav.architecture': '工作原理',
+            'nav.agentworkflow': 'Agent 工作流',
             'hero.title': '把 AI 从聊天框里释放出来',
             'hero.subtitle': 'RemindAI — 开源桌面 AI 助手，为大模型提供完整的工具外壳，让 AI 直接操作文件、执行代码、管理记忆。',
             'hero.download': '📦 下载最新版',
             'hero.guide': '📖 配置指南',
             'showcase.alt': 'RemindAI 效果展示',
+            'changelog.title': '🆕 v1.0.4 更新',
+            'changelog.f1': '长对话思考防卡顿优化',
+            'changelog.f2': '软失效过滤优化，避免过时记忆与新记忆同权重混合',
+            'changelog.f3': '多 Agent 并行理解大量文档编排',
+            'changelog.f4': '可控 AgentLoop 模式：思考 → 编写 → 测试 → 验证 循环流水线',
+            'changelog.f5': '技能支持批量导入',
+            'changelog.f6': '代码高亮文本优化',
+            'changelog.f7': '使用 [archify](https://github.com/tt-a1i/archify) 对对话进行流程图总结',
             'features.title': '✨ 核心特性',
             'features.toolshell.title': 'ToolShell',
-            'features.toolshell.desc': '文件沙盒 + Python/Shell 执行器 + RTK 压缩 60-90% token 消耗，AI 直接操作你的项目。',
+            'features.toolshell.desc': '文件沙盒 + Python/Shell/JS 执行器 + RTK 压缩 60-90% token 消耗，AI 直接操作你的项目。',
             'features.mcp.title': 'MCP 协议',
             'features.mcp.desc': 'stdio / SSE / Streamable HTTP 三传输全覆盖，工具自动发现、动态注入 Agent。',
             'features.memory.title': '向量记忆',
-            'features.memory.desc': 'Qdrant 语义搜索 + SQLite 持久备份，双写架构自动容灾，跨会话记住重要信息。',
+            'features.memory.desc': 'Qdrant 语义搜索 + SQLite 持久备份，双写架构自动容灾 + 软失效过滤，跨会话记住重要信息。',
             'features.agents.title': '多 Agent 协作',
-            'features.agents.desc': '指挥部 / 工作者 / 审查员角色体系，权限隔离，产出自动路由注入上下文。',
+            'features.agents.desc': '指挥部 / 工作者 / 审查员角色体系 + 权限隔离，产出自动路由注入上下文，支持大量文档并行理解。',
             'features.models.title': '多模型原生适配',
             'features.models.desc': 'OpenAI / Anthropic / Gemini 三协议独立实现，流式推理链 + 多模态图文混合。',
             'features.capability.title': '可插拔 Capability',
             'features.capability.desc': 'Custom → MCP → ToolShell 三级中间件路由，新增能力只需实现接口 + 注册一行。',
-            'features.skills.title': '技能系统',
-            'features.skills.desc': 'SKILL.md + tools.json 格式，ZIP 一键导入，拖拽排序管理。',
+            'features.skills.title': '四层技能系统',
+            'features.skills.desc': 'L1 元技能 + L2 全局 + L3 项目临时 + L4 自生成规划中，SKILL.md + tools.json 格式，ZIP 一键导入，支持批量导入。',
             'features.search.title': 'Web 搜索',
             'features.search.desc': 'Tavily / Brave / 百度智能搜索，会话级一键开关。',
             'features.more.title': '更多',
+            'features.api.title': '对外 API 服务',
+            'features.api.desc': '内置 HTTP 服务器，三种端点：OpenAI 聚合、Claude Agent、Claude 代理透传。',
+            'features.online.title': '在线访问 Agent',
+            'features.online.desc': '通过浏览器远程访问 RemindAI Agent，支持在线会话管理。',
+            'features.compress.title': '上下文压缩',
+            'features.compress.desc': 'RTK 命令输出压缩 + 上下文智能裁剪，减少 60-90% token 消耗。',
+            'features.agentloop.title': '可控 AgentLoop',
+            'features.agentloop.desc': '思考 → 编写 → 测试 → 验证 的循环流水线模式，长对话防卡顿优化。',
+            'features.pet.title': '全局宠物 Agent',
+            'features.pet.desc': '像素猫桌面陪伴 + 右键 AI 问答 + TTS 语音 + 商店背包投喂 + 成就系统。',
             'features.more.desc': 'Schedule 计划管理 / 领域专家 / Gemini 文生图 / OCR / 对话导出 / 中英双语 / Material 3 主题',
             'compare.title': '🆚 与普通 AI 客户端的区别',
             'compare.col1': '🔵 普通 AI 客户端',
@@ -698,16 +863,16 @@
             'compare.row1.remindai': '✅ 内置沙盒文件系统',
             'compare.row2.label': '💻 代码执行',
             'compare.row2.regular': '❌ 不支持',
-            'compare.row2.remindai': '✅ Python/Shell 执行器',
+            'compare.row2.remindai': '✅ Python/Shell/JS 执行器',
             'compare.row3.label': '🧠 记忆',
             'compare.row3.regular': '❌ 无或仅上下文',
-            'compare.row3.remindai': '✅ 向量语义记忆 + SQLite',
+            'compare.row3.remindai': '✅ 向量语义记忆 + SQLite + 软失效过滤',
             'compare.row4.label': '🔌 工具扩展',
             'compare.row4.regular': '⚠️ 有限',
             'compare.row4.remindai': '✅ MCP + 技能 + Capability',
             'compare.row5.label': '🤝 多 Agent',
             'compare.row5.regular': '⚠️ 多窗口并排',
-            'compare.row5.remindai': '✅ 真协作 + 自动路由',
+            'compare.row5.remindai': '✅ 真协作 + 自动路由 + 并行文档理解',
             'completion.title': '📊 功能完成度',
             'completion.col1': '模块',
             'completion.col2': '状态',
@@ -717,7 +882,7 @@
             'completion.r2.label': '三端 LLM 适配',
             'completion.r2.desc': 'OpenAI / Anthropic / Gemini 独立客户端',
             'completion.r3.label': 'ToolShell 元技能',
-            'completion.r3.desc': '读/写/删/搜索/exec/python + rg/fd/rtk',
+            'completion.r3.desc': '读/写/删/搜索/exec/python/js + rg/fd/rtk',
             'completion.r4.label': 'Schedule 元技能',
             'completion.r4.desc': '7 工具 CRUD + 审查 + 归档',
             'completion.r5.label': 'System 元技能',
@@ -725,21 +890,29 @@
             'completion.r6.label': 'MCP 多传输',
             'completion.r6.desc': 'stdio / SSE / Streamable HTTP',
             'completion.r7.label': '向量记忆系统',
-            'completion.r7.desc': 'Qdrant + SQLite 双写 + 自动容灾',
+            'completion.r7.desc': 'Qdrant + SQLite 双写 + 自动容灾 + 软失效过滤',
             'completion.r8.label': '可插拔 Capability',
             'completion.r8.desc': '搜索能力已落地，框架可扩展',
-            'completion.r9.label': '技能系统',
-            'completion.r9.desc': 'ZIP 导入 / 排序 / 激活',
+            'completion.r9.label': '四层技能系统',
+            'completion.r9.desc': 'L1 默认元技能 + L2 用户全局 + L3 工作目录临时 + L4 规划中，支持批量导入',
             'completion.r10.label': '模型 Card 管理',
             'completion.r10.desc': '增删改 + Logo + 拖拽排序',
             'completion.r11.label': '多 Agent 协作',
-            'completion.r11.desc': '框架已搭建，执行链路持续完善',
+            'completion.r11.desc': '框架搭建完成 + 并行文档理解编排 + 可控 AgentLoop 流水线',
             'completion.r12.label': '领域专家系统',
             'completion.r12.desc': '预设/自定义角色 + 绑定技能',
             'completion.r13.label': '对话导出',
             'completion.r13.desc': 'MD / PDF / Word / HTML',
             'completion.r14.label': '桌面体验',
             'completion.r14.desc': '托盘 / 通知 / 闪屏 / 主题动画',
+            'completion.r15.label': '全局宠物 Agent',
+            'completion.r15.desc': '像素猫 + TTS 语音 + 商店经济 + 成就系统',
+            'completion.r16.label': '对外 API 服务',
+            'completion.r16.desc': '内置 HTTP 服务器，三种端点：OpenAI 聚合 / Claude Agent / Claude 代理',
+            'completion.r17.label': '在线访问 Agent',
+            'completion.r17.desc': '通过浏览器远程访问 RemindAI Agent',
+            'completion.r18.label': '上下文压缩',
+            'completion.r18.desc': 'RTK Token 压缩 60-90% + 上下文管理优化',
             'cli.title': '📦 内置 CLI 工具',
             'cli.rg': 'ripgrep — 极速正则搜索',
             'cli.fd': 'fd — 现代化文件查找',
@@ -755,6 +928,7 @@
             'footer.skilldev': '🧩 技能开发',
             'footer.architecture': '🏗️ 软件架构',
             'footer.architecture': '🏗️ 软件架构',
+            'footer.agentworkflow': '🧠 Agent 工作流',
             'footer.changelog': '📋 版本历史',
             'footer.download': '📦 下载',
             'footer.built': '用 Flutter 和热情构建 ❤️',
@@ -769,29 +943,48 @@
             'nav.skilldev': 'Skill Dev',
             'nav.architecture': 'How it Works',
             'nav.architecture': 'How it Works',
+            'nav.agentworkflow': 'Agent Workflow',
             'hero.title': 'Free AI from the Chat Box',
             'hero.subtitle': 'RemindAI — Open-source desktop AI assistant that gives LLMs a complete tool shell: file operations, code execution, and memory management — all in one place.',
             'hero.download': '📦 Download Latest',
             'hero.guide': '📖 Configuration Guide',
             'showcase.alt': 'RemindAI Showcase',
+            'changelog.title': '🆕 v1.0.4 Updates',
+            'changelog.f1': 'Long-conversation stutter prevention optimization',
+            'changelog.f2': 'Soft-failure filter optimization to prevent stale and fresh memories mixing with equal weight',
+            'changelog.f3': 'Multi-agent parallel document comprehension orchestration',
+            'changelog.f4': 'Controllable AgentLoop pipeline: Think → Write → Test → Verify',
+            'changelog.f5': 'Skills now support batch import',
+            'changelog.f6': 'Code highlighting text optimization',
+            'changelog.f7': 'Flowchart summary of conversations using [archify](https://github.com/tt-a1i/archify)',
             'features.title': '✨ Core Features',
             'features.toolshell.title': 'ToolShell',
-            'features.toolshell.desc': 'File sandbox + Python/Shell executor + RTK compression (60-90% token savings). AI operates your project directly.',
+            'features.toolshell.desc': 'File sandbox + Python/Shell/JS executor + RTK compression (60-90% token savings). AI operates your project directly.',
             'features.mcp.title': 'MCP Protocol',
             'features.mcp.desc': 'stdio / SSE / Streamable HTTP — all three transports covered. Auto-discovery of tools with dynamic Agent injection.',
             'features.memory.title': 'Vector Memory',
-            'features.memory.desc': 'Qdrant semantic search + SQLite persistent backup. Dual-write architecture with automatic failover. Remember what matters across sessions.',
+            'features.memory.desc': 'Qdrant semantic search + SQLite persistent backup. Dual-write architecture with automatic failover + soft-failure filtering. Remember what matters across sessions.',
             'features.agents.title': 'Multi-Agent Collaboration',
-            'features.agents.desc': 'Commander / Worker / Reviewer role system with permission isolation. Output auto-routed and injected into context.',
+            'features.agents.desc': 'Commander / Worker / Reviewer role system with permission isolation. Output auto-routed and injected into context, supporting parallel document comprehension.',
             'features.models.title': 'Multi-Model Native Support',
             'features.models.desc': 'Independent implementations for OpenAI / Anthropic / Gemini protocols. Streaming inference chain + multimodal text-image mixing.',
             'features.capability.title': 'Pluggable Capabilities',
             'features.capability.desc': 'Custom → MCP → ToolShell three-tier middleware routing. Add new capabilities with one interface + one registration line.',
-            'features.skills.title': 'Skill System',
-            'features.skills.desc': 'SKILL.md + tools.json format. One-click ZIP import. Drag-and-drop sorting and management.',
+            'features.skills.title': 'Four-Layer Skill System',
+            'features.skills.desc': 'L1 meta + L2 global + L3 workspace temp + L4 self-gen planned. SKILL.md + tools.json format. One-click ZIP import with batch support.',
             'features.search.title': 'Web Search',
             'features.search.desc': 'Tavily / Brave / Baidu Smart Search. Session-level toggle switch.',
             'features.more.title': 'And More',
+            'features.api.title': 'External API Server',
+            'features.api.desc': 'Built-in HTTP server with three endpoints: OpenAI aggregation, Claude Agent, and Claude proxy pass-through.',
+            'features.online.title': 'Online Agent Access',
+            'features.online.desc': 'Remote access to RemindAI Agent via browser with online session management.',
+            'features.compress.title': 'Context Compression',
+            'features.compress.desc': 'RTK command output compression + intelligent context trimming, 60-90% token savings.',
+            'features.agentloop.title': 'Controllable AgentLoop',
+            'features.agentloop.desc': 'Think → Write → Test → Verify cyclic pipeline mode with long-conversation stutter prevention.',
+            'features.pet.title': 'Global Pet Agent',
+            'features.pet.desc': 'Pixel cat desktop companion + right-click AI Q&A + TTS voice + shop/inventory/feeding + achievements.',
             'features.more.desc': 'Schedule planner / Domain experts / Gemini image generation / OCR / Chat export / Bilingual UI / Material 3 theming',
             'compare.title': '🆚 vs. Regular AI Clients',
             'compare.col1': '🔵 Regular AI Client',
@@ -801,16 +994,16 @@
             'compare.row1.remindai': '✅ Built-in sandboxed FS',
             'compare.row2.label': '💻 Code Execution',
             'compare.row2.regular': '❌ Not supported',
-            'compare.row2.remindai': '✅ Python/Shell executor',
+            'compare.row2.remindai': '✅ Python/Shell/JS executor',
             'compare.row3.label': '🧠 Memory',
             'compare.row3.regular': '❌ None or context-only',
-            'compare.row3.remindai': '✅ Vector semantic memory + SQLite',
+            'compare.row3.remindai': '✅ Vector semantic memory + SQLite + soft-failure filter',
             'compare.row4.label': '🔌 Tool Extensions',
             'compare.row4.regular': '⚠️ Limited',
             'compare.row4.remindai': '✅ MCP + Skills + Capabilities',
             'compare.row5.label': '🤝 Multi-Agent',
             'compare.row5.regular': '⚠️ Side-by-side windows',
-            'compare.row5.remindai': '✅ True collaboration + auto-routing',
+            'compare.row5.remindai': '✅ True collaboration + auto-routing + parallel doc comprehension',
             'completion.title': '📊 Feature Completion',
             'completion.col1': 'Module',
             'completion.col2': 'Status',
@@ -820,7 +1013,7 @@
             'completion.r2.label': 'Triple LLM Adapter',
             'completion.r2.desc': 'OpenAI / Anthropic / Gemini standalone clients',
             'completion.r3.label': 'ToolShell Meta-Skill',
-            'completion.r3.desc': 'Read/Write/Delete/Search/exec/python + rg/fd/rtk',
+            'completion.r3.desc': 'Read/Write/Delete/Search/exec/python/js + rg/fd/rtk',
             'completion.r4.label': 'Schedule Meta-Skill',
             'completion.r4.desc': '7-tool CRUD + review + archive',
             'completion.r5.label': 'System Meta-Skill',
@@ -828,21 +1021,29 @@
             'completion.r6.label': 'MCP Multi-Transport',
             'completion.r6.desc': 'stdio / SSE / Streamable HTTP',
             'completion.r7.label': 'Vector Memory System',
-            'completion.r7.desc': 'Qdrant + SQLite dual-write + auto failover',
+            'completion.r7.desc': 'Qdrant + SQLite dual-write + auto failover + soft-failure filtering',
             'completion.r8.label': 'Pluggable Capabilities',
             'completion.r8.desc': 'Search capability landed, framework extensible',
-            'completion.r9.label': 'Skill System',
-            'completion.r9.desc': 'ZIP import / sorting / activation',
+            'completion.r9.label': 'Four-Layer Skill System',
+            'completion.r9.desc': 'L1 default meta + L2 user global + L3 workspace temp + L4 planned, batch import support',
             'completion.r10.label': 'Model Card Management',
             'completion.r10.desc': 'CRUD + Logo + drag-and-drop sort',
             'completion.r11.label': 'Multi-Agent Collaboration',
-            'completion.r11.desc': 'Framework built, execution pipeline iterating',
+            'completion.r11.desc': 'Framework complete + parallel doc comprehension orchestration + controllable AgentLoop pipeline',
             'completion.r12.label': 'Domain Expert System',
             'completion.r12.desc': 'Preset/custom roles + skill binding',
             'completion.r13.label': 'Chat Export',
             'completion.r13.desc': 'MD / PDF / Word / HTML',
             'completion.r14.label': 'Desktop Experience',
             'completion.r14.desc': 'Tray / notifications / splash / theme animations',
+            'completion.r15.label': 'Global Pet Agent',
+            'completion.r15.desc': 'Pixel cat + TTS voice + shop economy + achievements',
+            'completion.r16.label': 'External API Server',
+            'completion.r16.desc': 'Built-in HTTP server, three endpoints: OpenAI aggregation / Claude Agent / Claude proxy',
+            'completion.r17.label': 'Online Agent Access',
+            'completion.r17.desc': 'Remote access to RemindAI Agent via browser',
+            'completion.r18.label': 'Context Compression',
+            'completion.r18.desc': 'RTK Token compression 60-90% + context management optimization',
             'cli.title': '📦 Bundled CLI Tools',
             'cli.rg': 'ripgrep — Blazing-fast regex search',
             'cli.fd': 'fd — Modern file finder',
@@ -858,6 +1059,7 @@
             'footer.skilldev': '🧩 Skill Development',
             'footer.architecture': '🏗️ Architecture',
             'footer.architecture': '🏗️ Architecture',
+            'footer.agentworkflow': '🧠 Agent Workflow',
             'footer.changelog': '📋 Changelog',
             'footer.download': '📦 Download',
             'footer.built': 'Built with Flutter and passion ❤️',
